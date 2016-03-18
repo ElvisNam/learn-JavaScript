@@ -73,5 +73,44 @@ function displayCitations()
 	}
 }
 
+function displayAccessKey()
+{
+	var links = document.getElementsByTagName('a');
+	var akeys = new Array();
+
+	for (var i = 0; i < links.length; i++)
+	{
+		var current_link = links[i];
+
+		if (!current_link.getAttribute('accesskey')) continue;
+
+		var key = current_link.getAttribute('accesskey');
+		var text = current_link.lastChild.nodeValue;
+
+		akeys[key] = text;
+	}
+
+	var list = document.createElement('ul');
+
+	for (key in akeys)
+	{
+		var text = akeys[key];
+		var str = key + ": " + text;
+		var liem = document.createElement('li');
+		var liem_text = document.createTextNode(str);
+
+		liem.appendChild(liem_text);
+		list.appendChild(liem);
+	}
+
+	var header = document.createElement('h2');
+	var header_text = document.createTextNode('Accesskey');
+	header.appendChild(header_text);
+
+	document.body.appendChild(header);
+	document.body.appendChild(list);
+}
+
 addLoadEvent(displayCitations);
 addLoadEvent(displayAbbreviation);
+addLoadEvent(displayAccessKey);

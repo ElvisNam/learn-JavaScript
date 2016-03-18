@@ -4,47 +4,51 @@
 		<title>text</title>
 		<link rel="stylesheet" type="text/css" href="">
 		<style>
-		body {
-			background-color: black;
-			font-size: 50px;
-			color: white;
-		}
+			body {
+				background-color: black;
+				font-size: 50px;
+				color: white;
+			}
+			#div1 {
+				top:200px;
+				left:200px;
+			}
 		</style>
 
 		<script >
 		
-		function toDoub(n)
-		{
-			if (n<10)
-				return '0'+n;
-			if (n>=10)
-				return ''+n;
-		}
-
-		window.onload = function ()
-		{
-			var oImg = document.getElementsByTagName('img');
-			
-			function timer ()
+			function toDoub(n)
 			{
-				var oDate = new Date();
-
-				var str = toDoub(oDate.getHours()) + toDoub(oDate.getMinutes()) + toDoub(oDate.getSeconds());
-				for(var i=0; i<oImg.length; i++)
-				{
-					oImg[i].src = 'images/'+str[i]+'.png';
-				}
+				if (n < 10)
+					return '0'+n;
+				else
+					return ''+n;
 			}
-			setInterval(timer, 1000);
-			timer();
-		}
+
+			window.onload = function ()
+			{
+				var oImg = document.getElementsByTagName('img');
+				
+				function timer ()
+				{
+					var oDate = new Date();
+
+					var str = toDoub(oDate.getHours()) + toDoub(oDate.getMinutes()) + toDoub(oDate.getSeconds());
+					for(var i = 0; i<oImg.length; i++)
+					{
+						oImg[i].src = 'images/'+str[i]+'.png';
+					}
+				}
+				setInterval(timer, 1000);
+				timer();
+			}
 
 
 		</script>
 	</head>
 
 	<body>
-		<div>
+		<div id="div1">
 			<img src="images/0.png">
 			<img src="images/0.png">:
 			<img src="images/0.png">

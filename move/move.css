@@ -17,34 +17,17 @@ a {
 	text-decoration: none;
 }
 
-ul {
-	padding: 0;
-}
-
-li {
-	float: left;
-	padding: 1em; 
-	list-style: none;
-}
-
-ul img {
-	height: 100px;
+#slideshow {
 	width: 150px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
 }
 
-#imagegallery {
-	list-style: none;
+#preview {
+	position: relative;
 }
 
-#imagegallery li {
-	display: inline;
-}
-
-#imagegallery li a img {
-	border 0;
-}
-
-#placeholder {
-	height: 400px;
-	width: 600px;
+img {
+	left:150px;
 }
