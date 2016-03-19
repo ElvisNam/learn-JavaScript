@@ -1,0 +1,9 @@
+传参函数加入定时器的注意事项：
+	setInteval(fn, time);
+	setTimeout(fn, time);
+	计时器调用时参数内的函数fn不可以加括号，加括号即表示调用此函数，此时值为return后的值（若无，则为undefined）。
+
+	在本次练习中，因为函数有参数，没有考虑完善问题，直接写成调用函数形式：setInterval(LiMove(aLi, color1, color2, index, endfn),1000)。结果发现没有产生动态效果但浏览器不报错。最后通过调试发现定时器只执行一次才意识到问题。若定时器调用的函数有参数，应当写成匿名函数形式，如：
+	setInterval(function() {
+		LiMove(aLi, color1, color2, index, endfn)
+	}, 1000);

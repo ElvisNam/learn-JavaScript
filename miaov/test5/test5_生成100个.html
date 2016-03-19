@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST 5</title>
+
+		<style>
+			li {
+				border: 1px solid black;
+				width: 40px;
+				height: 40px;
+				list-style: none;
+				line-height: 20px;
+				position: absolute;
+				line-height: 40px;
+				text-align: center;
+			}
+
+		</style>
+
+		<script>
+			window.onload = function() {
+				var oBtn1 = document.getElementsByTagName("input")[0];
+				var oBox = document.getElementById("box");
+				var oLi = document.getElementsByTagName("li");
+				var onOff = true;
+
+				oBtn1.onclick = function() {
+					if (onOff) {
+						for (var i = 0; i < 100; i++ ) {
+							oBox.innerHTML += "<li>" + i + "</li>";
+						}
+
+						var num = 0;
+						for (var i = 0; i<oLi.length; i++) {			
+							oLi[i].style.left = 10+ (i % 10) *50 + 'px';	
+							oLi[i].style.top = 50 + num*50 + "px";
+
+							if ( (i + 1) % 10 == 0) {
+								num++;	
+							}
+
+							if (i % 4 == 0) {
+								oLi[i].style.backgroundColor = "red";
+							} else if (i % 4 == 1) {
+								oLi[i].style.backgroundColor = "yellow";
+							} else if (i % 4 == 2) {
+								oLi[i].style.backgroundColor = "blue";
+							} else {
+								oLi[i].style.backgroundColor = "green";
+							}
+						}
+						onOff = false;
+
+					}
+				};
+			};
+		</script>
+
+	</head>
+
+	<body>
+		<input type = "button" value = "自动生成100个li">
+		<ul id = "box"></ul>
+	</body>
+</html>
