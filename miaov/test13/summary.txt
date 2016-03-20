@@ -19,5 +19,13 @@
    问题得到解决。
 
 4.可改进的地方：当鼠标滑动速度过快，从一个oLi滑到另一个oLi时，可能会产生前一个oDiv 计时器时间未到达而与后者的oDiv重合现象。
-  改进措施：a.减少定时器时间；
-    		b.增加oLi距离  = =|||
+  改进措施：先让所有的全部清除再显示
+  改进后的show()函数：
+  function show(aDiv) {
+		for (var i = 0; i < oDiv.length; i++) {
+			oDiv[i].style.display = "none"; 
+		}
+		clearTimeout(aDiv.timer);
+		aDiv.style.display = "block";
+		aDiv.style.left = 88 * aDiv.pos + "px";
+	}

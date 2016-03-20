@@ -75,16 +75,22 @@
 				var oBox = document.getElementById("box");
 				var oDiv = oBox.getElementsByTagName("div"); 
 				var timer = null;
+				var index = null;
 
-				function show(oDiv) {
-					clearTimeout(oDiv.timer);
-					oDiv.style.display = "block";
-					oDiv.style.left = 88 * oDiv.pos + "px";
+				function show(aDiv) {
+					for (var i = 0; i < oDiv.length; i++) {
+						oDiv[i].style.display = "none"; 
+					}
+					clearTimeout(aDiv.timer);
+					aDiv.style.display = "block";
+					aDiv.style.left = 88 * aDiv.pos + "px";
 				}
-				function hide(oDiv) {
-					oDiv.timer = setTimeout(function() {
-						oDiv.style.display = "none";
-					}, 100)
+				function hide(aDiv, time) {
+					aDiv.timer = setTimeout(function() {
+						aDiv.style.display = "none";
+						index = null;
+					}, time)
+					
 				}
 
 				function liMove(oLi, oDiv) {
@@ -93,14 +99,14 @@
 					}
 
 					oLi.onmouseout = function() {
-						hide(oDiv)
+						hide(oDiv, 500)
 					}
 
 					oDiv.onmouseover = function() {
 						show(oDiv)
 					}
 					oDiv.onmouseout = function() {
-						hide(oDiv)
+						hide(oDiv, 500)
 					}
 				}
 
