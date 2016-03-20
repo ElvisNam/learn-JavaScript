@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST 15</title>
+		<style>
+
+		</style>
+
+		<script src = "function.js"></script>
+		<script>
+			window.onload = function() {
+				var str = '';
+				var len = 20;
+				var oDiv = document.getElementsByTagName("div");
+				var num = 0;
+				var timer = null;
+
+				for (var i = 0; i < len; i++) {
+					str += "<div style = 'height: 50px; width: 50px; background: red; position: absolute; top: 10px; left:" + i * 60 + "px; ' ></div>"
+				}
+
+				document.body.innerHTML = str;
+				oDiv[len-1].onOff = true;
+
+				document.onclick = function() {
+					if(oDiv[len-1].onOff) {
+						clearInterval(timer);
+
+						timer = setInterval(function() {
+							moveTo(oDiv[num], "top", 20, 500);
+							num++;
+							if (num === len){
+								num--;
+								clearInterval(timer);
+								oDiv[len-1].onOff = false;
+							}
+
+						}, 100);
+					} else {
+						
+						clearInterval(timer);
+
+						timer = setInterval(function() {
+							moveTo(oDiv[num], "top", 20, 10);
+							num--;
+							alert(1);
+							if (num < 0) {
+								num = 0;
+								clearInterval(timer);
+								oDiv[len-1].onOff = true;
+							}
+						}, 100)
+					}
+				};
+
+			};
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>
