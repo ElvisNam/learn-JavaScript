@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST 14</title>
+		<style>
+			ul, li, img{
+				margin: 0;
+				padding: 0;
+			}
+			#body {
+				width: 168px;
+				height: 453px;
+				margin: 20px auto;
+				position: relative;
+			}
+			#title {
+				width: 168px;
+				height: 24px;
+				background: url(images/bg-title.png) no-repeat;
+			}
+			#box {
+				width: 166px;
+				height: 426px;
+				border: 1px solid #ced6d6;
+				border-bottom: 2px solid #ced6d6;
+			}
+
+			#pre, #next {
+				width: 166px;
+				height: 22px;
+				background-color: #efefe7;
+				text-align: center;
+			}
+			#pre a, #next a {
+				display: block;
+			}
+			#pre a:active, #next a:active {
+				border: 1px dotted black;
+			}
+			#pre img, #next img {
+				display: inline-block;
+				margin-top: 4px;
+			}
+			#next {
+				position: absolute;
+				bottom: 0;
+			}
+			#lis {
+				width: 166px;
+				height: 382px;
+				position: relative;
+				overflow: hidden;
+			}
+
+			#lists {
+				width: 142px;
+				/*height: 382px;*/
+				padding: 0 12px;
+				position: absolute;
+				top: 0;
+				
+			}
+			#lists li {
+				list-style: none;
+				width: 142px;
+				border-bottom: 1px solid #c6c6ce;
+			}
+			#lists img {
+				border: none;
+				width: 142px;
+			}		
+		</style>
+
+		<script>
+		window.onload = function() {
+			var oPre = document.getElementById("pre");
+			var oNext = document.getElementById("next");
+			var oUl = document.getElementById("lists");
+
+			//获取样式
+			function getStyle(obj, attr) {
+				return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj)[attr];
+			}
+
+			//移动函数
+			function moveTo(obj, attr, dir, target) {
+				dir = parseInt(getStyle(oUl, attr)) < target ? dir : -dir;
+
+				var pos = parseInt(getStyle(oUl, attr)) + dir;
+
+				if ((dir > 0 && pos > target) || (dir < 0 && pos < target)) {
+					pos = target;
+				}
+
+				oUl.style[attr] = pos + "px"; 
+			}
+			
+			oPre.onmousedown = function() {	
+			 	timer = setInterval(function() {
+			 		moveTo(oUl, "top", 20, -378);
+			 	}, 100);
+			};
+			oPre.onmouseup = function() {
+				clearInterval(timer);
+			};
+			oNext.onmousedown = function() {
+				timer = setInterval(function() {
+					moveTo(oUl, "top", 20, 0);
+				}, 100);
+			};
+			oNext.onmouseup = function() {
+				clearInterval(timer);
+			}
+		};
+		</script>
+	</head>
+
+	<body>
+		<div id = "body">
+			<div id = "title"></div>
+			<div id = "box">
+				<div id = "pre">
+					<a href = "#"><img src = "images/pre.png"></a>
+				</div>
+				<div id = "lis">
+					<ul id = "lists">
+						<li><img src = "images/1.png"></li>
+						<li><img src = "images/2.png"></li>
+						<li><img src = "images/3.png"></li>
+						<li><img src = "images/4.png"></li>
+						<li><img src = "images/5.png"></li>
+						<li><img src = "images/6.png"></li>
+						<li><img src = "images/7.png"></li>
+						<li><img src = "images/8.png"></li>
+					</ul>
+				</div>
+				<div id = "next">
+					<a href = "#"><img src = "images/next.png"></a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,9 @@
+1.在父元素中用overflow:hidden 隐藏处理溢出的元素。
+
+2.obj.style.attr 用于设置样式（行间样式）
+  要获取样式可采用getComputedStyle(obj) / （IE下）obj.currentStyle.attr
+  → function getStyle(obj, attr) {
+  		return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj)[attr];
+  } 
+
+3.onmousedown 属于鼠标长按事件，在使用时不用先清空计时器  否则会导致无法执行（或点击一下执行一次）。
