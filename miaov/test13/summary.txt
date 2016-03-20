@@ -1,0 +1,23 @@
+1.positoin:absolute   在未给出left top值时并不会自动定位到相对定位父级 (0, 0)的位置，而是跟在未脱离文档流的兄级块元素(按HTML中的顺序)后面。
+
+2.过程中的一个问题：
+	function show(oDiv) {
+		clearTimeout(oDiv.timer);
+		oDiv.style.display = "block";
+		oDiv.style.left = 88 * oDiv.pos + "px";
+	}
+	function hide(oDiv) {
+		oDiv.timer = setTimeout(function() {
+			oDiv.style.display = "none";
+		}, 100)
+	}
+
+	在show()函数中，若未加入 clearTimeOut(...), 即使鼠标滑入元素后不再移动，也会触发onmouseout事件
+
+3.最开始是采用一个全局变量timer来控制所有定时器，后来测试时发现当鼠标滑动速度过快，在定时器时间达到之前，从一个oLi滑到另一个oLi时，
+   会导致前一个oLi的hide()计时器事件被清除导致oDiv无法被清除。后采用给每一个oDiv添加一个timer属性，用此来控制每一个oDiv计时器事件，
+   问题得到解决。
+
+4.可改进的地方：当鼠标滑动速度过快，从一个oLi滑到另一个oLi时，可能会产生前一个oDiv 计时器时间未到达而与后者的oDiv重合现象。
+  改进措施：a.减少定时器时间；
+    		b.增加oLi距离  = =|||

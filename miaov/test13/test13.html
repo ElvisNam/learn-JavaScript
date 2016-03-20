@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST 13</title>
+		<style>
+			ul, li, a {
+				margin: 0;
+				padding: 0;
+			}
+			#box {
+				width: 544px;
+				margin: 20px auto;
+				position: relative;
+			}
+			li {
+				list-style: none;
+				float: left;
+				font: 12px/32px "microsoft Yahei";
+				margin-right: 17px;
+			}
+			a {
+				text-decoration: none;
+				color: #21639c;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+			#header a:hover {
+				text-decoration: none;
+				
+			}
+			#header {
+				width: 520px;
+				height: 31px;
+				background: url(images/bg-header.png) no-repeat;
+				padding-top: 5px;
+			}
+			#header li {
+				float: left;
+				width: 68px;
+				height: 26px;
+				margin-left: 16px;
+				margin-right: 6px;
+				text-align: center;
+				font: 14px/26px "microsoft Yahei";
+				color: white;
+			}
+			#header li:hover {
+				background: url(images/click.png);
+				text-decoration: none;
+			}
+			#header a{
+				color: white;
+			}
+			#header #more {
+				float: right;
+				margin-right: 22px;
+				font: 14px/26px "microsoft Yahei";
+			}
+			#home, #about, #article, #blog {
+				width: 254px;
+				height: 32px;
+				background: url(images/bg-list.png) no-repeat;
+				padding-left: 23px;
+				position: absolute;
+				display: none;
+			}
+
+		</style>
+		<script>
+			window.onload = function() {
+				var oHeader = document.getElementById("header");
+				var oLi = oHeader.getElementsByTagName("li");
+				var oBox = document.getElementById("box");
+				var oDiv = oBox.getElementsByTagName("div"); 
+				var timer = null;
+
+				function show(oDiv) {
+					clearTimeout(oDiv.timer);
+					oDiv.style.display = "block";
+					oDiv.style.left = 88 * oDiv.pos + "px";
+				}
+				function hide(oDiv) {
+					oDiv.timer = setTimeout(function() {
+						oDiv.style.display = "none";
+					}, 100)
+				}
+
+				function liMove(oLi, oDiv) {
+					oLi.onmouseover = function() {
+						show(oDiv);
+					}
+
+					oLi.onmouseout = function() {
+						hide(oDiv)
+					}
+
+					oDiv.onmouseover = function() {
+						show(oDiv)
+					}
+					oDiv.onmouseout = function() {
+						hide(oDiv)
+					}
+				}
+
+				for (var i = 0; i < oLi.length; i++) {
+					oDiv[i].pos = i;
+					oDiv[i].timer = null;
+					liMove(oLi[i], oDiv[i]);
+				}
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id = "box">
+			<ul id = "header">
+				<li><a href = "#">首页</a></li>
+				<li><a href = "#">关于我们</a></li>
+				<li><a href = "#">作品</a></li>
+				<li><a href = "#">博客</a></li>
+				<span><a id = "more" href = "#">更多</a></span>
+			</ul>
+			<div id = "home">
+				<ul>
+					<li><a href = "#">最近更新</a></li>
+					<li><a href = "#">活动</a></li>
+					<li><a href = "#">报名试听</a></li>
+					<li><a href = "#">学员反馈</a></li>
+				</ul></div>
+			<div id = "about">
+				<ul>
+					<li><a href = "#">秒味讲师</a></li>
+					<li><a href = "#">培训方式</a></li>
+					<li><a href = "#">培训理念</a></li>
+				</ul></div>
+			<div id = "article">
+				<ul>
+					<li><a href = "#">班固</a></li>
+					<li><a href = "#">MAXXX</a></li>
+					<li><a href = "#">留学e网</a></li>
+				</ul></div>
+			<div id = "blog">
+				<ul>
+					<li><a href = "#">JS教程</a></li>
+					<li><a href = "#">弹出层效果</a></li>
+					<li><a href = "#">window</a></li>
+				</ul></div>
+		</div>
+	</body>
+</html>
