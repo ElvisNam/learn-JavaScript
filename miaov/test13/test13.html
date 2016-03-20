@@ -75,9 +75,9 @@
 				var oBox = document.getElementById("box");
 				var oDiv = oBox.getElementsByTagName("div"); 
 				var timer = null;
-				var index = null;
 
 				function show(aDiv) {
+					//在li中互相切换时，先令所有的oDiv都隐藏
 					for (var i = 0; i < oDiv.length; i++) {
 						oDiv[i].style.display = "none"; 
 					}
@@ -88,7 +88,6 @@
 				function hide(aDiv, time) {
 					aDiv.timer = setTimeout(function() {
 						aDiv.style.display = "none";
-						index = null;
 					}, time)
 					
 				}
