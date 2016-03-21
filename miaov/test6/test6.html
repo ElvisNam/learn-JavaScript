@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST 6</title>
+		<style>
+			ul, li, h2 {
+				padding: 0;
+				margin: 0;
+			}
+			li {
+				list-style: none;
+			}
+			#box {
+				width: 240px;
+				font-family: "microsoft Yahei";
+				border:1px solid black;
+				margin: 10px auto;
+			}
+			.lis {
+				width:240px;
+			}
+			#lists h2 {
+				height: 30px;
+				line-height: 30px;
+				padding-left: 20px;
+				background: url(images/1.gif) no-repeat 5px center #63f7ff;
+				border-bottom: 1px solid black;
+			}
+			#lists .active {
+				background: url(images/2.gif) no-repeat 5px center #f7f794;
+			}
+			.lis li {
+				padding-left:20px;
+				border-bottom: 1px solid black;
+				width:220px;
+			}
+			.lis .hover {
+				background-color: #cff894;
+			}
+			.lis ul {
+				display: none;
+			}
+		</style>
+
+		<script>
+			window.onload = function() {
+				var oUl = document.getElementById("lists");
+				var oH2 = oUl.getElementsByTagName("h2");
+				var aU = oUl.getElementsByTagName("ul");
+				var oLi = [];
+
+				//获取子li
+				for (var i = 0; i < aU.length; i++) {
+					var aLi = aU[i].getElementsByTagName("li");
+					for (var j = 0; j < aLi.length; j++) {
+						oLi.push(aLi[j]);
+					}
+				}
+
+				//主标题点击事件
+				for (var i = 0; i < oH2.length; i++){
+					oH2[i].index = i;
+					oH2[i].btn = true;
+
+					oH2[i].onclick = function() {
+						for (var j = 0; j < oH2.length; j++ ) {
+							if (j != this.index) {
+								oH2[j].className = '';
+								aU[j].style.display = "none";
+							}
+						}
+
+						if (this.btn) {
+							this.className = "active";
+							aU[this.index].style.display = "block";
+							this.btn = false;
+						} else {
+							this.className = "";
+							aU[this.index].style.display = "none";
+							this.btn = true;
+						}
+					};
+				}
+
+				//好友项点击事件
+				for (var i = 0; i < oLi.length; i++) {
+					oLi[i].index = i;
+
+					oLi[i].onclick = function() {
+						for (var j = 0; j < oLi.length; j++) {
+							 if (j !== this.index) {
+							 	oLi[j].className = "";
+							 }
+						}
+
+						if (this.className == "") {
+							this.className = "hover";
+						} 
+						else {
+						 	this.className = "";
+						}
+					};
+				}
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id = "box">
+			<ul id = "lists">
+				<li class = "lis">
+					<h2>我的好友</h2>
+					<ul>
+						<li>张三</li>
+						<li>张三</li>
+						<li>张三</li>
+						<li>张三</li>
+					</ul>
+				</li>
+				<li class = "lis">
+					<h2>企业好友</h2>
+					<ul>
+						<li>李四</li>
+						<li>李四</li>
+						<li>李四</li>
+						<li>李四</li>
+					</ul>
+				</li>
+				<li class = "lis">
+					<h2>黑名单</h2>
+					<ul>
+						<li>张小三</li>
+						<li>李小四</li>
+					</ul>
+				</li>
+			</ul>
+
+		</div>
+	</body>
+</html>
