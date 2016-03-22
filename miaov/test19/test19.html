@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TEST 19</title>
+		<meta charset = "utf-8">
+		
+		<style>
+			body, ul, li, p, input {
+				margin: 0;
+				padding: 0;
+			}
+			li {
+				list-style: none;
+			}
+			img {
+				border: none;
+			}
+
+			body {
+				width: 666px;
+				margin: 0 auto;
+				padding: 10px;
+			}
+			#title {
+				font: 14px/30px "microsoft Yahei";
+				color: #636b52;
+				border-bottom: 2px solid #a0a0a4;
+			}
+			#commodity {
+				width: 648px; 
+				padding-left: 9px;
+			}
+			#commodity li {
+				padding-top: 5px; 
+				width: 152px;
+				border-right: 2px solid #efefef;
+				display: inline-block;
+			}
+			#commodity #last_li {
+				border-right: none;
+			}
+			#commodity .time {
+				width: 110px;
+				height: 19px;
+				background-color: #ded6e7;
+				border: 1px solid #efefef;
+				overflow: hidden;
+				font: 9px/19px "microsoft Yahei";
+				color: #734a52;
+			}
+			#commodity .btn {
+				width: 28px;
+				font: 14px/18px "microsoft Yahei";
+				color: #734a52;
+				border: none;
+				background: none;
+			} 
+			#commodity .count_down {
+				height: 45px;
+				font: 12px/45px "microsoft Yahei";
+				padding-left: 8px;
+				color: #a0a0a4;
+			}
+			#commodity .describle {
+				font: 12px/14px "microsoft Yahei";
+				color: #636373;
+			}
+			#commodity .price_tit {
+				font-size: 12px;
+				color: #bdadbd;
+			}
+			#commodity .price {
+				font-size: 10px;
+				color: #a52139;
+			}
+
+			#box {
+				margin-top: 40px;
+			}
+			#box_tit {
+				width: 584px;
+				height: 36px;
+				background-color: #ded6e7; 
+				font: 12px/36px "microsoft Yahei";
+				color: #522121;
+				padding-left: 64px;
+			}
+			#box_tit span {
+				display: inline-block;
+				margin-right: 142px;
+			}
+			
+			.account {
+				margin-top: 4px;
+				height: 72px;
+				width: 643px;
+				background-color: #ded6e7;
+				padding-left: 5px;
+				position: relative;
+			}
+			.account li {
+				display: inline-block;
+				width: 172px;
+				text-align: center;
+				font-size: 12px;
+				line-height: 72px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			.account .ac_price {
+				color: #522121;
+			}
+			.account .img {
+				width: 77px;
+				height: 60px;
+				border: 1px solid #8c4a4a;
+				right: 45px;
+				top: 4px;
+				position: absolute;
+			}
+
+			#total {
+				font: 14px;
+				color: black;
+				margin-top: 14px;
+				margin-left: 10px;
+			}
+			#total span {
+				color: #bd214a;
+			}
+		</style>
+
+		<script>
+			function toTwo(a) {
+				return a < 10 ? "0" + a : "" + a; 
+			}
+
+			//倒计时函数
+			function countDown(str) {
+				var oNow = new Date();
+				var oFuture = new Date(str);
+				var str = "";
+
+				t = oFuture - oNow;
+				t /= 1000;
+
+				oDay = Math.floor(t / 86400);
+				oHour = Math.floor(t % 86400 / 4600);
+				oMinute = Math.floor(t % 86400 % 3600 /60);
+				oSeconds = Math.floor(t % 60);
+
+				str = "剩余" + toTwo(oDay) + "天" +toTwo(oHour) + "时" + toTwo(oMinute) + "分" + toTwo(oSeconds) + "秒";
+				return str;
+			}
+
+			window.onload = function(){
+				
+				var str1 = "March 24, 2016 20:00:00"
+				var str2 = "";
+				var num = 0;
+
+				var oCommod = document.getElementById("commodity") ;
+				var oTime = document.getElementsByClassName("time");
+				var oBtn = document.getElementsByClassName("btn");
+				var oCountDown = document.getElementsByClassName("count_down") ;
+				
+				for( var i = 0; i < oTime.length; i++){
+					oTime.index = i;
+					oTime[oTime.index].value = str1;
+					str2 = countDown(oTime[i].value);
+					oCountDown[i].innerHTML = str2;
+
+				}
+
+				setInterval(function(){
+					for(var i = 0; i < oTime.length; i++){
+						str2 = countDown(oTime[i].value);
+						oCountDown[i].innerHTML = str2;
+					}
+				}, 1000);
+
+
+			};
+		</script>
+	</head>
+	
+	<body>
+		<p id = "title">抢购时间</p>
+
+		<ul id = "commodity">
+			<li>
+				<div>
+					<input class = "time" type = "text">
+					<input class = "btn" type = "button" value = "确定">
+					<p class = "count_down"></p>
+					<img src = "images/commodity_1.png">
+					<p class = "describle">疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
+					<span class = "price_tit">抢购价:</span><span class = "price">$599.00</span>
+				</div>
+			</li>
+			<li>
+				<div>
+					<input class = "time" type = "text">
+					<input class = "btn" type = "button" value = "确定">
+					<p class = "count_down"></p>
+					<img src = "images/commodity_2.png">
+					<p class = "describle">疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
+					<span class = "price_tit">抢购价:</span><span class = "price">$3299.00</span>
+				</div>
+			</li>
+			<li>
+				<div>
+					<input class = "time" type = "text">
+					<input class = "btn" type = "button" value = "确定">
+					<p class = "count_down"></p>
+					<img src = "images/commodity_3.png">
+					<p class = "describle">疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
+					<span class = "price_tit">抢购价:</span><span class = "price">$1.00</span>
+				</div>
+			</li>
+			<li id = "last_li">
+				<div>
+					<input class = "time" type = "text">
+					<input class = "btn" type = "button" value = "确定">
+					<p class = "count_down"></p>
+					<img src = "images/commodity_4.png">
+					<p class = "describle">疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
+					<span class = "price_tit">抢购价:</span><span class = "price">$168.00</span>
+				</div>
+			</li>
+		</ul>
+
+		<div id = "box">
+			<p id = "box_tit">
+				<span>商品名称</span><span>价钱</span>
+			</p>
+
+			<!-- <ul class = "account">
+				<li></li>
+				<li class = "ac_price"></li>
+				<li class = "img"><img src = ""></li>
+			</ul> -->
+		</div>	
+		<P id = "total">总价：<span>00.00</span>元</P>
+	</body>
+</html>
