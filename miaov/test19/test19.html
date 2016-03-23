@@ -29,13 +29,24 @@
 			#commodity {
 				width: 648px; 
 				padding-left: 9px;
+				position: relative;
 			}
 			#commodity li {
 				padding-top: 5px; 
 				width: 152px;
 				border-right: 2px solid #efefef;
 				display: inline-block;
+				position: relative;
 			}
+			/*#commodity li div {
+				background-color: #fff;
+				position: absolute;
+			}*/
+			/*#commodity .bg {
+				width: 152px;
+				height: 279px;
+			}*/
+
 			#commodity #last_li {
 				border-right: none;
 			}
@@ -131,6 +142,7 @@
 			}
 		</style>
 
+		<script type="text/javascript" src = "function.js"></script>
 		<script>
 			function toTwo(a) {
 				return a < 10 ? "0" + a : "" + a; 
@@ -144,41 +156,60 @@
 
 				t = oFuture - oNow;
 				t /= 1000;
+				if (t >= 0){
+					oDay = Math.floor(t / 86400);
+					oHour = Math.floor(t % 86400 / 4600);
+					oMinute = Math.floor(t % 86400 % 3600 /60);
+					oSeconds = Math.floor(t % 60);
 
-				oDay = Math.floor(t / 86400);
-				oHour = Math.floor(t % 86400 / 4600);
-				oMinute = Math.floor(t % 86400 % 3600 /60);
-				oSeconds = Math.floor(t % 60);
-
-				str = "剩余" + toTwo(oDay) + "天" +toTwo(oHour) + "时" + toTwo(oMinute) + "分" + toTwo(oSeconds) + "秒";
-				return str;
+					str = "剩余" + toTwo(oDay) + "天" +toTwo(oHour) + "时" + toTwo(oMinute) + "分" + toTwo(oSeconds) + "秒";
+					return str;
+				} else {
+					return str = "";
+				}
 			}
 
 			window.onload = function(){
 				
 				var str1 = "March 24, 2016 20:00:00"
 				var str2 = "";
-				var num = 0;
 
 				var oCommod = document.getElementById("commodity") ;
 				var oTime = document.getElementsByClassName("time");
 				var oBtn = document.getElementsByClassName("btn");
 				var oCountDown = document.getElementsByClassName("count_down") ;
+				var oLi = oCommod.getElementsByTagName("li");
+				var oDiv = [];
+
+				for (var i = 0; i < oLi.length; i++) {
+					var aDiv = oLi[i].getElementsByTagName("div")[0];
+					oDiv.push(aDiv);
+				}
 				
 				for( var i = 0; i < oTime.length; i++){
-					oTime.index = i;
-					oTime[oTime.index].value = str1;
+					oTime[i].value = str1;
 					str2 = countDown(oTime[i].value);
 					oCountDown[i].innerHTML = str2;
 
-				}
+					oBtn[i].index = i;
 
-				setInterval(function(){
-					for(var i = 0; i < oTime.length; i++){
-						str2 = countDown(oTime[i].value);
-						oCountDown[i].innerHTML = str2;
+					oBtn[i].onclick = function(){
+					 	var that = this;
+					 	clearInterval(oBtn[this.index].timer);
+						setInterval(function(){
+							str2 = countDown(oTime[that.index].value);
+
+							if(str2) {
+								oCountDown[that.index].innerHTML = str2;
+							} else {
+								clearInterval(oBtn[that.index].timer);
+								oCountDown[that.index].innerHTML = "时间已截止";
+
+								moveTo(oLi[that.index], "top", 10, 50);
+							}
+						}, 1000);
 					}
-				}, 1000);
+				}
 
 
 			};
@@ -198,6 +229,7 @@
 					<p class = "describle">疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
 					<span class = "price_tit">抢购价:</span><span class = "price">$599.00</span>
 				</div>
+				<!-- <div class = "bg"><img src = ""> -->
 			</li>
 			<li>
 				<div>
