@@ -29,8 +29,8 @@ function moveTo(obj, attr, dir, target, endFn) {
 	}, 200);
 }
 
-//透明度改变函数, 参数为(改变的对象, 改变的速度)  (注：透明度从1变为0)
-function opacityChange(obj, speed) {
+//透明度改变函数, 参数为(改变的对象, 改变的速度, 回调函数)  (注：透明度从1变为0)
+function opacityChange(obj, speed, endFn) {
  	var cur = getStyle(obj, "opacity");
 
  	clearInterval(obj.opacity);
@@ -46,6 +46,32 @@ function opacityChange(obj, speed) {
 
  		if(cur === 0) {
  			clearInterval(obj.opacity);
+ 			endFn && endFn();
  		}
  	},200);
+}
+
+//抖动函数, 参数为(抖动对象, 抖动的属性, 当前属性的位置, 抖动程度, 回调函数)
+function shake(obj, attr, pos, deep, endFn) {
+	var arr = [];
+	var num = 0;
+	//var pos = parseInt(getStyle(obj, attr));
+
+	for (var i = deep; i >= 0; i-=2) {
+		arr.push(i, -i);
+	}
+	arr.push(0);
+
+	clearInterval(obj.shake);
+
+	obj.shake = setInterval(function(){
+		obj.style[attr] = pos + arr[num] + "px";
+		num++;
+		
+		if(num === arr.length) {
+			clearInterval(obj.shake);
+			num = 0;
+			endFn && endFn();
+		}
+	}, 50);
 }

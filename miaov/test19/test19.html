@@ -38,14 +38,17 @@
 				display: inline-block;
 				position: relative;
 			}
-			/*#commodity li div {
-				background-color: #fff;
-				position: absolute;
-			}*/
-			/*#commodity .bg {
+			#commodity .commodity_box {
+				position: relative;
+				top: 5px;
+				/*z-index: 2;*/
+
+			}
+
+			#commodity .bg {
 				width: 152px;
-				height: 279px;
-			}*/
+				height: 263px;
+			}
 
 			#commodity #last_li {
 				border-right: none;
@@ -80,11 +83,10 @@
 				font-size: 12px;
 				color: #bdadbd;
 			}
-			#commodity .price {
+			#commodity .price, #commodity .mon {
 				font-size: 10px;
 				color: #a52139;
 			}
-
 			#box {
 				margin-top: 40px;
 			}
@@ -128,7 +130,11 @@
 				border: 1px solid #8c4a4a;
 				right: 45px;
 				top: 4px;
-				position: absolute;
+				position: relative;
+			}
+			.account .img img{
+				width: 77px;
+				height: 60px;
 			}
 
 			#total {
@@ -158,7 +164,7 @@
 				t /= 1000;
 				if (t >= 0){
 					oDay = Math.floor(t / 86400);
-					oHour = Math.floor(t % 86400 / 4600);
+					oHour = Math.floor(t % 86400 / 3600);
 					oMinute = Math.floor(t % 86400 % 3600 /60);
 					oSeconds = Math.floor(t % 60);
 
@@ -169,9 +175,47 @@
 				}
 			}
 
+			//添加价格栏 函数  参数为(要插入的父节点，价格栏对应的商品)
+			function accountInsert(node, index) {
+				var oUl = document.createElement("ul");
+				var oImg = document.createElement("img");
+				var totPrice = document.getElementById("tot_price");
+				var oLi = [];
+				var oName = ["des", "ac_price", "img"];
+				var sum = 0;
+
+				//创建<ul>及子<li>
+				oUl.className = "account";
+
+				for(var i = 0; i < 3; i++){
+					var aLi = document.createElement("li");
+					aLi.className = oName[i];
+					oUl.appendChild(aLi);
+					oLi.push(aLi);
+				}
+				
+				oLi[2].appendChild(oImg);
+				node.appendChild(oUl);
+
+				//给各<li>添加内容
+				oLi[0].innerHTML = oDescrible[index].innerHTML;
+				oLi[1].innerHTML = oPrice[index].innerHTML;
+				oImg.src = comImg[index].src;
+				
+				//用全局变量total 包含已生成价格栏的商品价格，便于统计总价格
+				total.push(oPrice[index].innerHTML);
+
+				for (var i = 0; i < total.length; i++) {
+					sum += parseInt(total[i]);
+				}
+
+				totPrice.innerHTML = sum;
+			}
+
 			window.onload = function(){
 				
-				var str1 = "March 24, 2016 20:00:00"
+				//str1为需要倒计时的未来时间			
+				var str1 = "March 30, 2016 20:00:00"
 				var str2 = "";
 
 				var oCommod = document.getElementById("commodity") ;
@@ -179,11 +223,19 @@
 				var oBtn = document.getElementsByClassName("btn");
 				var oCountDown = document.getElementsByClassName("count_down") ;
 				var oLi = oCommod.getElementsByTagName("li");
-				var oDiv = [];
+				var oComDiv = [];
+				var oP = document.getElementById("account");
+
+				comImg = document.getElementsByClassName("comImg");
+				oDescrible = document.getElementsByClassName("describle");
+				oPrice = document.getElementsByClassName("price");
+				total = [];
+
+				var oBox = document.getElementById("box");
 
 				for (var i = 0; i < oLi.length; i++) {
 					var aDiv = oLi[i].getElementsByTagName("div")[0];
-					oDiv.push(aDiv);
+					oComDiv.push(aDiv);
 				}
 				
 				for( var i = 0; i < oTime.length; i++){
@@ -194,18 +246,33 @@
 					oBtn[i].index = i;
 
 					oBtn[i].onclick = function(){
+
 					 	var that = this;
 					 	clearInterval(oBtn[this.index].timer);
-						setInterval(function(){
+
+						oBtn[that.index].timer = setInterval(function(){
+
 							str2 = countDown(oTime[that.index].value);
+
+							var pos = parseInt(getStyle(oComDiv[that.index], "top"));
 
 							if(str2) {
 								oCountDown[that.index].innerHTML = str2;
 							} else {
-								clearInterval(oBtn[that.index].timer);
+
 								oCountDown[that.index].innerHTML = "时间已截止";
 
-								moveTo(oLi[that.index], "top", 10, 50);
+								function endFn() {
+									moveTo(oComDiv[that.index], "top", 20, 200);
+									opacityChange(oComDiv[that.index], 0.1, function(){
+										oLi[that.index].style.background = "url(images/bg-commodity.png)";
+										accountInsert(oBox, that.index);
+									});
+								}
+
+								shake(oComDiv[that.index], "top", pos, 12, endFn);
+								clearInterval(oBtn[that.index].timer);
+
 							}
 						}, 1000);
 					}
@@ -221,44 +288,43 @@
 
 		<ul id = "commodity">
 			<li>
-				<div>
+				<div class = "commodity_box">
 					<input class = "time" type = "text">
 					<input class = "btn" type = "button" value = "确定">
 					<p class = "count_down"></p>
-					<img src = "images/commodity_1.png">
+					<img class = "comImg" src = "images/commodity_1.png">
 					<p class = "describle">疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
-					<span class = "price_tit">抢购价:</span><span class = "price">$599.00</span>
-				</div>
-				<!-- <div class = "bg"><img src = ""> -->
-			</li>
-			<li>
-				<div>
-					<input class = "time" type = "text">
-					<input class = "btn" type = "button" value = "确定">
-					<p class = "count_down"></p>
-					<img src = "images/commodity_2.png">
-					<p class = "describle">疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
-					<span class = "price_tit">抢购价:</span><span class = "price">$3299.00</span>
+					<span class = "price_tit">抢购价:</span><span class = "mon">$</span><span class = "price">599.00</span>
 				</div>
 			</li>
 			<li>
-				<div>
+				<div class = "commodity_box">
 					<input class = "time" type = "text">
 					<input class = "btn" type = "button" value = "确定">
 					<p class = "count_down"></p>
-					<img src = "images/commodity_3.png">
+					<img class = "comImg" src = "images/commodity_2.png">
 					<p class = "describle">疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
-					<span class = "price_tit">抢购价:</span><span class = "price">$1.00</span>
+					<span class = "price_tit">抢购价:</span><span class = "mon">$</span><span class = "price">3299.00</span>
+				</div>
+			</li>
+			<li>
+				<div class = "commodity_box">
+					<input class = "time" type = "text">
+					<input class = "btn" type = "button" value = "确定">
+					<p class = "count_down"></p>
+					<img class = "comImg" src = "images/commodity_3.png">
+					<p class = "describle">疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
+					<span class = "price_tit">抢购价:</span><span class = "mon">$</span><span class = "price">1.00</span>
 				</div>
 			</li>
 			<li id = "last_li">
-				<div>
+				<div class = "commodity_box">
 					<input class = "time" type = "text">
 					<input class = "btn" type = "button" value = "确定">
 					<p class = "count_down"></p>
-					<img src = "images/commodity_4.png">
+					<img class = "comImg" src = "images/commodity_4.png">
 					<p class = "describle">疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
-					<span class = "price_tit">抢购价:</span><span class = "price">$168.00</span>
+					<span class = "price_tit">抢购价:</span><span class = "mon">$</span><span class = "price">168.00</span>
 				</div>
 			</li>
 		</ul>
@@ -268,12 +334,7 @@
 				<span>商品名称</span><span>价钱</span>
 			</p>
 
-			<!-- <ul class = "account">
-				<li></li>
-				<li class = "ac_price"></li>
-				<li class = "img"><img src = ""></li>
-			</ul> -->
 		</div>	
-		<P id = "total">总价：<span>00.00</span>元</P>
+		<P id = "total">总价：<span id = "tot_price">00.00</span>元</P>
 	</body>
 </html>
