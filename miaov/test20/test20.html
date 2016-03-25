@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TEST20</title>
+	<meta charset = "utf-8">
+	
+	<style>
+		body, ul, li {
+			margin: 0;
+			padding: 0;
+		} 
+		li {
+			list-style: none;
+		}
+
+		body {
+			background-color: #efefe7;
+		}
+		#content {
+			width: 460px;
+			height: 226px;
+			margin: 50px 0 0 250px;
+			padding: 12px 20px;
+			background-color: white;
+			font: 15px/30px "microsoft Yahei";
+			float: left;
+		}
+		#select_box {
+			float: left;
+			margin-top: 50px;
+			margin-left: 20px;
+		}
+		#select li {
+			width: 80px;
+			height: 40px;
+			background-color: #94948c;
+			text-align: center;
+			font: 15px "microsoft Yahei";
+			line-height: 40px;        /*after font*/
+			margin-bottom: 5px;
+		}
+		#select a {
+			text-decoration: none;
+			color: #fffbf0;
+		}
+		#select .hide {
+			background-color: #c0c0c0;
+			display: none;
+		}
+		#select .hide a {
+			color: black;
+		}
+
+		#func {
+			width: 460px;
+			height: 90px;
+			position: absolute;
+			top: 350px;
+			left: 50%;
+			margin-left: -250px;
+			padding: 20px;
+			background-color: #e7e7b5;
+			display: none;
+		}
+		#func ul {
+			border-bottom: 1px solid #e73100;
+			margin-bottom: 22px;
+		}
+		#func li{
+			display: inline-block;
+			width: 78px;
+			height: 32px;
+			font: 16px/32px "microsoft Yahei";
+			text-align: center;
+		}
+		#find, #replace {
+			display: none;
+		}
+
+	</style>
+	
+	<script type="text/javascript">
+		function func_find() {
+			funcUl.style.display = "block";
+
+			for(var i = 0; i < funcLi.length; i++) {
+				funcLi[i].style.backgroundColor = "#e7e7b5"
+			}
+			funcLi[0].style.backgroundColor = "#e73100";
+
+			oReplace.style.display = "none";
+			oFind.style.display = "block";
+		}
+
+		function func_replace() {
+			funcUl.style.display = "block";
+			
+			for(var i = 0; i < funcLi.length; i++) {
+				funcLi[i].style.backgroundColor = "#e7e7b5"
+			}
+			funcLi[1].style.backgroundColor = "#e73100";
+
+			oFind.style.display = "none";
+			oReplace.style.display = "block";
+		}
+
+		window.onload = function() {
+			var oUl = document.getElementById("select");
+			var oLi = oUl.getElementsByTagName("li");
+			var hideLi = oUl.getElementsByClassName("hide");
+
+			funcUl = document.getElementById("func");
+			funcLi = funcUl.getElementsByTagName("li");
+
+			oFind = document.getElementById("find");
+			oReplace = document.getElementById("replace");
+
+			var timer = null;
+
+			oLi[0].onmouseover = function(){
+				clearTimeout(timer);
+				for(var i = 0; i < hideLi.length; i++) {
+					hideLi[i].style.display = "block";
+				}
+			};
+
+			oLi[0].onmouseout = function(){
+				clearTimeout(timer);
+				timer = setTimeout(function(){
+					for(var i = 0; i < hideLi.length; i++) {
+						hideLi[i].style.display = "none";
+					}
+				}, 500);
+			};
+
+			for (var i = 0; i < hideLi.length; i++){
+				hideLi[i].onmouseover = function(){
+					clearTimeout(timer);
+					this.style.backgroundColor = "#e76308"
+				};
+
+				hideLi[i].onmouseout = function() {
+					clearTimeout(timer);
+					this.style.backgroundColor = "#c0c0c0"
+					timer = setTimeout(function(){
+						for(var j = 0; j < hideLi.length; j++) {
+							hideLi[j].style.display = "none";
+						}
+					}, 500);
+				};
+			}
+			hideLi[0].onclick = func_find;
+			hideLi[1].onclick = func_replace;
+
+		};
+	</script>
+</head>
+<body>
+	<div id = "box">
+		<div id = "content">
+			秒味课堂是一支充满温馨并且极富人情味的IT培训团队；2010~
+			2011年，秒味深度关注WEB前端开发领域，为此精心研发出一套灵活而充满趣味的JavaScript课程。2011~2013年，秒味精准研发出最新的HTML5/CSS3课程，并推出远程培训课程方案，尝试将线下优良的培训模式移植到远程网络培训中，希望尽最大努力，将一种快乐愉悦的授课体验、结合HTML/CSS/JS知识点，精准传递给秒味课堂的每一位学员。
+		</div>
+
+		<div id = "select_box">			
+			<ul id = "select">
+				<li><a href = "#">展开</a></li>
+				<li class = "hide"><a href = "#">查找</a></li>
+				<li class = "hide"><a href = "#">替换</a></li>
+			</ul>
+		</div>
+
+		<div id = "func">
+			<ul>
+				<li>查找</li>
+				<li>替换</li>
+			</ul>
+			<div id = "find">
+				<input type = "text">
+				<input type = "button" value = "查找">
+			</div>
+			<div id = "replace">
+				<input type = "text">
+				<input type = "text">
+				<input type = "button" value = "替换">
+			</div>
+		</div> 
+	</div>
+
+</body>
+</html>
