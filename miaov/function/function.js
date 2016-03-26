@@ -10,6 +10,7 @@ function moveTo(obj, attr, dir, target, endFn) {
 	dir = parseInt(getStyle(obj, attr)) < target ? dir : -dir;
 	
 	clearInterval(obj.timer);
+
 	obj.timer = setInterval(function() {
 		var pos = parseInt(getStyle(obj, attr)) + dir;
 		
@@ -21,34 +22,34 @@ function moveTo(obj, attr, dir, target, endFn) {
 
 		if (target === pos) {
 			clearInterval(obj.timer);
+			endFn && endFn();
 		}
 
-		if (endFn) {
-			endFn;
-		}
 	}, 200);
 }
 
-//透明度改变函数, 参数为(改变的对象, 改变的速度, 回调函数)  (注：透明度从1变为0)
-function opacityChange(obj, speed, endFn) {
- 	var cur = getStyle(obj, "opacity");
+//透明度改变函数, 参数为(改变的对象, 改变的速度, 目标, 回调函数) 
+function opacityChange(obj, speed, target, endFn) {
+ 	speed = parseFloat(getStyle(obj, "opacity")) < target ? speed : -speed;
 
  	clearInterval(obj.opacity);
  	
  	obj.opacity = setInterval(function(){
- 		cur -= speed;
+
+ 		var cur = parseFloat(getStyle(obj, "opacity")) + speed;
  		
- 		if(cur < 0) {
- 			cur = 0;
- 		} 
+ 		if (cur > target && speed > 0 || cur < target && speed < 0 ){
+			cur = target;
+		}
 
  		obj.style.opacity = cur;
 
- 		if(cur === 0) {
- 			clearInterval(obj.opacity);
- 			endFn && endFn();
- 		}
- 	},200);
+ 		if (target === cur) {
+			clearInterval(obj.timer);
+			endFn && endFn();
+		}
+
+ 	}, 100);
 }
 
 //抖动函数, 参数为(抖动对象, 抖动的属性, 当前属性的位置, 抖动程度, 回调函数)
