@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST20</title>
+		
+		<style>
+			body, input, p, ul, li {
+				margin: 0;
+				padding: 0;
+				font-family: "microsoft Yahei";
+			}
+
+			#box {
+				width: 780px;
+				height: 220px;
+				padding: 10px;
+				margin: 50px auto;
+				border: 10px solid  #c0c0c0;
+			}
+			#left, #right {
+				width: 300px;
+				height: 200px;
+				padding: 10px;
+				border: 1px dotted black;
+				
+			}
+			#left {
+				background-color: #efefd6;
+				float: left;
+				margin-right: 8px;
+			}
+
+			#func {
+				text-align: center;
+				float: left;
+			}
+			#func input {
+				width: 120px;
+				height: 40px;
+				background-color: #f76300;
+				font-size: 16px;
+				color: white;
+				border: none;
+			}
+			#func p{
+				margin: 15px 0;
+
+			}
+			#buffer {
+				opacity: 0;
+			}
+			#func li {
+				width: 8px;
+				height: 10px;
+				background-color: #e7a521;
+				list-style: none;
+				display: inline-block;
+			}
+
+			#right {
+				background-color: #63eff7;
+				float: right;
+				margin-left: 8px;
+			}
+		</style>
+
+		<script type="text/javascript" src = "function.js"></script>
+		<script>
+			window.onload = function(){
+				var oLeft = document.getElementById("left");
+				var oRight = document.getElementById("right");
+				var oBtn = document.getElementById("btn");
+				var oAmount = document.getElementById("amount");
+				var oBuffer = document.getElementById("buffer");
+				var oLi = oBuffer.getElementsByTagName("li");
+
+				var num = 0;
+				var timer = null;
+				oBtn.onOff = true;
+
+				function bufFunc() {
+					for (var i = 0, len = oLi.length; i < len; i++) {
+						oLi[i].style.backgroundColor = "#e7a521";
+					}
+					
+					oLi[num].style.backgroundColor = "#ff0000";
+					
+					num++;
+					
+					if (num === len) {
+						num = 0;
+					}
+				}
+
+				function contChange(){
+					var str = oLeft.value.slice(1);
+					var str2 = oLeft.value.slice(0,1);
+
+					oLeft.value = str;
+					oRight.innerHTML += str2;
+				}
+
+				
+				oBtn.onclick = function(){
+					if(oBtn.onOff){                //oBtn.onOff  起到控制按钮 启动/停止作用
+						clearInterval(timer);
+
+						oBtn.onOff = false;
+
+						var len1 = oLeft.value.length;
+						var len2 = oRight.innerHTML.length;
+
+						oAmount.innerHTML = len2 + "/" + len1;
+
+						if(len1 === 0) {
+							clearInterval(timer);
+							return alert("请在左边栏输入文字！");
+						}
+
+						opacityChange(oBuffer, 0.1, 1);
+
+						timer = setInterval(function(){
+
+							var len2 = oRight.innerHTML.length;
+
+							oAmount.innerHTML = len2 + "/" + len1;
+
+							bufFunc();
+							
+							if(oLeft.value.length === 0) {
+								clearInterval(timer);
+								opacityChange(oBuffer, 0.3, 0);
+								return;
+							}
+
+							contChange();
+
+						}, 100)
+					} else {
+						clearInterval(timer);
+						oBtn.onOff = true;
+					}
+				};
+				 
+			};
+		</script>
+	</head>
+	<body>
+		<div id = "box">
+				<textarea id = "left">秒味课堂是一支充满温馨并且极富人情味的IT培训团队；2010~2011年，秒味深度关注WEB前端开发领域，为此精心研发出一套灵活而充满趣味的JavaScript课程。2011~2013年，秒味精准研发出最新的HTML5/CSS3课程，并推出远程培训课程方案，尝试将线下优良的培训模式移植到远程网络培训中，希望尽最大努力，将一种快乐愉悦的授课体验。</textarea>
+
+			<div id = "func">
+				<input id = "btn" type = "button" value = "把文字右移">
+				<p id = "amount">0/0</p>
+				<ul id = "buffer">
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+
+			<div id = "right"></div>
+		</div>
+	</body>
+</html>
