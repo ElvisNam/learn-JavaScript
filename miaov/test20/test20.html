@@ -76,11 +76,14 @@
 		#find, #replace {
 			display: none;
 		}
+		.spanColor {
+			background-color: yellow;
+		}
 
 	</style>
 	
 	<script type="text/javascript">
-		function func_find() {
+		function show_find() {
 			funcUl.style.display = "block";
 
 			for(var i = 0; i < funcLi.length; i++) {
@@ -92,7 +95,7 @@
 			oFind.style.display = "block";
 		}
 
-		function func_replace() {
+		function show_replace() {
 			funcUl.style.display = "block";
 			
 			for(var i = 0; i < funcLi.length; i++) {
@@ -115,6 +118,13 @@
 			oFind = document.getElementById("find");
 			oReplace = document.getElementById("replace");
 
+			var findBtn = document.getElementById("btn_find");
+			var repBtn = document.getElementById("btn_rep");
+
+			var oContent = document.getElementById("content");
+
+			var oText = oContent.innerHTML;
+
 			var timer = null;
 
 			oLi[0].onmouseover = function(){
@@ -133,6 +143,7 @@
 				}, 500);
 			};
 
+			//add events for hideLi
 			for (var i = 0; i < hideLi.length; i++){
 				hideLi[i].onmouseover = function(){
 					clearTimeout(timer);
@@ -149,8 +160,69 @@
 					}, 500);
 				};
 			}
-			hideLi[0].onclick = func_find;
-			hideLi[1].onclick = func_replace;
+
+			hideLi[0].onclick = show_find;
+			hideLi[1].onclick = show_replace;
+			funcLi[0].onclick = show_find;
+			funcLi[1].onclick = show_replace;
+
+			findBtn.onclick = function(){      //查找按钮点击事件
+				oContent.innerHTML = oText;   //还原文本内容，清除上一次的查找
+
+				var txtInp = oFind.getElementsByTagName("input")[0];
+				var str = txtInp.value;
+
+				find_func(str);
+
+				txtInp.value = "";          //对文本输入框清空
+			};
+
+			function find_func(str) {
+				var txt = "<span class = 'spanColor'>" + str + "</span>";     //给要查找的内容增添样式
+				var contBox = oText;
+
+				if(!str) {
+					return;
+				} else {
+					var arr = contBox.split(str);
+
+					if(arr.length < 2) {                                        //判断是否找到该字符串
+						return alert("未查找到【" + str +"】");         
+					}
+
+					var str2 = arr.join(txt);
+					                                    
+					oContent.innerHTML = str2;
+				}
+			}
+
+			repBtn.onclick = function() {
+				oContent.innerHTML = oText;
+
+				var contBox = oText;
+				var txtInp = oReplace.getElementsByTagName("input");          //获取两个文本输入框
+				var findTxt = txtInp[0].value;
+				var repTxt = txtInp[1].value;
+
+				if (!repTxt) {                                   //当第二个输入框无内容时执行查找功能
+					find_func(findTxt);
+					findTxt = "";
+				} else if (!findTxt) {
+					return alert("请输入被替换的文字");
+				} else {
+					var arr = contBox.split(findTxt);
+
+					if(arr.length < 2) {                        //判断是否找到该字符串                               
+						return alert("未查找到【" + findTxt +"】"); 				       
+					}
+
+					var str2 = arr.join(repTxt);
+					
+					oText = str2;
+					oContent.innerHTML = str2;
+				}	
+
+			};
 
 		};
 	</script>
@@ -177,12 +249,12 @@
 			</ul>
 			<div id = "find">
 				<input type = "text">
-				<input type = "button" value = "查找">
+				<input id = "btn_find" type = "button" value = "查找">
 			</div>
 			<div id = "replace">
 				<input type = "text">
 				<input type = "text">
-				<input type = "button" value = "替换">
+				<input id = "btn_rep" type = "button" value = "替换">
 			</div>
 		</div> 
 	</div>
