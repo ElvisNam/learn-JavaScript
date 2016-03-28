@@ -46,24 +46,116 @@
 			width: 800px;
 			height: 450px;
 			background-color: #fff;
+			position: relative;
+			top: 0;
+		}
+		#content #face {
+			position: absolute;
+			top: 0;
+			left: 0;
 		}
 		</style>
+
+		<script type="text/javascript" src = "function.js"></script>
 		<script>
-			
+			window.onload = function() {
+				var oImg = ["images/1.png", "images/2.png", "images/3.png", "images/4.png", "images/5.png", "images/6.png", "images/7.png", "images/8.png", "images/9.png", "images/10.png", "images/11.png",];
+				var shakeImg = "images/qq.png";
+
+				var oBtn = document.getElementById("btn");
+				oBtn.onOff = true;                   
+
+				var faceImg = document.getElementById("face");
+
+				var oScore = document.getElementById("score");
+				var oLose = document.getElementById("lose");
+
+				var oContent = document.getElementById("content");
+
+				function gameFun(score, lose, speed) {
+					var left = Math.random() * 775;
+					var index = Math.round(Math.random() * 10);
+					var click = false;
+
+					faceImg.src = oImg[index];
+					faceImg.style.top = 0;
+					faceImg.style.left = left + "px";
+
+					moveTo(faceImg, "top", speed, 425, function(){
+						faceImg.src = "";
+
+						lose++;
+						oLose.innerHTML = lose;
+
+						shake(oContent, "top", 0, 10);
+
+						if(lose === 10) {
+							alert("游戏结束");
+
+							oBtn.onOff = true;
+							oBtn.disabled = false;
+							oBtn.style.width = "90px";
+							oBtn.value = "开始游戏";
+						} else {
+							gameFun(score, lose, speed);
+						}
+					});
+
+					faceImg.onclick = function(){
+						clearInterval(faceImg.move);
+
+						faceImg.src = shakeImg;
+
+						shake(faceImg, "left", left, 8, function(){
+							faceImg.src = "";
+
+							score++;
+							oScore.innerHTML = score;
+
+							speed += 5;
+							gameFun(score, lose, speed);
+
+						});
+					}
+				}
+
+				oBtn.onclick = function() {
+					var score = 0;
+					oScore.innerHTML = score;
+
+					var lose = 0;
+					oLose.innerHTML = lose;
+
+					var speed = 5;
+
+					if(oBtn.onOff) {
+						oBtn.onOff = false;        //控制按钮，游戏启动后无法再进行点击
+						oBtn.disabled = true;
+						oBtn.style.width = "120px";
+						oBtn.value = "游戏正在进行中";
+
+						gameFun(score, lose, speed);       //启动游戏
+						
+					}
+				}
+				
+			}
 
 		</script>
 	</head>
 	<body>
 		<h2>你的鼠标有多块</h2>
 		<p>游戏说明：点击“开始游戏”，随机掉下QQ表情，点击它，千万别让它掉下去！！</p>
-		<input type = "button" value = "开始游戏">
+		<input id = "btn" type = "button" value = "开始游戏">
 
 		<div id = "box">
 			<div id = "left">
 				<p>得分：<span id = "score">0</span>分</p>
 				<p>失分：<span id = "lose">0</span>分</p>
 			</div>
-			<div id = "content"></div>
+			<div id = "content">
+				<img id = "face" src = "">
+			</div>
 		</div> 
 	</body>
 </html>
