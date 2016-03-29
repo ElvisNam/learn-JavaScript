@@ -97,3 +97,61 @@ function countDown(str) {
 		return str = "";
 	}
 }
+
+//通过类名查找元素函数   参数为 (寻找元素的父元素, 寻找的类名, 寻找的标签类型)
+function getElementsByClassName(parent, className, tagName) {
+	var aObj = parent.getElementsByTagName(tagName);
+	var arr = [];
+
+	for(var i = 0; i < aObj.length; i++) {
+		if(aObj[i].className) {
+
+			var aClass = aObj[i].className.split(" ");
+
+			for (var j = 0; j < aClass.length; j++) {
+				if(aClass[j] === className) {          //find class
+					arr.push(aObj[i]);
+					break;
+				}
+			}
+		}
+	}
+
+	return arr;
+}
+
+//添加类名函数    参数为(要添加的对象, 要添加的类名)
+function addClass(obj, className) {
+	if(obj.className === "") {            // no class
+		obj.className = className;
+	} else {
+		var aClass = obj.className.split(" ");
+
+		for (var j = 0; j < aClass.length; j++) {
+			if(aClass[j] === className) {       // have class  -repeat
+				break;
+			} 
+		}
+
+		if(j === aClass.length) {           // have class -norepeat
+			aClass.push(className);
+
+			obj.className = aClass.join(" ");
+		}
+	}
+}
+
+//删除类名函数  参数为(要删除类名的对象, 要删除的类名)
+function removeClass(obj, className) {
+	if(obj.className !== "") {                
+		var aClass = obj.className.split(" ");
+
+		for(var i = 0; i < aClass.length; i++) {
+			if(aClass[i] === className) {
+				aClass.splice(i, 1);                // remove class
+			}
+
+			obj.className = aClass.join(" ");
+		}
+	}
+}
