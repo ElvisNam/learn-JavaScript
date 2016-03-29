@@ -1,0 +1,17 @@
+1.本次主要练习DOM的基本操作：
+  编写了关于通过class查找元素、增添class、删除class的函数。
+  其中要注意的地方就是 一个元素它可能含有几个class，其形式为 "className1 className2 ... classNameN"
+  故在查找、添加、删除时需要注意这个影响。可以先获取一个元素的所有函数，通过.split(" ")将class切割
+  为数组，再遍历数组各元素，即可解决问题。
+
+2.还编写了一个简易的带有可批量删除操作的留言板。主要运用的是DOM中的几个方法属性：
+	创建节点：document.createElement("elementName")
+	添加节点：添加成父元素的末尾子元素：parent.appendChild(newNode);
+			  从父元素的某个子元素之前添加：parent.insertBefore(newNode, siblingNode);
+			  		*此方法注意事项：父元素无子节点时,在除IE的浏览器中会自动将其作为appendChild方式插入，
+			  			             而在IE浏览器下会报错(若要在IE下使用注意添加解决兼容性问题的函数)。
+	删除节点：parent.removeChild(node);
+
+  在此程序编写过程中一个注意事项是：在做批量删除时，采用的是for循环遍历： for(var i = 0; i < len; i++)
+  要注意的一个问题是在删除某个留言后，遍历的元素长度不会改变，而且某个节点被删除后由于i依旧会递增，会导致
+  被删除的节点的下一个元素不会被遍历到的情况，故应该加入:  i--; len--;

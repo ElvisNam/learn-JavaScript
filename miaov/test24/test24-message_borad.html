@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST24</title>
+		<style>
+			input, textarea, ul, li, p, input {
+				margin: 0;
+				padding: 0;
+				font-family: "microsoft Yahei";
+			}
+			#box {
+				width: 400px;
+				margin: 20px auto;
+				position: relative;
+			}
+			#text {
+				width: 300px;
+				height: 100px;
+				background: #efefd6;
+				border: 1px dotted black;
+				padding: 5px;
+			}
+			#btn {
+				width: 50px;
+				position: absolute;
+				left: 320px;
+				top: 0;
+			}
+			#remove {
+				width: 80px;
+				position: absolute;
+				left: 320px;
+				top: 30px;
+			}
+
+			#board li{
+				list-style: none;
+				width: 400px;
+				margin-top: 20px;
+				position: relative;
+			}
+			#board li p {
+				width: 380px;
+				height: 50px;
+				border: 1px dotted black;
+				background-color: #63eff7;
+				margin-top: 20px;
+				padding: 10px;
+			}
+			#board li input {
+				width: 15px;
+				height: 15px;
+				position: absolute;
+				right: -25px;
+				top: 0;
+			}
+		</style>
+		
+		<script>
+			window.onload = function(){
+				var oTxt = document.getElementById("text");
+				var oBtn = document.getElementById("btn");
+				var oUl = document.getElementById("board");
+
+				function addMessage() {
+					message = oTxt.value;
+					oTxt.value = "";
+
+					if(message) {
+						return message;
+					} else {
+						alert("请输入文字");
+					}
+				}
+
+				function addLi(parent, message) {
+					if(message) {
+						var oLi = document.createElement("li");
+						var oP = document.createElement("p");
+						var oInpt = document.createElement("input");
+						var aLi = oUl.getElementsByTagName("li")[0];
+
+						oInpt.type = "checkbox";
+						oInpt.className = "remove_btn";
+
+						oP.innerHTML = message;
+
+						oLi.appendChild(oP);
+						oLi.appendChild(oInpt);
+
+						parent.insertBefore(oLi, aLi);
+					}
+				}
+
+				oBtn.onclick = function() {
+					var oLi = oUl.getElementsByTagName("li");
+
+					var message = addMessage();
+					
+					addLi(oUl, message);
+
+					if(oLi.length > 5) {
+						oUl.removeChild(oLi[oLi.length - 1]);
+					}
+				}
+
+				remove.onclick = function() {
+					var oBtn = oUl.getElementsByClassName("remove_btn");
+					len = oBtn.length;
+
+					for(var i = 0; i < len; i++) {
+						if(oBtn[i].checked) {
+							oUl.removeChild(oBtn[i].parentNode);
+							i--;                     //!!!
+							len--;
+						}
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id = "box">
+			<textarea id = "text"></textarea>
+			<input id = "btn" type = "button" value = "留言">
+			<input id = "remove" type = "button" value = "批量删除">
+			
+			<ul id = "board">
+				<!-- <li>
+					<p>123</p>
+					<input type = "checkbox">
+				</li> -->
+			</ul>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST24</title>
+		<style>
+			div {
+				width: 200px;
+				height: 50px;
+				margin: 10px;
+				border: 1px solid black;
+			}
+		</style>
+		
+		<script>
+			window.onload = function(){
+				var oDiv = document.getElementsByTagName("div");
+
+				function getElementsByClassName(parent, className, tagName) {
+					var aObj = parent.getElementsByTagName(tagName);
+					var arr = [];
+
+					for(var i = 0; i < aObj.length; i++) {
+						if(aObj[i].className) {
+
+							var aClass = aObj[i].className.split(" ");
+
+							for (var j = 0; j < aClass.length; j++) {
+								if(aClass[j] === className) {          //find class
+									arr.push(aObj[i]);
+									break;
+								}
+							}
+						}
+					}
+
+					return arr;
+				}
+
+				function addClass(obj, className) {
+						if(obj.className === "") {            // no class
+							obj.className = className;
+						} else {
+							var aClass = obj.className.split(" ");
+
+							for (var j = 0; j < aClass.length; j++) {
+								if(aClass[j] === className) {       // have class  -repeat
+									break;
+								} 
+							}
+
+							if(j === aClass.length) {           // have class -norepeat
+								aClass.push(className);
+
+								obj.className = aClass.join(" ");
+							}
+						}
+					
+				}
+
+				function removeClass(obj, className) {
+					if(obj.className !== "") {                
+						var aClass = obj.className.split(" ");
+
+						for(var i = 0; i < aClass.length; i++) {
+							if(aClass[i] === className) {
+								aClass.splice(i, 1);                // remove class
+							}
+
+							obj.className = aClass.join(" ");
+						}
+					}
+				}
+
+				var oDiv = getElementsByClassName(document, "div", "div");
+				var Div1 = document.getElementById("div");
+
+				for (var i = 0; i < oDiv.length; i++) {
+					oDiv[i].style.backgroundColor = "red";
+				}
+
+				removeClass(Div1, "div2");
+
+			}
+		</script>
+	</head>
+	<body>
+		<div id = "div" class = "div2 div">This is DIV 1</div>
+		<div class = "div1">This is DIV 2</div>
+		<div class = "div">This is DIV 4</div>
+		<div>This is DIV 5</div>
+		<p class = "div">ppp </p>
+	</body>
+</html>
