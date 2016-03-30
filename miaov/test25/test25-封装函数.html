@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST25</title>
+		
+		<style>
+
+		</style>
+
+		<script>
+			window.onload = function() {
+				var oForm = document.getElementById("form");
+
+				function getFormValue(Form, name) {
+					var str = "";
+
+					if (Form[name]) {
+						for (var i = 0; i < Form[name].length; i++) {
+							if (Form[name][i].checked) {
+								str ? str = str + "," + Form[name][i].value : str = Form[name][i].value; 
+							}
+						}
+
+						if(str) {
+							alert("被选中的值为：" + str);
+						} else {
+							alert("无被选中的值");
+						}
+					}
+				}
+
+				oForm.btn.onclick = function() {
+					getFormValue(oForm, "sports");
+				}
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<form id = "form">
+			<input type = "radio" name = "sex" value = "男">男
+			<input type = "radio" name = "sex" value = "女">女
+			<br>
+
+			<input type = "checkbox" name = "sports" value = "basketball">basketball
+			<input type = "checkbox" name = "sports" value = "tennis">tennis
+			<input type = "checkbox" name = "sports" value = "table tennis">table tennis
+			<input type = "checkbox" name = "sports" value = "badminton">badminton
+			<br>
+
+			<input type = "button" name = "btn" value = "按钮">
+		</form>
+	</body>
+</html>
