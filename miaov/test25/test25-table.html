@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST25</title>
+		<style>
+			table{
+				width: 400px;
+				margin: 40px auto;
+			}
+			table tr{
+				border: 1px solid black;
+			}
+		</style>
+
+		<script>
+			window.onload = function(){
+				var oTable = document.getElementById("table");
+				var selectAll = document.getElementsByName("selectAll")[0];
+				var remove = oTable.tBodies[0].getElementsByTagName("a");
+				var removeBtn = document.getElementsByName("removeBtn")[0];
+
+				var arr = [
+					{"name": "LEE", "sex" : "male", "age": "18"},
+					{"name": "MING", "sex": "female", "age": "20"},
+					{"name": "LEI", "sex": "male", "age": "19"}
+				];
+
+				//动态添加aLi
+				function addLi(obj, arr) {                   
+					for (var i = 0; i < arr.length; i++) {
+						var oTr = document.createElement("tr");
+
+						var oTd1 = document.createElement("td");
+						var oRemove = document.createElement("a");
+						oRemove.href = "#";
+						oRemove.innerHTML = "删除";
+						oTd1.appendChild(oRemove);
+
+						var oTd2 = document.createElement("td");
+						var oIpt = document.createElement("input");
+						oTd2.appendChild(oIpt);
+						oIpt.name = "remove";
+						oIpt.type = "checkbox";
+
+						for(var j in arr[i]) {
+							var oTd = document.createElement("td");
+
+							oTd.innerHTML = arr[i][j];
+
+							oTr.appendChild(oTd);
+						}
+
+						oTr.appendChild(oTd1);
+						oTr.appendChild(oIpt);
+
+						oTable.tBodies[0].appendChild(oTr);
+					}
+				}
+
+				addLi(oTable, arr);
+
+				//获取tbody中全部checkbox
+				function getCheckbox() {
+					var aCheckbox = [];
+
+					var aIpt = oTable.tBodies[0].getElementsByTagName("input");
+
+					for (var i = 0; i < aIpt.length; i++) {
+						if(aIpt[i].type === "checkbox") {
+							aCheckbox.push(aIpt[i]);
+						}
+					}
+
+					return aCheckbox;
+				}
+
+				//全选按钮点击事件
+				selectAll.onclick = function() {
+
+					var aCheckbox = getCheckbox();
+
+					if(this.checked) {
+						for (var j = 0; j < aCheckbox.length; j++) {
+							aCheckbox[j].checked = true;
+						}
+					} else {
+						for (var j = 0; j < aCheckbox.length; j++) {
+							aCheckbox[j].checked = false;
+						}
+					}
+				};
+
+				//给每个<a>删除标签添加事件
+				for (var i = 0; i < remove.length; i++) {
+
+					remove[i].onclick = function() {
+						oTable.tBodies[0].removeChild(this.parentNode.parentNode);
+					}
+				}
+
+				//全部删除按钮点击事件
+				removeBtn.onclick = function() {
+					var aCheckbox = getCheckbox();
+
+					for(var i = 0; i < aCheckbox.length; i++) {
+						if(aCheckbox[i].checked)
+							oTable.tBodies[0].removeChild(aCheckbox[i].parentNode);
+					}
+				}
+				
+			};
+		</script>
+	</head>
+	<body>
+		<table id = "table" border = "1px">
+			<thead>
+				<tr>
+					<th>name</th>
+					<th>sex</th>
+					<th>age</th>
+					<th><input type = "button" name = "removeBtn" value = "删除"></th>
+					<th><input type = "checkbox" name = "selectAll" value = "全选"></th>
+				</tr>
+			</thead>
+
+			<tbody>
+
+			</tbody>
+			<tfoot></tfoot>
+		</table>
+	</body>
+</html>
