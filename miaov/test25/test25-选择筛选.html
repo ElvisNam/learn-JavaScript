@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST25</title>
+		<style>
+			#div li {
+				list-style: none;
+				display: inline-block;
+				margin-right: 20px;
+			}
+		</style>
+
+		<script>
+			window.onload = function(){
+				var oDl = document.getElementsByTagName("dl");
+				var oDiv = document.getElementById("div");
+
+				for (var i = 0; i < oDl.length; i++) {
+					oDl[i].index = i;
+
+					var oDd = oDl[i].getElementsByTagName("dd");
+					var data = null;
+					var index = null;
+
+					for (var j = 0; j < oDd.length; j++) {
+						
+						oDd[j].onclick = function() {
+							index = this.parentNode.index;    // 将此dd所在的父节点作为索引值传入函数
+															  // 以便确定li需要插入的位置
+							data = this.innerHTML;			
+
+							insertLi(data, index)
+
+						}
+					}
+				}
+
+				function insertLi(data, index) {
+					var i = 0;
+					var oLi = null;
+
+					if(oDiv.childNodes.length === 0) {                  // 判断ul有无被创建
+						var oUl = document.createElement("ul");			// 若ul没被创建则初始化ul
+						oDiv.appendChild(oUl);
+
+						oLi = document.createElement("li");				// 此时直接添加li
+						oLi.index = index;
+						oLi.innerHTML = data;
+						oUl.appendChild(oLi);
+						return;
+					} else {
+						var aLi = oDiv.childNodes[0].getElementsByTagName("li");     // 若ul已被创建   先获取所有li
+
+						while(i < aLi.length) {										// 比较索引值，确定li需要插入的位置
+							if(parseInt(aLi[i].index) < index) {
+								i++;
+							} else {
+								break;
+							}
+						}
+
+						if(i === aLi.length) {        					// 判断是否超出li长度
+
+							oLi = document.createElement("li");
+							oLi.index = index;
+							oLi.innerHTML = data;
+							oDiv.childNodes[0].appendChild(oLi);
+
+							return;
+						} else if (parseInt(aLi[i].index) === index) {   // 判断dd.index对应的li是否已被创建 
+																		 // 若被创建只需替换值即可
+							aLi[i].innerHTML = data;
+							return;
+						} else {
+
+							oLi = document.createElement("li");			// 以上条件都不满足时表示dd对应的li并未被创建
+							oLi.index = index;							// 因此创建该li 对他初始化
+							oLi.innerHTML = data;
+							oDiv.childNodes[0].insertBefore(oLi, aLi[i]);
+						}
+					}
+				}
+
+			}
+		</script> 
+	</head>
+	<body>
+		<dl>
+			<dt>地区</dt>
+			<dd>东城</dd>
+			<dd>西城</dd>
+			<dd>朝阳</dd>
+			<dd>昌平</dd>
+		</dl>
+		<dl>
+			<dt>职位</dt>
+			<dd>美工设计</dd>
+			<dd>前端工程师</dd>
+			<dd>后台开发</dd>
+		</dl>
+		<dl>
+			<dt>薪酬</dt>
+			<dd>4000</dd>
+			<dd>5000</dd>
+			<dd>6000</dd>
+		</dl>
+		<div id = "div"></div>
+	</body>
+</html>
