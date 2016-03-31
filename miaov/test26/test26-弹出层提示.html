@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST26</title>
+		
+		<style>
+			ul, li, h3 {
+				margin: 0;
+				padding: 0;
+				font-family: "microsoft Yahei"
+			}
+
+			li {
+				list-style: none;
+			}
+			body {
+				margin: 100px 0 0 60px;
+			}
+
+			#title {
+				width: 800px;
+				border-bottom: 2px solid #ef7717;
+			}
+			#title li {
+				width: 80px;
+				height: 50px;
+				display: inline-block;
+				font-size: 18px;
+				line-height: 50px;
+				color: black;
+				text-align: center;
+			}
+
+			#front-end li, #after-end li{
+				margin-top: 20px;
+				font-size: 16px;
+			}
+
+			#after-end {
+				display: none;
+			}
+
+			#content{
+				margin-top: 20px;
+				width: 307px;
+				height: 114px;
+				/*padding:22px 40px 46px 14px;*/
+				padding-top: 22px;
+				padding-left: 14px;
+				padding-right: 40px;
+				padding-bottom: 46px;
+				background: url("images/1.png") no-repeat;
+				position: absolute;
+				display: none;
+			}
+			#content h3{
+				margin-bottom: 18px;
+			}
+			#content li {
+				height: 25px;
+				border-bottom: 1px solid #e5e5e5;
+			}
+			#content li span{
+				display: inline-block;
+				width: 152px;
+			}
+		</style>
+
+		<script type="text/javascript" src = "data.js"></script>
+		<script>
+			window.onload = function() {
+				var oTit = document.getElementById("title");
+				var oCard = document.getElementsByClassName("card");
+				var aLi = oTit.getElementsByTagName("li");
+
+				var oLi = null;
+				var oA = null;
+				var cardLi = null;
+
+				function init() {
+					for (var i = 0; i < data.length; i++) {
+						oLi = document.createElement("li");
+
+						oLi.innerHTML = data[i].name;
+
+						oTit.appendChild(oLi); 
+
+						if (i===0) {
+							oLi.style.backgroundColor = "#ef7717";
+							oLi.style.color = "#fff";
+						}
+
+						for (var j = 0; j < data[i].list.length; j++) {
+							oLi = document.createElement("li");
+							oA = document.createElement("a");
+
+							oA.innerHTML = data[i].list[j].title;
+							oA.href = "#";
+
+							oCard[i].appendChild(oLi);
+							oLi.appendChild(oA);
+						}
+					}
+				}
+				
+				init();
+
+				for (var i = 0; i < aLi.length; i++) {
+					aLi[i].index = i;
+					aLi[i].onmouseover = show;
+
+					cardLi = oCard[i].getElementsByTagName("li");
+
+					for (var j = 0; j < oCard.length; j++) {
+						cardLi[j].onmouseover = showContent;
+					}
+
+				}
+
+				function showCard() {
+					
+					for (var i = 0; i < aLi.length; i++) {
+						oCard[i].style.display = "none";
+
+						aLi[i].style.backgroundColor = "#fff";
+						aLi[i].style.color = "#000";
+					}
+
+					oCard[this.index].style.display = "block";
+					this.style.backgroundColor = "#ef7717";
+					this.style.color = "#fff"; 
+				}
+
+				function showConten() {
+
+				}
+
+			}
+		</script> 
+	</head>
+	<body>
+		<ul id = "title">
+
+		</ul>
+
+		<ul class = "card" id = "front-end">
+			<!-- <li><a href = "#">前端工程师</a></li>
+			<li><a href = "#">网站前端页面设计</a></li>
+			<li><a href = "#">高级Web前端工程师</a></li>
+			<li><a href = "#">HTML5前端工程师</a></li>
+			<li><a href = "#">前端工程师</a></li>
+			<li><a href = "#">诚聘前端工程师</a></li>
+			<li><a href = "#">网站前端设计</a></li>
+			<li><a href = "#">前端设计</a></li>
+			<li><a href = "#">前端工程师</a></li>
+			<li><a href = "#">HTML5前端</a></li>
+			<li><a href = "#">页面设计师</a></li>
+			<li><a href = "#">网站前端设计</a></li> -->
+		</ul>
+
+		<ul class = "card" id = "after-end">
+			<!-- <li><a href = "#">123</a></li>
+			<li><a href = "#">22</a></li>
+			<li><a href = "#">22</a></li>
+			<li><a href = "#">22</a></li> -->
+		</ul>
+
+		<div id = "content">
+			<h3></h3>
+			
+			<ul>
+				<li><span></span><span></span></li>
+				<li><span></span><span></span></li>
+				<li><span></span><span></span></li>
+			</ul>
+		</div>
+	</body>
+</html>
