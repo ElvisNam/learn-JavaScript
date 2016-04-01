@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST27</title>
+		
+		<style>
+			div {
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				position: absolute;
+			}
+		</style> 
+
+		<script>
+			window.onload = function() {
+				var oDiv = document.getElementById("div1");
+				var timer = null;
+
+				var firstDown = true;
+
+				oDiv.onOff = false;
+
+				oDiv.onclick = function() {
+					oDiv.onOff = !oDiv.onOff;      // qu fan
+				};
+
+				document.onkeydown = function(ev) {
+					clearInterval(timer);
+
+					var ev = ev || event;
+
+					if(oDiv.onOff) {
+
+						if(firstDown) {
+							timer = setInterval(function(){
+								keyMove(ev);
+								
+								firstDown = false;
+							}, 50) 
+						} else {
+							keyMove(ev)
+						}
+
+					}
+				};
+
+				document.onkeyup = function() {
+					clearInterval(timer);
+					firstDown = true;
+				}
+
+				function keyMove(ev) {
+					switch(ev.keyCode) {
+						case 37:
+							oDiv.style.left = oDiv.offsetLeft - 10 + "px";
+							break;
+						case 38:
+							oDiv.style.top = oDiv.offsetTop - 10 + "px";
+							break;
+						case 39:
+							oDiv.style.left = oDiv.offsetLeft + 10 + "px";
+							break;
+						case 40:
+							oDiv.style.top = oDiv.offsetTop + 10 +"px";
+							break
+					}
+				}
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id = "div1"></div>
+	</body>
+</html>

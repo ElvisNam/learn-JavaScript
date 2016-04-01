@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST27</title>
+		<style>
+			div, ul, li {
+				margin: 0;
+				padding: 0;	
+			}
+			body {
+				font-family: "microsoft Yahei";
+			}
+			#div1 {
+				width: 254px;
+				height: 30px;
+				padding-left: 10px;
+				border: 1px solid #ff9f00;
+				font-size: 14px;
+				line-height: 30px;				
+			}
+			#list {
+				width: 264px;
+				border: 1px solid #ff9f00;
+				display: none;
+			}
+			#list li {
+				width: 254px;
+				height: 30px;
+				padding-left: 10px;
+				list-style: none;
+				font-size: 14px;
+				line-height: 30px;
+				cursor: pointer;
+			}
+		</style> 
+
+		<script>
+			window.onload = function() {
+				var oDiv = document.getElementById("div1");
+				var oUl = document.getElementById("list");
+				var oLi = oUl.getElementsByTagName("li");
+
+				var timer = null;
+				var evClick = null;
+
+				var arr = [];
+
+				function show() {
+					clearInterval(timer);
+
+					oUl.style.display = "block"
+				}
+
+				function hide() {
+					clearInterval(timer);
+
+					oUl.style.display = "none";
+				}
+
+				function liClick(ev, that) {
+					var data = null;
+
+				 	var str = "";
+
+					if (ev.ctrlKey || ev.shiftKey) {
+						if(that.onOff) {
+							that.style.backgroundColor = "#ff9f00";
+							that.style.color = "#fff";
+
+							arr.push(that.innerHTML);
+							str = arr.join("，");
+
+							oDiv.innerHTML = str;
+
+							document.body.style.fontFamily = arr[0];
+
+							that.onOff = false;
+							that.clickOff = false;
+						} else {
+							that.style.backgroundColor = "#fff";
+							that.style.color = "#000";
+
+							for (var i = 0; i < arr.length; i++) {
+								if (arr[i] === that.innerHTML) {
+									break;
+								}
+							}
+
+							arr.splice(i, 1);
+
+							str = arr.join("，");
+
+							oDiv.innerHTML = str;
+
+							that.onOff = true;
+							that.clickOff = true;
+						}
+					
+					} else {
+						var data = that.innerHTML;
+
+						oDiv.innerHTML = "";
+						oDiv.innerHTML = data; 
+
+						document.body.style.fontFamily = data;
+
+						hide();
+					}
+				}
+
+				oDiv.onmouseover = function() {
+					show();
+				};
+
+				oDiv.onmouseout = function() {
+					timer = setInterval(function() {
+						hide();
+					}, 500);
+				};
+
+				oUl.onmouseover = function() {
+					show();
+				};
+
+				oUl.onmouseout = function() {
+					timer = setInterval(function(){
+						hide();
+					}, 500);
+				}
+
+				for (var i = 0; i < oLi.length; i++) {
+					oLi[i].clickOff = true;
+					oLi[i].onOff = true;
+
+					oLi[i].onmouseover = function() {
+						for (var j = 0; j < oLi.length; j++) {
+							if(oLi[j].clickOff) {                      
+								oLi[j].style.backgroundColor = "#fff";
+								oLi[j].style.color = "#000";
+							}
+						}
+
+						this.style.backgroundColor = "#ff9f00";
+						this.style.color = "#fff";
+					};
+
+					oLi[i].onclick = function(ev) {
+						var ev = ev || event;
+						var that = this;
+						liClick(ev, that);
+					};
+				}
+
+				document.onkeyup = function(ev) {
+					var ev = ev || event;
+
+					if(!ev.ctrlKey && !ev.shiftKey) {
+
+						for(var i = 0; i < oLi.length; i++) {
+							oLi[i].clickOff = true;
+							oLi[i].onOff = true; 
+							
+							oLi[i].style.backgroundColor = "#fff";
+							oLi[i].style.color = "#000";
+						}
+
+						hide();
+
+						arr = [];                  // !
+						
+					}	
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div id = "div1"></div>
+
+		<ul id = "list">
+			<li>宋体</li>
+			<li>黑体</li>
+			<li>楷体</li>
+			<li>微软雅黑</li>
+			<li>新宋体</li>
+			<li>仿宋</li>
+		</ul>
+	</body>
+</html>
