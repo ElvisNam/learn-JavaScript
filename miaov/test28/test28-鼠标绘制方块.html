@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST28</title>
+		<style>
+			#div1 {
+				width: 600px;
+				height: 500px;
+				margin: 40px auto;
+				border: 1px solid red;
+			}
+			.newDiv {
+				border: 1px solid black;
+				position: absolute;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oDiv = document.getElementById("div1");
+
+				oDiv.onmousedown = function(ev) {
+					var ev = ev || event;
+
+					var left = ev.clientX;
+					var top = ev.clientY;
+
+					var newDiv = document.createElement("div");   // 生成一个DIV并初始化
+					
+					newDiv.className = "newDiv";       
+					newDiv.style.left = left + "px";
+					newDiv.style.top = top + "px";
+
+					oDiv.appendChild(newDiv);
+
+					document.onmousemove = function(ev) {
+						var ev = ev || event;
+
+						var x = ev.clientX;
+						var y = ev.clientY;
+
+						if (x > oDiv.offsetLeft + 600) {        // 边界设置
+							x = oDiv.offsetLeft + 600;
+						} else if (x < oDiv.offsetLeft) {
+							x = oDiv.offsetLeft;
+						}
+
+						if (y > oDiv.offsetTop + 500) {
+							y = oDiv.offsetTop + 500;
+						} else if (y < oDiv.offsetTop) {
+							y = oDiv.offsetTop;
+						}
+
+						var width = x - left;
+						var height = y - top;
+
+						if(width < 0) {                     // 往左移动
+							newDiv.style.left = x + "px";
+							width = -width;
+						}
+
+						if(height < 0) {                   // 往上移动
+							newDiv.style.top = y + "px";
+							height = -height;
+						}
+
+						newDiv.style.width = width + "px";
+						newDiv.style.height = height + "px";
+					}
+
+				}
+
+				document.onmouseup = function() {
+					document.onmousemove = null;            // 取消鼠标移动事件
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div id = "div1"></div>
+	</body>
+</html>
