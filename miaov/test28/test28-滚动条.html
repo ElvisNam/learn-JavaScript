@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST28</title>
+		<style>
+			#scrollBox {
+				height: 400px;
+				width: 20px;
+				background-color: black;
+				float: left;
+			}
+
+			#scroll {
+				width: 20px;
+				background-color: red;
+				position: absolute;
+			}
+
+			#content {
+				width: 500px;
+				height: 398px;
+				margin-left: 20px;
+				border: 1px solid black;
+				float: left;
+				overflow: hidden;
+			}
+		</style> 
+		
+		<script>
+			window.onload = function() {
+				var oScroll = document.getElementById("scroll");
+				var oContent = document.getElementById("content");
+				var oBox = document.getElementById("scrollBox")
+
+				var max = oContent.scrollHeight;
+
+				oScroll.style.height = oContent.clientHeight / max * oBox.clientHeight + "px";
+
+				oScroll.onmousedown = function(ev) {
+					var ev = ev || event;
+
+					var clientTop = ev.clientY;                       // 获取鼠标当前高度
+
+					var top = this.offsetTop;                         // 获取滚动条当前高度
+
+					document.onmousemove = function(ev) {
+						var ev = ev || event;
+
+						var nowClientY = ev.clientY;                 // 移动后的鼠标高度
+
+						var pos =  top + (nowClientY - clientTop);             // 将鼠标移动的距离计算给滚动条移动到的位置
+
+						var oBoxBottom = oBox.offsetTop + oBox.clientHeight;           // 滚动条最低端
+
+						if (pos >= oBoxBottom - parseInt(oScroll.style.height)) {    // 边界限定 
+							pos = oBoxBottom - parseInt(oScroll.style.height);
+						} else if (pos < oBox.offsetTop) {
+							pos = oBox.offsetTop;
+						}
+
+						oScroll.style.top = pos + "px";                      // 移动后的距离赋值
+
+						var x = oScroll.offsetTop - oBox.offsetTop;              // 内容区scrollTop设置
+
+						oContent.scrollTop = x / oBox.clientHeight * oContent.scrollHeight;
+					}
+				};
+
+				document.onmouseup = function() {
+					document.onmousemove = null;
+				}
+
+				document.onmousewheel = function(ev) {               // IE chrome下
+					var ev = ev || event;
+
+					var speed = ev.wheelDelta > 0 ? -10 : 10;
+
+					var scrollPos = oScroll.offsetTop;                    // 获取当前高度
+
+					var pos = scrollPos + speed;                          // 加上移动的距离
+
+					var oBoxBottom = oBox.offsetTop + oBox.clientHeight;
+
+					if (pos < oBox.offsetTop) {                          // 边界限定
+						pos = oBox.offsetTop;
+					} else if (pos > oBoxBottom - oScroll.clientHeight) {
+						pos = oBoxBottom - oScroll.clientHeight;
+					}
+
+					oScroll.style.top = pos + "px";                    // 将移动后的距离赋值
+
+					var x = oScroll.offsetTop - oBox.offsetTop;              // 内容区scrollTop设置 
+
+					oContent.scrollTop = x / oBox.clientHeight * oContent.scrollHeight;
+				};
+			};
+		</script>
+
+	</head>
+	<body>
+		<div id = "scrollBox">
+			<div id = "scroll"></div>
+		</div>
+
+		<div id = "content">
+		begin122141241231<br>afdsfadfafds<br>
+		fjadslfjladsk<br>2144243542<br>jafljsd<br>
+		fjadslfjladsk<br>2144243542<br>jafljsd<br>
+		fjadslfjladsk<br>2144243542<br>jafljsd<br>
+		fjadslfjladsk<br>2144243542<br>jafljsd<br>
+		fjadslfjladsk<br>2144243542<br>jafljsd<br>
+		fjadslfjladsk<br>2144243542<br>jafljsd<br>
+		fjadslfjladsk<br>2144243542<br>jafljsd<br>
+		fjadslfjladsk<br>2144243542<br>jafljsd<br>
+		fjadslfjladsk<br>2144243542<br>jafljsd<br>
+		fjadslfjladsk<br>2144243542<br>jafljsd<br>
+		fjadslfjladsk<br>2144243542<br>jafljsd<br>
+		over
+		</div>
+	</body>
+</html>
