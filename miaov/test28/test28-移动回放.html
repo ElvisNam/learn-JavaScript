@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>TEST28</title>
+		
+		<style>
+			#div1 {
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				position: absolute;
+				margin-top: 10px;
+			}
+		</style> 
+
+		<script>
+			window.onload = function() {
+				var oDiv = document.getElementById("div1");
+				var oBtn = document.getElementById("btn");
+
+				var arrLeft = [];
+				var arrTop = [];
+
+				var timer = null;
+
+				oDiv.onmousedown = function(ev) {
+					var ev = ev || event;
+
+					var left = oDiv.offsetLeft;
+					var top = oDiv.offsetTop;
+
+					var mouseLeft = ev.clientX;
+					var mouseTop = ev.clientY;
+
+					arrLeft.push(left);   
+					arrTop.push(top - 10);   // margin
+
+					document.onmousemove = function(ev) {
+						var ev = ev || event;
+
+						moveLeft = ev.clientX - mouseLeft;
+						moveTop = ev.clientY - mouseTop;
+
+						var nowLeft =  left + moveLeft;
+						var nowTop = top + moveTop;
+
+						arrLeft.push(nowLeft);
+						arrTop.push(nowTop);
+
+						oDiv.style.left = nowLeft + "px";
+						oDiv.style.top = nowTop + "px";
+					};
+				};
+
+				document.onmouseup = function() {
+					document.onmousemove = null;
+				};
+
+				oBtn.onclick = function() {
+					timer = setInterval(function(){
+						var left = arrLeft.pop();
+						var top = arrTop.pop();
+
+						oDiv.style.left = left + "px";
+						oDiv.style.top = top + "px";
+
+						if(arrLeft.length === 0) {
+							clearInterval(timer);
+						}
+					}, 30);
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<input id = "btn" type = "button" value = "回放">
+		<div id = "div1"></div>
+	</body>
+</html>
