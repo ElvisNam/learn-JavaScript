@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST30</title>
+		<style>
+			body {
+				margin: 0;
+			}
+			#list {
+				width: 1080px;
+				margin: 100px auto 0;	
+			} 
+			#list li {
+				width: 247px;
+				margin-right: 10px;
+				list-style: none;
+				float: left;
+			}
+			#list div {
+				border: 1px solid black;
+				margin-bottom: 10px;
+				padding: 10px;
+			}
+			#list div img {
+				width: 225px;
+				display: block;
+			}
+		</style> 
+		<script type="text/javascript" src = "ajax.js"></script>
+		<script>
+			window.onload = function() {
+				var oUl = document.getElementById("list");
+				var oLi = document.getElementsByTagName("li");
+				var liLength = oLi.length;
+				var iPage = 1;
+				var onOff = true;
+
+
+				function initList() {
+					ajax("get", "getPics.php", "cpage=" + iPage, function(data) {
+
+						data = JSON.parse(data);
+
+						if (!data.length) {
+							return;
+						}
+
+						for (var i = 0; i < data.length; i++) {
+
+							var _index = getShort();
+
+							var oDiv = document.createElement("div");
+							var oImg = document.createElement("img");
+							var oP = document.createElement("p");
+
+							oImg.src = data[i].preview;
+							oImg.style.height = 225 / data[i].width * data[i].height + "px";
+
+							oP.innerHTML = data[i].title;
+
+							oDiv.appendChild(oImg);
+							oDiv.appendChild(oP);
+
+							oLi[_index].appendChild(oDiv);
+						}
+
+						onOff = true;
+
+					});
+				}
+
+				initList();
+
+				window.onscroll = function() {
+					var _index = getShort();
+					var aLi = oLi[_index];
+
+					var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+					var topHeight = getTop(aLi);
+
+					if (topHeight + aLi.offsetHeight < scrollTop +  document.documentElement.clientHeight) {
+						if (onOff) {
+							onOff = false;
+
+							iPage++;
+
+							initList();
+						}
+					}
+				};
+
+				function getShort() {
+					var _index = 0;
+					var _liHeight = oLi[_index].offsetHeight;
+
+					for (var i = 1; i < oLi.length; i++) {
+						if (oLi[i].offsetHeight < _liHeight) {
+							_index = i;
+							_liHeight = oLi[i].offsetHeight;
+						}
+					}
+					return _index;
+				}
+
+				function getTop(obj) {
+					var topHeight = 0;
+
+					while(obj) {
+						topHeight += obj.offsetTop;
+						obj = obj.offsetParent;
+					}
+					return topHeight;
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<ul id = "list">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</body>
+</html>
