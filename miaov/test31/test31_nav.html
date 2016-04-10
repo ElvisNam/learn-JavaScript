@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST31</title>
+</head>
+<style>
+	body, ul, li {
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		list-style: none;
+	}
+	body {
+		width: 100%;
+		height: 100%;
+		background-color: #f9f9f9;
+		position: relative;
+	}
+
+	#nav {
+		width: 50px;
+		height: 50px;
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+	}
+	#nav #home {
+		position: relative;
+		z-index: 10;
+		transition: 1s;
+	}
+	#menu li {
+		position: absolute;
+		left: 0;
+		top: 0;
+		/*transition: 0.5s all ease;*/
+	}
+
+</style>
+
+<script type="text/javascript">
+	window.onload = function() {
+		var oHome = document.getElementById("home");
+		var oMenu = document.getElementById("menu");
+		var oLi = oMenu.getElementsByTagName("li");
+
+		var onOff = true;
+
+		oHome.onclick = function() {
+			var len = oLi.length;
+
+			if(onOff) {
+				oHome.style.WebkitTransform = "rotate(360deg)";
+
+				for (var i = 0; i < len; i++) {
+					var json = toLeft(-150, 90 / (len - 1 ) * i);
+
+					oLi[i].style.transition = "0.5s "+ 100 * i +"ms";
+					oLi[i].style.WebkitTransform = "scale(1) rotate(720deg)";
+					oLi[i].style.left = json.l + "px";
+					oLi[i].style.top = json.t + "px"; 
+				}
+
+			} else {
+				oHome.style.WebkitTransform = "rotate(0deg)";
+
+				for (var i = 0; i < len; i++) {
+					oLi[i].style.transition = "0.5s "+ 100 * (len - i) +"ms";
+					oLi[i].style.WebkitTransform = "scale(1) rotate(0)";
+					oLi[i].style.left = 0 + "px";
+					oLi[i].style.top = 0 + "px"; 
+				}
+			}
+
+			onOff = !onOff;
+		};
+
+		for (var i = 0; i < oLi.length; i++) {
+			oLi[i].onclick = function() {
+				this.style.transition = "0.3s";
+				this.style.WebkitTransform = "scale(2)";
+				this.style.opacity = 0.2;
+				addEnd(this, endFn);
+			};
+
+		}
+
+		function addEnd(obj, fn) {
+			//obj.addEventListener("WebkitTransitionEnd", fn, false);
+			obj.addEventListener("transitionend", fn, false);
+		}
+
+		function removeEnd(obj, fn) {
+			//obj.removeEventListener("WebkitTransitionEnd", fn, false);
+			obj.removeEventListener("transitionend", fn, false);
+		}
+
+		function endFn() {
+			this.style.transition = "0.1s";
+			this.style.WebkitTransform = "scale(1) rotate(-720deg)";
+			this.style.opacity = 1;
+			removeEnd(this, endFn);
+		}
+
+		function toLeft(oRadius, oDeg) {
+			// sin cos
+			var oLeft = Math.round(Math.sin(oDeg / 180 * Math.PI) * oRadius);
+			var oTop = Math.round(Math.cos(oDeg / 180 * Math.PI) * oRadius);
+
+			return {"l": oLeft, "t": oTop};
+		}
+	};
+
+
+</script> 
+<body>
+	<div id = "nav">
+		<div id = "home">
+			<img src = "images/home.png">
+		</div>
+		<ul id = "menu">
+			<li><img src = "images/prev.png"></li>
+			<li><img src = "images/open.png"></li>
+			<li><img src = "images/clos.png"></li>
+			<li><img src = "images/full.png"></li>
+			<li><img src = "images/refresh.png"></li>
+		</ul>
+	</div>
+</body>
+</html>

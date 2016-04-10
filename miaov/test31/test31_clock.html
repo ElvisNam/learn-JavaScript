@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST31</title>
+	<style>
+	ul, li, div {
+		margin: 0;
+		padding: 0;
+	}
+
+	#clock {
+		width: 400px;
+		height: 400px;
+		margin: 50px auto;
+		border: 2px solid black;
+		border-radius: 50%;
+		position: relative;
+	}
+	#clockTime li {
+		width: 2px;
+		height: 8px;
+		background-color: #ccc;
+		list-style: none;
+		position: absolute;
+		top: 0;
+		left: 200px;
+		-webkit-transform-origin: 0 201px;
+		-moz-transform-origin: 0 201px;
+		transform-origin: 0 201px;
+	}
+	#clockTime li:nth-of-type(5n+1) {
+		width: 4px;
+		height: 12px;
+		background-color: #000;
+		left: 199px;
+	}
+	#cirCenter {
+		width: 10px;
+		height: 10px;
+		background-color: #000;
+		border-radius: 50%;
+		position: absolute;
+		top: 196px;
+		left: 196px;
+	}
+	#hour {
+		width: 6px;
+		height: 80px;
+		background-color: #000;
+		position: absolute;
+		top: 121px;
+		left: 198px;
+		-webkit-transform-origin: bottom;
+		-moz-transform-origin: bottom;
+		transform-origin: bottom;
+	}
+	#min {
+		width: 4px;
+		height: 120px;
+		background-color: #ccc;
+		position: absolute;
+		left: 199px;
+		top: 81px;
+		-webkit-transform-origin: bottom;
+		-moz-transform-origin: bottom;
+		transform-origin: bottom;
+	}
+	#sec {
+		width: 2px;
+		height: 160px;
+		background-color: red;
+		position: absolute;
+		left: 200px;
+		top: 41px;
+		-webkit-transform-origin: bottom;
+		-moz-transform-origin: bottom;
+		transform-origin: bottom;
+	}
+	</style>
+
+	<script type="text/javascript">
+		window.onload = function() {
+			var oUl = document.getElementById("clockTime");
+			var oHour = document.getElementById("hour");
+			var oMin = document.getElementById("min");
+			var oSec = document.getElementById("sec");
+
+			// li rotate
+			for (var i = 0; i < 60; i++) {
+				var oLi = document.createElement("li");
+				oUl.appendChild(oLi);
+				oLi.style.WebkitTransform = "rotate(6" + i * 6 + "deg)";
+				oLi.style.MozTransform = "rotate(6" + i * 6 + "deg)";
+				oLi.style.transform = "rotate(6" + i * 6 + "deg)"
+			}
+
+			function timeChange() {
+				// get time
+				var oDate = new Date();
+			
+				var nowSec = oDate.getSeconds();
+				var nowMin = oDate.getMinutes() + nowSec / 60;
+				var nowHour = oDate.getHours() + nowMin / 60;
+
+				// set transform
+				oHour.style.WebkitTransform = "rotate(" + 360 / 12 * nowHour + "deg)"
+				oMin.style.WebkitTransform = "rotate(" + 360 / 60 * nowMin + "deg)";
+				oSec.style.WebkitTransform = "rotate(" + 360 / 60 * nowSec + "deg)";
+
+				oHour.style.MozTransform = "rotate(" + 360 / 12 * nowHour + "deg)"
+				oMin.style.MozTransform = "rotate(" + 360 / 60 * nowMin + "deg)";
+				oSec.style.MozTransform = "rotate(" + 360 / 60 * nowSec + "deg)";
+
+				oHour.style.transform = "rotate(" + 360 / 12 * nowHour + "deg)"
+				oMin.style.transform = "rotate(" + 360 / 60 * nowMin + "deg)";
+				oSec.style.transform = "rotate(" + 360 / 60 * nowSec + "deg)";
+			}
+			timeChange();
+			setInterval(timeChange, 1000);
+		}
+	</script>
+</head>
+<body>
+	<div id = "clock">
+		<ul id = "clockTime"></ul>
+		<div id = "hour"></div>
+		<div id = "min"></div>
+		<div id = "sec"></div>
+		<div id = "cirCenter"></div>
+	</div>
+</body>
+</html>
