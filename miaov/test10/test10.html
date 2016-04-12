@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST 10</title>
+		<style>
+			ul, li, input, a {
+				margin: 0;
+				padding: 0;
+			} 
+			a {
+				text-decoration: none; 
+				color: black;
+				display: block;
+			}
+			a:hover {
+				text-decoration: none;
+			}
+			#box {
+				width: 312px;
+				margin: 20px auto;  
+			}
+			li {
+				height: 30px;
+				list-style: none;
+				border-top: 1px solid white;
+				position: relative;
+				font: 12px/30px "microsoft Yahei";
+			}
+			input {
+				margin-right: 15px;
+				margin-left: 17px;
+			}
+			#list span {
+				position: absolute; 
+				left: 208px;
+			}
+			#select {
+				height: 33px;
+				border-top: 1px solid #dedede;
+				font: 12px/33px "microsoft Yahei";
+				background: url(images/bg.png) repeat-x;
+				border-bottom: 2px solid #424242;
+			}
+			#select div {
+				width: 44px;
+				height: 25px;
+				margin-right: 7px;
+				margin-top: 5px;
+				padding-left: 9px;
+				padding-right: 10px;
+				border: 1px solid #dedede;
+				display: inline-block;
+			}
+			#select div img {
+				margin-right: 7px;
+			}
+			#select #left {
+				margin-left: 15px;
+			}
+		</style>
+
+		<script>
+			window.onload = function() {
+				var oList = document.getElementById("list");
+				var aLi = oList.getElementsByTagName("li");
+				var oAll = document.getElementById("all");
+				var color = ["#f7ffff","#ffffff"];
+
+				//行列颜色设置
+				function liColor() {
+					for (var i = 0; i < aLi.length; i++) {
+						aLi[i].style.backgroundColor = color[i%2];
+					}
+				}
+				liColor();
+
+				//列表选中颜色变换
+				function colorChange(aLi) {
+					var oInp = aLi.getElementsByTagName("input")[0];
+					oInp.onclick = function() {
+						if (oInp.checked) {
+						 	aLi.bgColor = aLi.style.backgroundColor;
+							aLi.style.backgroundColor = "#efefef";
+						} else {
+							aLi.style.backgroundColor = aLi.bgColor;
+						}
+					};
+				}
+				for (var i = 0; i < aLi.length; i++) {
+					colorChange(aLi[i]);
+				}
+
+				oAll.onclick = function() {
+					if(this.checked) {
+						for (var i = 0; i < aLi.length; i++) {
+							var oInp = aLi[i].getElementsByTagName("input")[0];
+							oInp.checked = true;
+							aLi[i].bgColor = aLi[i].style.backgroundColor;
+							aLi[i].style.backgroundColor = "#efefef";
+						}
+					} else {
+						for (var i = 0; i < aLi.length; i++) {
+							var oInp = aLi[i].getElementsByTagName("input")[0];
+							aLi[i].style.backgroundColor = aLi[i].bgColor;
+							oInp.checked = false;
+						}
+					}
+				};
+			 };
+		</script>
+	</head>
+
+	<body>
+		<div id = "box">
+			<ul id = "list">
+				<li>
+					<input type = "checkbox"  value = "1" name = "song">私奔
+					<span>梁博</span>
+				</li>
+				<li>
+					<input type = "checkbox"  value = "2" name = "song">北京北京
+					<span>梁博，黄勇</span>
+				</li>
+				<li>
+					<input type = "checkbox"  value = "3" name = "song">我爱你中国
+					<span>梁博</span>
+				</li>
+				<li>
+					<input type = "checkbox"  value = "4" name = "song">花火
+					<span>梁博</span>
+				</li>
+				<li>
+					<input type = "checkbox"  value = "5" name = "song">回来
+					<span>梁博</span>
+				</li>
+				<li>
+					<input type = "checkbox"  value = "6" name = "song">爱要有你才完美
+					<span>梁博，那英</span>
+				</li>
+			</ul>
+
+			<div id = "select">
+				<input id = "all" type = "checkbox" value = "all" name = "all">全选
+				<div id = "left"><a href = "#"><img src = "images/favorite.png">收藏</a></div>
+				<div><a href = "#"><img src = "images/add.png">添加</a></div>
+				<div><a href = "#"><img src = "images/delete.png">删除</a></div>
+			</div>
+		</div>
+	</body>
+</html>
