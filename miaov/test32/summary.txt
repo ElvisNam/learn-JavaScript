@@ -1,0 +1,28 @@
+本次练习主要针对HTML5中新增的拖拽效果。
+	1.给一个元素添加"draggable = 'true'"属性，可以激活这个元素的
+		拖拽效果。
+	2.在JS中，跟拖拽有关的事件及触发顺序为：（obj表示被拖拽的对象，
+		target表示obj被拖拽时经过的目标对象）
+
+		不触发drop事件: 
+		obj.dragstart -> obj.drag -> target.dragenter ->
+		target.dragover -> target.dragleave -> obj.dragend
+
+		触发drop事件：
+		obj.dragstart -> obj.drag -> target.dragenter -> 
+		target.dragover -> target.drop -> dragend
+	3.要注意的是，若要激活drop事件，必须在dragover中阻止默认事件，
+		（其默认事件为：无法将元素放入其他元素中）。
+		而drop中也有自己的默认事件：以链接形式打开元素。可以根据情
+		况决定是否阻止。
+	4.在拖拽中，ev下有一个dataTransfer对象，可以通过该对象的setData()、
+		getData()来设置/获取被拖到对象的数据类型及值（key-value形式）。
+		还可以通过effectAllowed属性设置拖进目标对象时光标的样式。
+		可以通过setDragImage()方法设置拖拽时，被拖拽对象副本的图片样式。
+	5.在dataTransfer下还有一个files属性，若拖拽的对象为文件，则以list
+		形式保存在该属性下。其下还有个type属性，可以获取文件类型信息。
+	6.FileReader对象：可以读取用户本地文件或拖拽产生的文件对象。
+		通过方法readAsDataURL()，可以用于读取文件内容，读完后将触发
+		该对象的onload事件。同时result属性将包含一个data:URL格式的字
+		符串以表示所读取文件的内容.
+
