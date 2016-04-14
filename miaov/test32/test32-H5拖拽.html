@@ -31,7 +31,7 @@
 		}
 		#shopBox p {
 			width: 800px;
-			display: -webkit-inline-flex;
+			display: inline-flex;
 			border-bottom: 1px black dashed;
 		}
 		#shopBox p:last-of-type {
@@ -62,39 +62,44 @@
 				oLi[i].index = i;
 				oLi[i].ondragstart = function(ev) {
 					var ev = ev || event;
-					var that = this;
 
-					var oP = that.getElementsByTagName("p");
+					var oP = this.getElementsByTagName("p");
 					
 					ev.dataTransfer.setData("tit", oP[0].innerHTML);
 					ev.dataTransfer.setData("mon", oP[1].innerHTML);
-				}
+				};
 			}
 
 			oDiv.ondragover = function(ev) {
 				var ev = ev || event;
-				ev.preventDefault();
-			}
+				ev.preventDefault();    // ondrop 
+			};
 
 			oDiv.ondrop = function(ev) {
+				var ev = ev || event;
+
+				ev.preventDefault();
+
 				var tit = ev.dataTransfer.getData("tit");
 				var mon = ev.dataTransfer.getData("mon");
 
 				var oP = findTit(tit);
+
 				if ( oP ) {
 					oP.count++;
 
-					var oCout = oP.getElementsByTagName("span")[0];
-					oCount = oP.count;
+					var nowCount = oP.getElementsByTagName("span")[0];
+					nowCount.innerHTML = oP.count;
 
 				} else {
 						var oComm = document.createElement("p");
-						oComm.count = 0;
+						oComm.count = 1;
 
 						var oCount = document.createElement("span");
-						oCount.innerHTML = 0;
+						oCount.innerHTML = 1;
 
 						var bookTit = document.createElement("span");
+						oComm.tit = tit;
 						bookTit.innerHTML = tit;
 
 						var bookMon = document.createElement("span");
@@ -109,17 +114,18 @@
 				}
 
 				total();
-			}
+			};
 
 			function findTit(tit) {
 				var oP = oDiv.getElementsByTagName("p");
 
-				for (var i = 0; i < oP.length; i++) {
-					var pSpan = oP[i].getElementsByTagName("span")[1];
+				if (oP.length > 1) {
+					for (var i = 0; i < oP.length - 1; i++) {
 
-					if (pSpan && pSpan.innerHTML === tit) {
-						return oP[i];
-					} 
+						if (oP[i].tit === tit) {
+							return oP[i];
+						} 
+					}
 				}
 
 				return false;
@@ -133,7 +139,8 @@
 					return;
 				} else {
 					for (var i = 0; i < aP.length - 1; i++) {
-						sum += aP.count * aP.mon; 
+						var mon = aP[i].mon.slice(1)
+						sum += aP[i].count * mon; 
 					}
 				}
 				oSpan.innerHTML = sum;
