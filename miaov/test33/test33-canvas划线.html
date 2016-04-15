@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST33</title>
+</head>
+<style>
+	body {
+		background-color: black;
+	}
+	canvas {
+		background-color: white;
+	}
+</style>
+<script>
+	window.onload = function() {
+		var oCg = document.getElementById("cvs");
+		var oGC = oCg.getContext("2d");
+
+		oCg.onmousedown = function(ev) {
+			var ev = ev || event;
+
+			var nowX = ev.clientX - oCg.offsetLeft;
+			var nowY = ev.clientY - oCg.offsetTop;
+			oGC.beginPath();
+			oGC.moveTo(nowX, nowY);
+
+			oCg.onmousemove = function(ev) {
+				var ev = ev || event;
+
+				var nowX = ev.clientX - oCg.offsetLeft;
+				var nowY = ev.clientY - oCg.offsetTop;						
+				oGC.lineTo(nowX, nowY);
+				oGC.stroke();
+			};
+
+			document.onmouseup = function() {
+				oCg.onmousemove = null;
+
+				oGC.closePath();
+			};
+		};
+
+		
+	};
+</script>
+<body>
+	<canvas id = "cvs" width = "600" height = "400">
+		alert("please use IE11+ browser")
+	</canvas>
+</body>
+</html>

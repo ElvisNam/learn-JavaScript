@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST33</title>
+</head>
+<style>
+	body {
+		background-color: black;
+	}
+	#cvs1 {
+		background-color: white;
+	}
+</style>
+<script>
+	window.onload = function() {
+		var oC = document.getElementById("cvs1");
+		var oCG = oC.getContext("2d");
+		var num1 = 0;
+		var num2 = 0;
+		var value = 0;
+
+		setInterval(function() {
+
+			num1++;
+
+			if (num2 === 100) {
+				value = -1;
+			} else if (num2 === 0) {
+				value = 1;
+			}
+
+			num2 += value;
+
+			oCG.clearRect(0, 0, oC.width, oC.height);
+
+			oCG.save();
+
+			oCG.translate(200, 200);      
+
+			oCG.rotate(num1 * Math.PI / 180);
+
+			oCG.scale(num2 * 1 / 50, num2 * 1 / 50);
+
+			oCG.translate(-50, -50);       // yi yuan xin rotate
+
+			oCG.fillRect(0, 0, 100, 100);
+
+			oCG.restore();
+		}, 30);
+
+	};
+</script>
+<body>
+	<canvas id = "cvs1" width = "600px" height = "500px">
+	</canvas>  
+</body>
+</html>
