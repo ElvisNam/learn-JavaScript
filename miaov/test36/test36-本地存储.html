@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST36</title>
+</head>
+<script>
+	window.onload = function() {
+		var aIpt = document.getElementsByTagName("input");
+
+		for (var i = 0; i < aIpt.length; i++) {
+			aIpt[i].onclick = function() {        // add click event
+				if (this.checked) {
+					window.localStorage.setItem( "sel", this.value);
+				} else {
+					window.localStorage.setItem("onSel", this.value);
+				}
+			};
+		}
+
+		window.onstorage = function(ev) {
+			var ev = ev || event;
+
+			if (ev.key === "sel") { 
+				for (var i = 0; i < aIpt.length; i++) {
+					if (aIpt[i].value === ev.newValue) {
+						aIpt[i].checked = true;
+					}
+				}
+			} else if (ev.key === "onSel") {
+				for (var i = 0; i < aIpt.length; i++) {
+					if (aIpt[i].value === ev.newValue) {
+						aIpt[i].checked = false;
+					}
+				}
+			}
+
+
+		};
+	};
+</script>
+<body>
+	<input type = "checkbox" value = "西瓜" name = "fruits">西瓜
+	<input type = "checkbox" value = "苹果" name = "fruits">苹果
+	<input type = "checkbox" value = "葡萄" name = "fruits">葡萄
+	<input type = "checkbox" value = "草莓" name = "fruits">草莓
+</body>
+</html>
