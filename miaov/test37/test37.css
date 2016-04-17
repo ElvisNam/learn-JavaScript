@@ -1,0 +1,153 @@
+/* test37 bo fang qi css */
+
+/* chong zhi yang shi biao  */
+body, div, video {
+	margin: 0;
+	padding: 0;
+}
+
+/* body bg-color */
+body {
+	background-color: #3e3838;
+}
+
+#box {
+	width: 570px;
+	height: 375px;
+	margin: 100px auto;
+	background-color: white;
+}
+
+/* player style */
+#player {
+	width: 570px;
+	height: 340px;
+}
+#player img {
+	width: 570px;
+	height: 340px;
+	display: inline-block;
+}
+#player video {
+	width: 0;
+	height: 0;
+}
+
+/* control style */
+#control {
+	width: 570px;
+	height: 35px;
+	background: -webkit-linear-gradient(to bottom, #f1f1f1 0, #d3d3d3 35px);
+	background: -moz-linear-gradient(to bottom, #f1f1f1 0, #d3d3d3 35px);
+	background: linear-gradient(to bottom, #f1f1f1 0, #d3d3d3 35px);
+}
+
+#control .con-play ,#control .con-pause {
+	float: left;
+	width: 40px;
+	height: 35px;
+	cursor: pointer;
+}
+#control .con-play {
+	display: none;
+	background: url("images/sprite.png") 0 0 no-repeat;
+}
+#control .con-pause {
+	background: url("images/sprite.png") -40px 0 no-repeat;
+}
+
+#control .timeScroll-box {
+	width: 280px;
+	height: 10px;
+	margin-top: 13px;
+	float: left;
+	background-color: #706d6d;
+	border-radius: 5px;
+	position: relative;
+}
+#control .timeScroll-full {
+	height: 100%;
+	cursor: pointer;
+}
+#control .timScroll-now {
+	height: 100%;
+	width: 0;
+	background: url("images/player-bar.png") 0 0 repeat-x;
+	border-radius: 5px;
+	position: absolute;
+	z-index: 10;
+}
+#control .timeScroll-box span {
+	width: 16px;
+	height: 17px;
+	position: absolute;
+	top: -3px;
+	left: -8px;
+	background: url("images/handle.png") 0 0 no-repeat;
+	cursor: pointer;
+}
+
+#control .playTime {
+	width: 71px;
+	padding: 12px 10px 0 10px;
+	font: 11px "Arial";
+	color: #444444;
+	float: left;
+}
+
+#control .mute {
+	height: 35px;
+	width: 35px;
+	background: url("images/sprite.png") no-repeat -80px 0;
+	float: left;
+	margin-left: -10px;
+	margin-top: 1px;
+	cursor: pointer;
+	/*display: none;*/
+}
+#control .unmute {
+	height: 35px;
+	width: 38px;
+	background: url("images/sprite.png") no-repeat -115px 0;
+	float: left;
+	margin-left: -13px;
+	margin-top: 1px;
+	cursor: pointer;
+	display: none;
+}
+
+#control .vScroll-box {
+	width: 70px;
+	height: 10px;
+	margin-top: 13px;
+	margin-right: 10px;
+	background-color: #706d6d;
+	border-radius: 5px;
+	cursor: pointer;
+	float: left;
+}
+#control .vScroll-full {
+	width: 0;
+	height: 100%;
+	display: inline-block;
+}
+#control .vScroll-now {
+	width: 11px;
+	height: 10px;
+	margin-left: -2px;
+	position: absolute;
+	background: url("images/volume.png") no-repeat 0 0;
+	cursor: pointer;
+}
+
+#control .full-screen, #control .small-screen{
+	width: 40px;
+	height: 35px;
+	margin-left: -15px;
+	float: left;
+	cursor: pointer;
+	background: url("images/sprite.png") no-repeat -150px 0px;
+}
+#control .small-screen {
+	display: none;
+}
