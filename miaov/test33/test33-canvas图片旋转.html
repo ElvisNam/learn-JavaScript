@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST33</title>
+</head>
+<style>
+	body {
+		background-color: #ccc;
+	}
+	#div1 {
+		margin: 20px 20px;
+	}
+	#div1 img{
+		width: 600px;
+		height: 400px;
+	}
+	input {
+		margin: 20px 20px 0;
+	}
+	canvas {
+		background-color: white;
+	}
+</style> 
+<script>
+	window.onload = function() {
+		var oDiv = document.getElementById("div1");
+		var divImg = oDiv.getElementsByTagName("img")[0];
+		var oBtn = document.getElementsByTagName("input");
+
+		var oImg = new Image();
+
+		var num = 0;
+
+		oImg.src = divImg.src;
+		oImg.dataWidth = 600;
+		oImg.dataHeight = 400;
+
+		oImg.onload = function() {
+			var oC = document.createElement("canvas");
+
+			oC.width = "600";
+			oC.height = "400";
+
+			var oGC = oC.getContext("2d");
+
+			oGC.drawImage(oImg, 0, 0, 600, 400);
+
+			oDiv.replaceChild(oC, divImg);
+
+			oBtn[0].onclick = function() {
+				num--;
+				if (num < 0) {
+					num = 3;
+				}
+				toChange(oC, oGC);
+			}
+			
+			oBtn[1].onclick = function() {
+				num++;
+				num %= 4;
+				toChange(oC, oGC);
+			}
+		};
+
+		function toChange(oC, oGC) {
+
+			switch(num){
+				case 0:
+					oC.width = oImg.dataWidth;
+					oC.height = oImg.dataHeight;
+					oGC.rotate(0 * Math.PI / 180);
+					oGC.drawImage(oImg, 0, 0, 600, 400);
+					break;
+
+				case 1:
+					oC.width = oImg.dataHeight;
+					oC.height = oImg.dataWidth;
+					// 每次清空画布都要冲洗计算角度
+					oGC.rotate(90 * Math.PI / 180);   
+					oGC.drawImage(oImg, 0, -oImg.dataHeight, 600, 400);
+					break;
+
+				case 2:
+					oC.width = oImg.dataWidth;
+					oC.height = oImg.dataHeight;
+					oGC.rotate(180 * Math.PI / 180);
+					oGC.drawImage(oImg, -oImg.dataWidth, -oImg.dataHeight, 600, 400);
+					break;
+
+				case 3:
+					oC.width = oImg.dataHeight;
+					oC.height = oImg.dataWidth;
+					oGC.rotate(270 * Math.PI / 180);
+					oGC.drawImage(oImg, -oImg.dataWidth, 0, 600, 400);
+					break;
+			}
+		}
+
+	};
+</script>
+<body>
+	<input id = "btn1" type = "button" value = "<-">
+	<input id = "btn2" type = "button" value = "->">
+	<div id = "div1">
+		<img src = "images/1.jpg">
+	</div>
+</body>
+</html>
