@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST6</title>
+</head>
+<style>
+	ul, li, h2 {
+		padding: 0;
+		margin: 0;
+	}
+	li {
+		list-style: none;
+	}
+
+	#lists {
+		width: 240px;
+		font-family: "microsoft Yahei";
+		border:1px solid black;
+		border-bottom: none;
+		margin: 10px auto;
+	}
+
+	.lis {
+		width:240px;
+	}
+
+	#lists h2 {
+		height: 30px;
+		line-height: 30px;
+		padding-left: 20px;
+		background: url(images/1.gif) no-repeat 5px center #63f7ff;
+		border-bottom: 1px solid black;
+	}
+	#lists .active {
+		background: url(images/2.gif) no-repeat 5px center #f7f794;
+	}
+	.lis li {
+		padding-left:20px;
+		border-bottom: 1px solid black;
+		width:220px;
+	}
+	.lis .hover {
+		background-color: #cff894;
+	}
+	.lis ul {
+		display: none;
+	}
+</style> 
+
+<script type="text/javascript" src = "jquery/jquery-1.12.2.js"></script>
+<script>
+	$(function(){
+		$(".lis").find("h2").attr("onOff", "true").click(function(){
+			if ($(this).attr("onOff")) {
+				$(".lis").find("h2").attr("onOff", "true").removeClass("active")
+					.parent().find("ul").hide()
+					.children().removeClass("hover");
+
+				$(this).attr("onOff", "").addClass("active")
+					.parent().find("ul").show();
+			} else {
+				$(this).attr("onOff", "true").removeClass("active")
+				.parent().find("ul").hide()
+				.children().remoevClass("hover");
+			}
+		})
+
+		$(".lis").find("li").click(function(){
+			$(this).addClass("hover").siblings().removeClass("hover");
+		})
+
+	});
+</script>
+
+<body>
+	<ul id = "lists">
+		<li class = "lis">
+			<h2>我的好友</h2>
+			<ul>
+				<li>张三</li>
+				<li>张三</li>
+				<li>张三</li>
+				<li>张三</li>
+			</ul>
+		</li>
+		<li class = "lis">
+			<h2>企业好友</h2>
+			<ul>
+				<li>李四</li>
+				<li>李四</li>
+				<li>李四</li>
+				<li>李四</li>
+			</ul>
+		</li>
+		<li class = "lis">
+			<h2>黑名单</h2>
+			<ul>
+				<li>张小三</li>
+				<li>李小四</li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>
