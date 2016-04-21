@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST39</title>
+</head>
+
+<style>
+	li {
+		margin-bottom: 10px;
+	}
+</style>
+
+<script type="text/javascript" src = "jquery/jquery-1.12.2.min.js">
+</script>
+
+<script>
+	$(function(){
+		$(".pre").click(function(){
+			var $parent = $(this).parent();
+			var $before = $parent.prev();
+
+			if ($parent.index() !== 0) { 
+				$parent.detach().insertBefore($before);
+			}
+		});
+
+		$(".next").click(function(){
+			var $parent = $(this).parent();
+			var $next = $parent.next();
+			var $length = $parent.parent().children().size()
+
+			if ($parent.index() !== $length - 1) {
+				$parent.detach().insertAfter($next);
+			}
+		});
+	});
+</script>
+<body>
+	<ul class = "list">
+		<li>
+			1.<input class = "pre" type = "button" value = "上移">
+			<input class = "next" type = "button" value = "下移">
+		</li>
+		<li>
+			2.<input class = "pre" type = "button" value = "上移">
+			<input class = "next" type = "button" value = "下移">
+		</li>
+		<li>
+			3.<input class = "pre" type = "button" value = "上移">
+			<input class = "next" type = "button" value = "下移">
+		</li>
+		<li>
+			4.<input class = "pre" type = "button" value = "上移">
+			<input class = "next" type = "button" value = "下移">
+		</li>
+		<li>
+			5.<input class = "pre" type = "button" value = "上移">
+			<input class = "next" type = "button" value = "下移">
+		</li>
+	</ul>
+</body>
+</html>
