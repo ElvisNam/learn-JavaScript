@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST39</title>
+	<style>
+	body, ul, li {
+		margin: 0;
+		padding: 0;
+		font-size: 14px;
+		font-family: "Microsoft Yahei"
+	}
+	ul {
+		width: 100px;
+		border: 1px solid #000;
+	}
+
+	.menu {
+		display: none;
+		position: absolute;
+	}
+
+	li {
+		width: 100px;
+		border-bottom: 1px solid #000;
+		line-height: 20px;
+		list-style: none;
+	}
+	li:last-of-type {
+		border-bottom: none;
+	}
+	li.hover {
+		background-color: red;
+		color: #fff;
+	}
+
+	ul ul {
+		display: none;
+		position: absolute;
+	}
+	</style>
+
+	<script type="text/javascript" src = "jquery/jquery-1.12.2.min.js">
+	</script>
+
+	<script>
+		$(function(){
+			$("li").hover(function(ev){
+
+				var $children = $(this).children();
+				var $left = $(this).width();
+				var $top = $(this).height();
+
+				$(this).addClass("hover");
+
+				 if($children.size()) {
+				 	$children.show();
+
+				 	$children.css({
+				 		"marginLeft": $left,
+				 		"marginTop": -$top
+				 	})
+
+				 	$children.css({
+				 		"backgroundColor": "#fff",
+				 		"color": "#000"
+				 	});
+				 }
+
+			}, function() {
+				$(this).removeClass("hover");
+				$(this).children().hide();
+			})
+
+			$(document).mousedown(function(ev) {
+				if (ev.which === 3) {
+					$(".menu").show().css({
+						"left": ev.pageX,
+						"top": ev.pageY
+					});
+				} else if (ev.which === 1) {
+					$(".menu").hide();
+				}
+			});
+
+			$(document).bind("contextmenu", function(){
+				return false;
+			})
+		});
+	</script>
+</head>
+
+<body>
+	<div class = "menu">
+		<ul>
+			<li>新建1</li>
+
+			<li>
+				新建2 ->
+				<ul>
+					<li>
+						新建2-1 ->
+						<ul>
+							<li>新建2-1-1</li>
+							<li>新建2-1-2</li>
+						</ul>
+					</li>
+					<li>新建2-2</li>
+					<li>
+						新建2-3 ->
+						<ul>
+							<li>新建2-3-1</li>
+							<li>新建2-3-2</li>
+							<li>新建2-3-3</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+
+			<li>新建3</li>
+
+			<li>
+				新建4 -> 
+				<ul>
+					<li>新建4-1</li>
+					<li>
+						新建4-2 ->
+						<ul>
+						 	<li>新建4-2-1</li>
+						 	<li>新建4-2-2</li>
+						 </ul> 
+					</li>
+					<li>新建4-3</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
