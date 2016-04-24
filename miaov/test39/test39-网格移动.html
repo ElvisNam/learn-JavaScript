@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST39</title>
+	<script type="text/javascript" src = "jquery/jquery-1.12.2.min.js"></script>
+
+	<style>
+		body, div {
+			margin: 0;
+			padding: 0;
+		}
+		div {
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+			border-left: none;
+			border-top: none;
+			float: left;
+		}
+		.box {
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			border: none;
+			position: absolute;
+		}
+	</style>
+	<script>
+		$(function(){
+			for(var i = 0; i < 130; i++) {
+				$("<div></div>").appendTo("body");
+			}
+			
+			$(".box").mousedown(function(ev) {
+				$left = ev.pageX - $(this).offset().left;
+				$top = ev.pageY - $(this).offset().top;
+
+				$(document).mousemove(function(ev) {
+					// 获取边界
+					var borBottom = $("div:last").offset().top - $("body").offset().top;
+					var borRight = $("div:last").offset().left - $("body").offset().left;
+					var borTop = $("div").not(".box").eq(0).offset().top - $("body").offset().top;
+					var borLeft = $("div").not(".box").eq(0).offset().left - $("body").offset().left;
+
+					// console.log("borBottom:"+borBottom+",borRight:"+borRight+",borTop:"+borTop+",borLeft:"+borLeft);
+
+					var nowLeft = ev.pageX - $left;
+					var nowTop = ev.pageY - $top;
+
+					// 边界检测
+					if ($(".box").offset().left < borLeft) {
+						nowLeft = borLeft;
+					} else if ($(".box").offset().left > borRight) {
+						nowLeft = borRight;
+					}
+
+					if ($(".box").offset().top < borTop) {
+						nowTop = borTop;
+					} else if ($(".box").offset().top > borBottom) {
+						nowTop = borBottom;
+					}
+
+					$(".box").css({
+						"left": nowLeft,
+						"top": nowTop
+					})
+				});
+
+				$(document).mouseup(function(){
+					$(document).off("mousemove");
+
+					// 找到目标范围
+					var $target = $($(".box").findTarget());
+
+					// 找到目标元素
+					var $bigDiv = $($target.findBigDiv());
+
+					// 自动移入目标元素
+					$(".box").offset($bigDiv.offset());
+
+					
+				});
+			});
+
+			$.fn.extend({
+
+				"findTarget": function() {         
+					var left = $(this).offset().left - $(this).width();
+					var right = $(this).offset().left + $(this).width();
+					var top = $(this).offset().top - $(this).height();
+					var bottom = $(this).offset().top + $(this).width();
+
+					var targetArr = [];
+
+					$("div").not(".box").each(function() {
+						var targetLeft = $(this).offset().left;
+						var targetTop = $(this).offset().top;
+
+						if (targetLeft > left && targetLeft < right && targetTop > top && targetTop < bottom) {
+							targetArr.push($(this).get(0));
+						} 
+					})
+					return targetArr;
+				},
+
+				"findBigDiv": function() {
+					var area = 0;
+					var bigDiv = null;
+					var boxLeft = $(".box").offset().left;
+					var boxTop = $(".box").offset().top;
+
+					// 根据.box所在元素的面积最大来判定目标元素
+					$(this).each(function() {
+						var divLeft = $(this).offset().left;
+						var divTop = $(this).offset().top;
+
+						var left = divLeft - boxLeft;
+						var top = divTop - boxTop;
+
+						if (left <= 0) {
+							left = $(this).width() + left;
+						} else {
+							left = $(".box").width() - left;
+						}
+
+						if (top <= 0) {
+							top = $(this).height() + top;
+						} else {
+							top = $(".box").height() - top;
+						}
+
+						if (area < left * top) {
+							area = left * top;
+							bigDiv = $(this);
+						}
+					})
+
+					return bigDiv;
+				}
+			}) 
+		});
+	</script>
+</head>
+<body>
+	<div class = "box"></div>
+</body>
+</html>
