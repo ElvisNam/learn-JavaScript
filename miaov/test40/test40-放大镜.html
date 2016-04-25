@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST40</title>
+	<style>
+		.photo {
+			width: 200px;
+			height: 140px;
+			float: left;
+		}
+		.photo img {
+			width: 200px;
+			height: 140px;
+		}
+		.bigger {
+			position: absolute;
+			overflow: hidden;
+			display: none;
+		}
+		.bigger img {
+			width: 800px;
+			height: 560px;
+			position: absolute;
+		}
+	</style>
+
+	<script type="text/javascript" src = "jquery/jquery-1.12.2.min.js"></script>
+
+	<script>
+		$(function() {
+			$(".photo>img").one("mouseenter", function(ev) {
+				$("<div id = 'box'></div>").appendTo(".photo").css({
+					"width": $(this).width() / 2,
+					"height": $(this).height() / 2,
+					"backgroundColor": "yellow",
+					"opacity": 0.4,
+					"position": "absolute"
+				});
+			});
+
+			$(".photo").bind("mousemove", function(ev){
+				var top = ev.pageY - $("#box").height() /2 ;
+				var left = ev.pageX - $("#box").width() /2;
+
+				var bigger = 4;  // fang fa bei shu
+
+				var borBottom = $(".photo").offset().top + $(".photo").height() - $("#box").height();
+				var borRight = $(".photo").offset().left + $(".photo").width() - $("#box").width();
+
+				// 边界限定
+				if (top < $(".photo").offset().top) {
+					top = $(".photo").offset().top;
+				} else if (top > borBottom) {
+					top = borBottom;
+				}
+
+				if (left < $(".photo").offset().left) {
+					left = $(".photo").offset().left;
+				} else if (left > borRight) {
+					left = borRight;
+				}
+
+				$("#box").offset({
+					"top": top,
+					"left": left 
+				});
+
+				$(".bigger").show().css({
+					"width": $(".photo").width() * bigger / 2,
+					"height": $(".photo").height() * bigger / 2,
+					"top": $(".photo").offset().left + $(".photo").height() / 2,
+					"left": $(".photo").offset().top + $(".photo").width() * 2
+				});
+
+				(function(bigger) {
+					var imgLeft = $("#box").offset().left - $(".photo").offset().left;
+					var imgTop = $("#box").offset().top - $(".photo").offset().top;
+					
+					console.log("imgleft:"+imgLeft+",imgTop:"+imgTop+"$('.photo').height():"+$('.photo').height());
+
+					$(".bigger>img").css({
+						"left": - imgLeft * bigger,
+						"top": - imgTop * bigger
+					});
+				})(bigger);
+
+				$(".photo>img").bind("mouseleave", function(){
+					$(this).off("mousemove");
+					$(".bigger").hide();
+					// $("#box").hide();
+				});
+			});
+		});
+		
+	</script>
+</head>
+<body>
+	<div class = "photo">
+		<img src = "images/img1.jpg">
+	</div>
+
+	<div class = "bigger">
+		<img src = "images/img1.jpg">
+	</div>
+</body>
+</html>
