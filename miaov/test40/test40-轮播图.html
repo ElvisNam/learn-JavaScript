@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST40</title>
+	<style>
+		body, div, button, ul, li{
+			margin: 0;
+			padding: 0;
+		}
+		ul, li {
+			list-style: none;
+			display: inline-block;
+		}
+
+		.ppt {
+			width: 100%;
+			height: 226px;
+		}
+		.ppt img {
+			width: 100%;
+			height: 226px;
+			transition: 2s;
+		}
+
+		.ctrl {
+			width: 100%;
+			height: 54px;
+			padding: 14px 0 5px ;
+			background-color: #f7f7f7;
+			border: 1px solid #a6caf0;
+			text-align: center;
+		}
+
+		.ctrl button {
+			width: 20px;
+			height: 20px;
+			margin-top: 12px;
+			border: 1px solid #cecece;
+			font-weight: bold;
+			color: #a0a0a4;
+			outline: none;
+			border-radius: 50%;
+			display: inline-block;
+			vertical-align: top;
+			margin-left: 20px;
+			cursor: pointer;
+		}
+
+		.list li {
+			width: 94px;
+			height: 42px;
+			margin-left: 20px;
+			border: 1px solid #ccc;
+			cursor: pointer;
+		}
+		.list li img {
+			width: 94px;
+			height: 42px;
+		}
+		.list li.focus {
+			border: 2px solid #ef2110;
+		}
+	</style>
+
+	<script type="text/javascript" src = "jquery/jquery-1.12.2.min.js"></script>
+
+	<script>
+		$(function() {
+			var aImg = ["images/img1.png", "images/img2.png", "images/img3.png", "images/img4.png", "images/img5.png"];
+			var index = 0;
+
+			$(".list li").each(function() {
+					$(this).attr("index", index);
+					index++;
+			});
+
+			index = 0;
+
+			$(".list li").click(function(){
+				index = $(this).attr("index");
+				$(".list li").removeClass("focus");
+
+				$(this).addClass("focus");
+				$(".ppt img").attr("src", aImg[index]);
+			});
+
+			$(".pre").click(function() {
+				if ($("li.focus").index() === 0) {
+					index = $("li:last").attr("index");
+
+					$("li:last").prependTo(".list");
+				} else if (parseInt(index) === 0){
+					index = $(".list li").size() - 1;
+				} else {
+					index--;
+				}
+
+				$(".list li").removeClass("focus");
+
+				$("li[index = "+ index +"]").addClass("focus");
+
+				$(".ppt img").attr("src", aImg[index]);
+			});
+
+			$(".next").click(function() {
+				if ($("li.focus").index() === ($(".list li").size() - 1)) {
+					index = $("li:first").attr("index");
+
+					$("li:first").appendTo(".list");
+				} else if (parseInt(index) === $(".list li").size() - 1) {
+					index = 0;
+				} else {
+					index++;
+				}
+
+				$(".list li").removeClass("focus");
+
+				$("li[index = "+ index +"]").addClass("focus");
+
+				$(".ppt img").attr("src", aImg[index]);
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class = "ppt">
+		<img src = "images/img1.png">
+	</div>
+	
+	<div class = "ctrl">
+		<button class = "pre" type = "button"><</button> 
+
+		<ul class = "list">
+			<li class = "focus">
+				<img src = "images/img1.png">
+			</li>
+
+			<li>
+				<img src = "images/img2.png">
+			</li>
+
+			<li>
+				<img src = "images/img3.png">
+			</li>
+
+			<li>
+				<img src = "images/img4.png">
+			</li>
+
+			<li>
+				<img src = "images/img5.png">
+			</li>
+		</ul>
+
+		<button class = "next" type = "button">></button>
+	</div>
+</body>
+</html>
