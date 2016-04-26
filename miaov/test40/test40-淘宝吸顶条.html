@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST40</title>
+	<style>
+		body, div, span, img, input, button, select, option {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			height: 2000px;
+		}
+
+		.nav {
+			width: 770px;
+			height: 18px;
+			margin-top: 400px;
+			margin-left: 10px;
+			padding-top: 6px;
+			padding-left: 4px;
+			padding-bottom: 7px;
+			background: linear-gradient(to bottom, #ebf0f3 0, #d9eef1 100%);
+			font-size: 11px;
+			line-height: 1;
+			vertical-align: baseline;
+			font-family: "Microsoft Yahei";
+		}
+		
+		.nav > span {
+			margin-right: 9px;
+			display: inline-block;
+		}
+		.nav span:last-of-type {
+			margin: 0;
+		}
+
+		.nav .wangwang {
+			border-left: 1px solid #99b4c7;
+			border-right: 1px solid #99b4c7;
+			padding: 0 9px;
+		}
+		
+		.line {
+			/*vertical-align: middle;*/
+		}
+		.line select {
+			width: 120px;
+			height: 17px;
+			margin-right: 5px;
+			border: 1px solid #8c9aa5;
+			font-size: 11px;
+		}
+
+		.nav button {
+			width: 45px;
+			height: 17px;
+			border: 1px solid #59819b;
+			font-size: 11px;
+			text-align: left;
+		}
+		.nav button.up {
+			border-left: none;
+			margin-right: 28px;
+		}
+
+		.nav .post {
+			margin-left: 30px;
+			margin-right: 20px;
+		}
+		.nav .address {
+			width: 68px;
+			height: 19px;
+			border: 1px solid #7c7c7c;
+			font-size: 11px;
+			margin-right: 18px;
+		}
+	</style>
+
+	<script type="text/javascript" src = "jquery/jquery-1.12.2.min.js"></script>
+
+	<script>
+		$(function() {
+			var startTop = $('.nav').offset().top;
+
+			$(document).scroll(function() {
+				// var nowTop = $('.nav').offset().top - $(document).scrollTop();
+
+				// if (nowTop < 0) {
+				// 	$(".nav").offset({
+				// 		"top": $(document).scrollTop()
+				// 	});
+				// }
+
+				if ($(document).scrollTop() > startTop ) {
+					$(".nav").offset({
+						"top": $(document).scrollTop()
+					});
+				} 
+			});
+			
+		});
+	</script>
+</head>
+<body>
+	<div class = "nav">
+		<span class = "lis">
+			<img src = "images/lis.png">
+			列表
+		</span>
+
+		<span class = "bigImg">
+			<img src = "images/bigImg.png">
+			大图
+		</span>
+
+		<span class = "wangwang">
+			<input type = "checkbox">
+			旺旺在线
+			<img src = "images/wangwang.png">
+		</span>
+
+		<span class = "line">
+			排序：
+			<select>
+				<option>默认排序</option>
+				<option>由低到高</option>
+			</select>
+
+			<button class = "down" type = "button">
+				信用
+				<img src = "images/down.png">
+			</button><!-- 
+
+			 --><button class = "up" type = "button">
+				价格
+				<img src = "images/up.png">
+			</button>
+		</span>	
+
+		<span>消费者保障</span>
+
+		<span class = "post">运费</span>
+
+		<select class = "address">
+			<option>所在地</option>
+			<option>北京</option>
+		</select>
+				
+		<span>对比</span> 
+	</div>
+</body>
+</html>
