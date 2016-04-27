@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST40</title>
+	<style>
+		div {
+			margin: 0;
+			padding: 0;
+		}
+		.body {
+			width: 470px;
+			height: 200px;
+			margin: 40px auto;
+		}
+
+		.body div {
+			height: 100%;
+			width: 30px;
+			display: inline-block;
+			transition: 500ms;
+		}
+		.body div:nth-of-type(1) {
+			background-color: red;
+			width: 350px;
+		}
+		.body div:nth-of-type(2) {
+			background-color: green;
+		}
+		.body div:nth-of-type(3) {
+			background-color: blue;
+		}
+		.body div:nth-of-type(4) {
+			background-color: yellow;
+		}
+		.body div:nth-of-type(5) {
+			background-color: pink;
+		}
+	</style>
+
+	<script type="text/javascript" src = "jquery/jquery-1.12.2.min.js"></script>
+
+	<script>
+		$(function() {
+			$(".body div").mouseover(function() {
+				$(this).css({
+					"width": 350
+				})
+
+				$(this).mouseout(function() {
+					$(this).css({
+						"width": 30
+					})
+				});
+			}); 
+
+			
+		});
+	</script>
+</head>
+<body>
+	<div class = "body"><!-- 
+		 --><div></div><!-- 
+		 --><div></div><!-- 
+		 --><div></div><!-- 
+		 --><div></div><!-- 
+		 --><div></div>
+	</div>
+</body>
+</html>
