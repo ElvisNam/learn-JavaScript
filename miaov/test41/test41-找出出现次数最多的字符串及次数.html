@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST41</title>
+	<style>
+		input[type = "text"] {
+			width: 400px;
+			height: 20px;
+			margin-bottom: 10px;
+		}
+	</style>
+
+	<script>
+		window.onload = function() {
+			var oIpt = document.getElementsByTagName("input");
+
+			oIpt[1].onclick = function() {
+				var str = oIpt[0].value;
+
+				var arr = str.split("");
+
+				str = arr.sort().join("");
+
+				var re = /(\w)\1+/g; 
+
+				var index = 0;
+
+				var value = "";
+
+				oIpt[2].value = str;
+
+				str.replace(re,function(x0, x1){
+					if (x0.length > index) {
+						index = x0.length;
+						value = x1;
+					}
+				})
+
+				oIpt[2].value = "次数最多的为："+ value +"共出现：" + index + "次";
+			};
+		};
+	</script>
+</head>
+<body>
+	<input type = "text">
+	<input type = "button" value = "find"><br>
+	<input type = "text">
+</body>
+</html>
