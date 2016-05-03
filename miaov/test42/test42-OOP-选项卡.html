@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST42</title>
+	<style>
+		div {
+			width: 200px;
+			height: 200px;
+			border: 1px solid black;
+			display: none;
+		}
+		div.active {
+			display: block;
+		}
+
+		button.active {
+			background-color: red;
+			color: white;
+		}
+	</style>
+
+	<script>
+		window.onload = function() {
+			var oTab1 = new Tab();
+
+			oTab1.init();
+		};
+
+		function Tab() {
+			this.oBtn = document.getElementsByTagName("button");
+			this.oDiv = document.getElementsByTagName("div");
+		}
+
+		Tab.prototype.init = function() {
+			var This = this;
+
+			for (var i = 0; i < this.oBtn.length; i++) {
+				this.oBtn[i].index = i;
+
+				this.oBtn[i].onclick = function() {
+					This.fnClick(this);
+				};
+			}
+		}
+
+		Tab.prototype.fnClick = function(obj) {
+			for (var j = 0; j < this.oBtn.length; j++) {
+				this.oBtn[j].className = "";
+			}
+
+			obj.className = "active";
+
+			for (var j = 0; j < this.oBtn.length; j++) {
+				this.oDiv[j].className = "";
+			}
+
+			this.oDiv[obj.index].className = "active";
+		}
+	</script>
+</head>
+<body>
+	<button type = "button" class = "active">按钮1</button>
+	<button type = "button">按钮2</button>
+	<button type = "button">按钮3</button>
+	<div class = "active">1111111</div>
+	<div>2222222</div>
+	<div>3333333</div>
+</body>
+</html>
