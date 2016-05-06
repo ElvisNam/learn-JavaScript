@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div {
+			width: 100px;
+			height: 100px;
+			position: absolute;		
+		}
+		#div1 {
+			left: 10px;
+			background-color: red;
+		}
+		#div2 {
+			left: 110px;
+			background-color: yellow;
+		}
+		#div3 {
+			left: 210px;
+			background-color: blue;
+		}
+		#div4 {
+			left: 310px;
+			background-color: green;
+		}
+	</style>
+
+	<script>
+
+		window.onload = function() {
+			var oD1 = new Drag();
+			var oD2 = new Drag();
+			var oD3 = new Drag();
+			var oD4 = new Drag();
+
+			oD1.init("div1");
+			oD2.init("div2", {           // 配置参数
+				toDown: function() {
+					document.title = "hello";
+				}
+			});
+			oD3.init("div3", {
+				toDown: function() {
+					document.title = "hehe";
+				},
+
+				toUp: function() {
+					document.title = "haha";
+				}
+			});
+			oD4.init("div4", {
+				toUp: function() {
+					document.title = "bye";
+				}
+			});
+		}
+
+		function Drag() {
+			this.oDiv = null;
+			this.disX = null;
+			this.disY = null;
+
+			this.setting = {            // 默认参数
+				toDown : function() {},
+				toUp : function() {}
+			}
+		}
+
+		Drag.prototype.init = function(id, opt) {
+			var This = this;
+
+			this.oDiv = document.getElementById(id);
+
+			extend(this.setting, opt);
+
+			this.oDiv.onmousedown = function(ev) {
+				var ev = ev || event;
+
+				This.fnDown(ev);
+
+				This.setting.toDown();
+			};
+		}
+
+		Drag.prototype.fnDown = function(ev) {
+			var This = this;
+
+			this.disX = ev.clientX - this.oDiv.offsetLeft;
+			this.disY = ev.clientY - this.oDiv.offsetTop;
+
+			document.onmousemove = function(ev) {
+				var ev = ev || event;
+
+				This.fnMove(ev);
+
+			};
+
+			document.onmouseup = function() {
+				This.fnUp();
+			};
+		};
+
+		Drag.prototype.fnMove = function(ev) {
+
+			var nowX = ev.clientX - this.disX;
+			var nowY = ev.clientY - this.disY;
+
+			this.oDiv.style.left = nowX + "px";
+			this.oDiv.style.top = nowY + "px";
+		}
+
+		Drag.prototype.fnUp = function() {
+			document.onmousemove = null;
+
+			this.setting.toUp();
+		}
+
+		function extend(obj1, obj2) {
+			for (attr in obj2) {
+				obj1[attr] = obj2[attr];
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div id = "div1"></div>
+	<div id = "div2"></div>
+	<div id = "div3"></div>
+	<div id = "div4"></div>
+</body>
+</html>
