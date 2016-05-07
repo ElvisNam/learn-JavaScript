@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST43</title>
+	<style>
+		.tab div {
+			width: 200px;
+			height: 200px;
+			border: 1px solid black;
+			display: none;
+		}
+		.tab div.iNow {
+			display: block;
+		}
+		.tab input.active {
+			background-color: red;
+		}
+	</style>
+
+	<script>
+	
+		window.onload = function() {
+			var oT1 = new Tab();
+			oT1.init("div1", {
+
+			});
+
+			var oT2 = new Tab();
+			oT2.init("div2", {
+				event: "mouseover",
+				delay: 0
+			});
+
+			var oT3 = new Tab();
+			oT3.init("div3", {
+				event: "mouseover",
+				delay: 200
+			});
+			bindEvent(oT3, "beforeEvent", function() {
+				alert("hello");
+			})
+
+			var oT4 = new Tab();
+			oT4.init("div4", {		
+			});
+			bindEvent(oT4, "afterEvent", function() {
+				alert("bye");
+			})
+
+		};
+
+		function Tab() {
+			this.oDiv = null;
+			this.oIpt = null;
+			this.oCnt = null;
+
+			this.setting = {
+				event: "click",
+				delay: 0
+			};
+		}
+
+		Tab.prototype.init = function(id, opt) {
+
+			extend(this.setting, opt);
+
+			this.oDiv = document.getElementById(id);
+
+			this.oIpt = this.oDiv.getElementsByTagName("input");
+
+			this.oCnt = this.oDiv.getElementsByTagName("div");
+
+			this.fnChange();
+
+		};
+
+		Tab.prototype.fnChange = function() {
+			var This = this;     // This -> Tab()
+
+			var timer = null;
+
+			if (this.setting.event == "mouseover") {
+
+				for (var i = 0; i < this.oIpt.length; i++) {
+					this.oIpt[i].index = i;
+
+					this.oIpt[i].onmouseover = function() {
+
+						clearInterval(timer);
+
+						var _this = this;   // _this -> event obj
+
+						timer = setInterval(function() {
+					
+							This.show(_this);
+							
+						}, This.setting.delay)
+					}
+
+					this.oIpt[i].onmouseout = function() {
+						clearInterval(timer);
+					}
+				}
+			} else {
+				for (var i = 0; i < this.oIpt.length; i++) {
+					this.oIpt[i].index = i;
+
+					this.oIpt[i].onclick = function() {
+						This.show(this);
+					}; 
+				}
+			}	
+		}
+
+		Tab.prototype.show = function(obj) {
+			fireEvent(this, "beforeEvent");
+
+			for (var j = 0; j < this.oIpt.length; j++) {
+				
+				this.oIpt[j].className = "";
+
+				this.oCnt[j].className = "";
+			}
+
+			obj.className = "active";
+
+			this.oCnt[obj.index].className = "iNow";
+
+			fireEvent(this, "afterEvent");
+		}
+
+		function extend(obj1, obj2) {
+			for (var attr in obj2) {
+				obj1[attr] = obj2[attr];
+			}
+		}
+
+		function bindEvent(obj, events, fn) {
+			obj.listener = obj.listener || {};
+
+			obj.listener[events] = obj.listener[events] || [];
+
+			obj.listener[events].push(fn);
+
+			if (obj.ondeType) {
+				if(obj.addEventListener) {
+					obj.addEventListener(events, fn);
+				} else {
+					obj.attachEvent("on" + events, fn);
+				}
+			}
+		}
+
+		function fireEvent(obj, events) {
+			if (obj.listener && obj.listener[events]) {
+				for (var i = 0; i < obj.listener[events].length; i++) {
+					obj.listener[events][i]();
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id = "div1" class = "tab">
+		<input class = "active" type = "button" value = "1">
+		<input type = "button" value = "2">
+		<input type = "button" value = "3">
+		<div class = "iNow">1111111</div>
+		<div>2222222</div>
+		<div>3333333</div>
+	</div>
+
+	<div id = "div2" class = "tab">
+		<input class = "active" type = "button" value = "4">
+		<input type = "button" value = "5">
+		<input type = "button" value = "6">
+		<div class = "iNow">1111111</div>
+		<div>2222222</div>
+		<div>3333333</div>
+	</div>
+
+	<div id = "div3" class = "tab">
+		<input class = "active" type = "button" value = "7">
+		<input type = "button" value = "8">
+		<input type = "button" value = "9">
+		<div class = "iNow">1111111</div>
+		<div>2222222</div>
+		<div>3333333</div>
+	</div>
+
+	<div id = "div4" class = "tab">
+		<input class = "active" type = "button" value = "10">
+		<input type = "button" value = "11">
+		<input type = "button" value = "12">
+		<div class = "iNow">1111111</div>
+		<div>2222222</div>
+		<div>3333333</div>
+	</div>
+</body>
+</html>
