@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body, ul, li {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		ul {
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			text-align: center;
+		}
+		li {
+			display: inline-block;
+		}
+		li img {
+			width: 64px;
+		}
+
+		input {
+			margin: 10px;
+		}
+	</style>
+
+	<script>
+		window.onload = function() {
+
+			var oUl = document.getElementById("list");
+			var oImg = oUl.getElementsByTagName("img");
+
+			document.onmousemove = function(ev) {
+				var ev = ev || event;
+
+				var disX = ev.clientX;
+				var disY = ev.clientY;
+
+				for (var i = 0; i < oImg.length; i++) {
+					var x = oImg[i].offsetLeft + oImg[i].offsetWidth / 2 - ev.clientX;
+					var y = oImg[i].offsetTop + oImg[i].offsetHeight / 2 + oUl.offsetTop - ev.clientY;
+
+					var c = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+
+					var scale = 1 - c / 300;
+
+					if (scale < 0.5) {
+						scale = 0.5;
+					}
+
+					oImg[i].style.width = 128 * scale + "px";
+					oImg[i].style.height = 128 * scale + "px"; 
+				}
+			}
+			
+		}
+	</script>
+</head>
+<body>
+	<ul id = "list">
+		<li>
+			<img src = "images/1.png">	
+		</li>
+
+		<li>
+			<img src = "images/2.png">	
+		</li>
+
+		<li>
+			<img src = "images/3.png">	
+		</li>
+
+		<li>
+			<img src = "images/4.png">	
+		</li>
+
+		<li>
+			<img src = "images/5.png">	
+		</li>
+	</ul>
+</body>
+</html>
