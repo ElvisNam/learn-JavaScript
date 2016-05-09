@@ -4,7 +4,13 @@
 ##### 本项目库是用来记录学习HTML/CSS/JavaScript及其他前端相关方面知识时做的一些小练习。
 主要集中于[miaov文件库](https://github.com/ElvisNam/learnJavaScript/tree/master/miaov)<br>
 （注：在本库下的练习题中为了便于查看效果，CSS及JavaScript采用的都是内联式，在正式项目中都按标准采用外联式）<br><br>
+
+浏览说明：各练习题下**demo**链接直接指向该练习题的代码文件（部分练习题下有思路总结及涉及知识的归纳summary文件）；**预览**链接直接指向HTML文件网页显示效果，方便查看。<br><br>
+
+更新说明：持续更新，代码库文件每天更新当日所写代码，该目录文件每周归纳更新一次。<br><br>
+
 **如果发现页面排版/代码BUG/无法预览/demo预览失效等问题，或者对某个练习有疑问想要联系作者 请在[勘误及留言表](https://github.com/ElvisNam/learnJavaScript/issues/1)下留言，感谢^_^**
+
 ###练习题说明
 ***
 1. JS热身练习题：<br>
@@ -165,7 +171,7 @@
   [demo](https://github.com/ElvisNam/learnJavaScript/tree/gh-pages/miaov/test31)
   [预览](https://elvisnam.github.io/learnJavaScript/miaov/test31/test31_clock.html)<br>
  * 模拟旋转导航：<br>
-  [demo]((https://github.com/ElvisNam/learnJavaScript/tree/gh-pages/miaov/test31)
+  [demo](https://github.com/ElvisNam/learnJavaScript/tree/gh-pages/miaov/test31)
   [预览](https://elvisnam.github.io/learnJavaScript/miaov/test31/test31_nav.html)<br>
 
 32. HTML5练习1：<br>
