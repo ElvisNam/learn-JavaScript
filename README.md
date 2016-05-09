@@ -4,7 +4,7 @@
 ##### 本项目库是用来记录学习HTML/CSS/JavaScript及其他前端相关方面知识时做的一些小练习。
 主要集中于[miaov文件库](https://github.com/ElvisNam/learnJavaScript/tree/master/miaov)<br>
 （注：在本库下的练习题中为了便于查看效果，CSS及JavaScript采用的都是内联式，在正式项目中都按标准采用外联式）<br><br>
-**如果发现页面排版/代码BUG/无法预览/联系询问等 请在[勘误及留言表](https://github.com/ElvisNam/learnJavaScript/issues/1)下留言，感谢^_^**
+**如果发现页面排版/代码BUG/无法预览/demo预览失效等问题，或者对某个练习有疑问想要联系作者 请在[勘误及留言表](https://github.com/ElvisNam/learnJavaScript/issues/1)下留言，感谢^_^**
 ###练习题说明
 ***
 1. JS热身练习题：<br>
