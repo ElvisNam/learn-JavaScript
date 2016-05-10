@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST34</title>
+</head>
+<style type="text/css">
+	body {
+		background-color: #000;
+	}
+	#list {
+		margin: 10px 0;
+		list-style: none;
+		color: #fff;
+	}
+	#list li {
+		display: inline-block;
+		font: 20px/20px "Microsoft Yahei";
+		cursor: pointer;
+	}
+	#cvs {
+		background-color: #fff;
+	}
+</style>
+<script>
+	window.onload = function() {
+		var oC = document.getElementById("cvs");
+		var oGC = oC.getContext("2d");
+		var oUl = document.getElementById("list");
+		var aLi = oUl.getElementsByTagName("li");
+
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].onclick = function() {
+				var str = this.innerHTML;
+
+				var h = 100;
+
+				oGC.clearRect(0, 0, oC.width, oC.height);
+
+				oGC.font = h + "px impact";
+
+				// http://www.w3school.com.cn/tags/canvas_textbaseline.asp
+				oGC.textBaseline = "hanging";
+
+				var w = oGC.measureText(str).width;
+
+				oGC.fillText(str, (oC.width - w) / 2, (oC.height - h)/ 2);
+
+				var oImg = oGC.getImageData((oC.width - w) / 2, (oC.height - h) / 2, w, h);
+
+				oGC.clearRect(0, 0, oC.width, oC.height);
+
+				var newArr = randomArr(w, h, 5)
+
+				var newImage = oGC.createImageData(w, h);
+
+				for (var i = 0; i < newArr.length; i++) {
+					newImage.data[newArr[i] * 4] = oImg.data[newArr[i] * 4];
+					newImage.data[newArr[i] * 4 + 1] = oImg.data[newArr[i] * 4 + 1];
+					newImage.data[newArr[i] * 4 + 2] = oImg.data[newArr[i] * 4 + 2];
+					newImage.data[newArr[i] * 4 + 3] = oImg.data[newArr[i] * 4 + 3];
+				}
+
+				oGC.putImageData(newImage, (oC.width - w) / 2, (oC.height - h) / 2)
+			};
+		}
+
+		function randomArr(w, h, newsize) {
+			var oldSize = w * h;
+
+			var arr = [];
+			var newArr = [];
+
+			for (var i = 0; i < oldSize; i++) {
+				arr.push(i);
+			}
+
+			for (var j = 0; j < oldSize / newsize; j++) {
+				newArr.push(arr.splice(Math.floor(Math.random() * arr.length), 1));
+			}
+
+			return newArr;
+		}
+
+	};
+</script>
+<body>
+	<ul id = "list">
+		<li>妙</li>
+		<li>味</li>
+		<li>课</li>
+		<li>堂</li>
+	</ul>
+	<canvas id = "cvs" width = "600" height = "400"></canvas>
+</body>
+</html>
