@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST34</title>
+</head>
+<style>
+	body {
+		background-color: black;
+	}
+	#cvs {
+		background-color: white;
+	}
+</style>
+<script>
+	window.onload = function() {
+		var oC = document.getElementById("cvs");
+		var oGC = oC.getContext("2d");
+		var oImg = new Image();
+
+		oImg.onload = function() {
+			draw(this);
+		};
+		oImg.src = "images/1.jpg";
+
+		function draw(nowImg) {
+			oC.width = nowImg.width;
+			oC.height = nowImg.height * 2;
+
+			oGC.drawImage(nowImg, 0, 0);
+
+			// must use Firefox
+			var oldImg = oGC.getImageData(0, 0, nowImg.width, nowImg.height);
+
+			var w = oldImg.width;
+			var h = oldImg.height;
+			var size = 10;
+
+			var stepW = w / size;
+			var stepH = h / size;
+
+			var newImg = oGC.createImageData(w, h);
+
+			// 将原图每size个像素取同一个颜色值，该颜色值
+			// 为"合并"前中的任意一个值，从而达到"马赛克"效果。
+			for (var i = 0; i < stepH; i++) {
+				for (var j = 0; j < stepW; j++) {
+					
+					var randomX = Math.floor(Math.random() * size);
+
+					var color = getXY(oldImg, j * size + randomX, i * size + randomX);
+
+					for (var l = 0; l < size; l++) {
+						for (var k = 0; k < size; k++) {
+							setXY(newImg, j * size + k, i * size +l, color);
+						}
+					}
+				}
+			}
+
+			oGC.putImageData(newImg, 0, h);
+		}
+
+		function getXY(obj, x, y) {
+			var color = [];
+			var w = obj.width;
+			var h = obj.height;
+			var d = obj.data;
+
+			color[0] = d[4 * (y * w + x)];
+			color[1] = d[4 * (y * w + x) + 1];
+			color[2] = d[4 * (y * w + x) + 2];
+			color[3] = d[4 * (y * w + x) + 3];
+
+			return color;
+		}
+
+		function setXY(obj, x, y, color) {
+			var w = obj.width;
+			var h = obj.height;
+			var d = obj.data;
+
+			d[4 * (y * w + x)] = color[0];
+			d[4 * (y * w + x) + 1] = color[1];
+			d[4 * (y * w + x) + 2] = color[2];
+			d[4 * (y * w + x) + 3] = color[3];
+		}
+
+	};
+</script>
+<body>
+	<canvas id = "cvs"></canvas>
+</body>
+</html>
