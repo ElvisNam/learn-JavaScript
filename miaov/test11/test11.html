@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST 11</title>
+		
+		<style>
+			ul, li {
+				margin: 0;
+				padding: 0;
+				
+			}
+			li {
+				list-style: none;
+				float: left;
+			}
+			a {
+				text-decoration: none;
+			}
+			a:hover {
+				text-decoration: none;
+			}
+			#box {
+				width: 489px;
+				height: 42px;
+				background: url(images/important.png) no-repeat 6px 26px ;
+				padding-top: 20px;
+				padding-left: 15px;
+
+				margin: 50px auto;
+				position: relative;
+			}
+			#box li {
+				margin-left: 5px;
+			}
+			#box span {
+				float: left;
+				font: 17px/25px "microsoft Yahei";
+			}
+			#box #evaluate {
+				padding-left: 10px;
+				font: 14px/22px "microsoft Yahei";
+				color: #ef7300;
+				display: none;
+			}
+			#box #tips {
+				width: 240px;
+				height: 40px;
+				background: url(images/tips.png) no-repeat;
+				position: absolute;
+				top: 12px;
+				left: 230px;
+				
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				var oBox = document.getElementById("box");
+				var oUl = oBox.getElementsByTagName("ul")[0];
+				var oLi = oUl.getElementsByTagName("li");
+				var oEva = document.getElementById("evaluate");
+				var oTip = document.getElementById("tips");
+				var arr1 = ["很差", "较差", "一般", "推荐", "力荐"];
+				var arr2 = ["images/star.png", "images/lowStar.png", "images/highStar.png"]
+				var oImg = [];
+				//用于判断评价是否被点击的变量
+				var onOff = true
+				var index = null;
+
+				//初始化img标签
+				for (var i = 0; i < oLi.length; i++) {
+						oLi[i].index = i;
+						var aImg = oLi[i].getElementsByTagName("img")[0];
+						aImg.index = i;
+						aImg.add = oLi[i].src; 
+						oImg.push(aImg);
+					}
+				//图片改变函数
+				function oImgChange(aImg) {
+					for (var k = 0; k < oImg.length; k++){
+						oImg[k].src = arr2[0]; 
+					}
+					if ( aImg.index <= 1) {
+						for (var i = 0; i <= aImg.index; i++) {
+							oImg[i].src = arr2[1];
+						}
+					} else if (aImg.index > 1) {
+						for (var j = 0; j <= aImg.index; j++) {
+							oImg[j].src = arr2[2];
+						}
+					} else {
+						alert(aImg);
+					}	
+				}
+
+				for (var i = 0; i < oLi.length; i++) {
+					oLi[i].onmouseover = function() {
+						oTip.style.display = "none";
+						oImgChange(oImg[this.index]);
+						oEva.style.display = "inline";
+						oEva.innerHTML = arr1[this.index];
+					}
+					oLi[i].onmouseout = function() {
+						if (onOff) {
+							oTip.style.display = "block";
+							oEva.style.display = "none";
+							//oImgChange();
+							for (var j = 0; j < oLi.length; j++) {
+								oImg[j].src = arr2[0];
+							}
+						} else {
+							oTip.style.display = "none";
+							oEva.style.display = "inline";	
+							oImgChange(oImg[index]);
+							oEva.innerHTML = arr1[index];
+						}
+					}
+					oLi[i].onclick = function() {
+						onOff = false;
+						index = this.index;
+						oTip.style.display = "none";
+						oImgChange(oImg[this.index]);
+						oEva.style.display = "inline";
+						oEva.innerHTML = arr1[this.index];
+					}
+				}
+			}
+		</script>
+	</head>
+	
+	<body>
+		<div id = "box">
+			<span id = "test">总体评价:</span>
+			<ul>
+				<li><a href = "#"><img src = "images/star.png"></a></li>
+				<li><a href = "#"><img src = "images/star.png"></a></li>
+				<li><a href = "#"><img src = "images/star.png"></a></li>
+				<li><a href = "#"><img src = "images/star.png"></a></li>
+				<li><a href = "#"><img src = "images/star.png"></a></li>
+			</ul>
+			<span id = "evaluate"></span>
+			<div id = "tips"></div>
+		</div>
+	</body>
+</html>
