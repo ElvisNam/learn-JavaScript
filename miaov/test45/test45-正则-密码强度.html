@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST45</title>
+	<style>
+		input[type = "test"] {
+			width: 200px;
+			height: 20px;
+			margin-bottom: 10px;
+		}
+	</style>
+
+	<script>
+		window.onload = function() {
+			/*
+			 * 练习中遇到的一个问题：
+			 * 最开始使用的正则表达式如下
+			 * var re = /^[0-9]*$|^[a-z]*$|^[A-Z]*$/g;
+			 * 在测试时对同一个字符串检测时发现第一次检测为true，第二次则变为false
+			 * 查找资料后发现是因为全局匹配造成的影响。
+			 * 全局模式下正则在检测完一次后，第二次检测时是继续第一次检测完的位置
+			 * 继续检测。
+			 * 解决方法：1.去除g全局检测；2.令上次的检测参数为0：re.lastIndex = 0
+			 */
+			var re = /^[0-9]*$|^[a-z]*$|^[A-Z]*$|^\w{0,6}$/;
+
+			var oIpt = document.getElementsByTagName("input");
+
+			oIpt[1].onclick = function() {
+				var str = oIpt[0].value;
+
+				console.log(str);
+
+				var newStr = re.test(str);
+
+				console.log(newStr);
+
+				if (newStr) {
+					console.log("密码强度太低");
+				} else {
+					console.log("密码强度高！");
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type = "test">
+	<input type = "button" value = "match"><br>
+</body>
+</html>
