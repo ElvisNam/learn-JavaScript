@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST45</title>
+	<style>
+		input[type = "test"] {
+			width: 200px;
+			height: 20px;
+			margin-bottom: 10px;
+		}
+	</style>
+
+	<script>
+		window.onload = function() {
+			
+			var re = /^1\d{10}/;
+
+			var oIpt = document.getElementsByTagName("input");
+
+			oIpt[1].onclick = function() {
+				var str = oIpt[0].value;
+
+				var newStr = re.test(str);
+
+				if (newStr) {
+					console.log("匹配成功");
+				} else {
+					console.log("匹配失败");
+				}	
+			}
+		}
+	</script>
+</head>
+<body>
+	请输入电话号码<input type = "test">
+	<input type = "button" value = "match"><br>
+</body>
+</html>
