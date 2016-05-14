@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST45</title>
+	<style>
+		input[type = "test"] {
+			width: 200px;
+			height: 20px;
+			margin-bottom: 10px;
+		}
+	</style>
+
+	<script>
+		window.onload = function() {
+			var re = /(\b[a-z])\S*(\s*)/g;
+
+			var oIpt = document.getElementsByTagName("input");
+
+			oIpt[1].onclick = function() {
+				var str = oIpt[0].value;
+
+				var newStr = str.replace(re, function($1, $2, $3) {
+					var len1 = $1.length;
+
+					var len2 = $3.length;
+
+					var oldStr = $1.substring(1, len1-len2);
+
+					oldStr = $2.toUpperCase() + oldStr;
+
+					return oldStr;
+					// console.log("$1:"+$1+",$2:"+$2+",$3:("+$3+")");
+				});
+
+				oIpt[2].value = newStr;
+			}
+
+
+		}
+	</script>
+</head>
+<body>
+	<input type = "test">
+	<input type = "button" value = "replace"><br>
+	<input type = "test">
+</body>
+</html>
