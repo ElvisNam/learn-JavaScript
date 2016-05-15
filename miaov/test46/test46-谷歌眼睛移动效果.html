@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST46</title>
+	<style>
+		.box {
+			position: absolute;
+			top: 200px;
+			left: 400px;
+		}
+		.eye {
+			display: inline-block;
+			width: 5px;
+			height: 5px;
+			border-radius: 50%;
+			background-color: black;
+		}
+		#left {
+			position: absolute;
+			left: 113px;
+			top: 42px;
+		}
+		#right {
+			position: absolute;
+			left: 136px;
+			top: 42px;
+		}
+	</style>
+
+	<script>
+		window.onload = function() {
+			var oLeft = document.getElementById("left");
+			var oRight = document.getElementById("right");
+
+			var L1 = 113;
+			var T1 = 42;
+
+			var L2 = 136;
+			var T2 = 42;
+
+			var r = 4;
+
+			document.onmousemove = function(ev) {
+				var ev = ev || event;
+
+				var disX = ev.clientX;
+				var disY = ev.clientY;
+
+				Change(oLeft, disX, disY, L1, T1);
+				Change(oRight, disX, disY, L2, T2);
+
+				function Change(obj, x, y, l, t) {
+					var nowL = obj.offsetLeft + obj.parentNode.offsetLeft;
+					var nowT = obj.offsetTop + obj.parentNode.offsetTop;
+
+					var changeX = 0;
+					var changeY = 0;
+
+					var a = Math.abs(x - nowL);
+					var b = Math.abs(y - nowT);
+
+					var ang = Math.atan(b / a);
+
+					if (x >= nowL) {
+						changeX = Math.cos(ang) * r;
+					} else {
+						changeX = - Math.cos(ang) * r;
+					}
+
+					if (y >= nowT) {
+						changeY = Math.sin(ang) * r;
+					} else {
+						changeY = - Math.sin(ang) * r;
+					}
+
+					obj.style.left = l + changeX + "px";
+					obj.style.top = t + changeY + "px";
+				}
+			}
+		};
+	</script> 
+</head>
+<body>
+	<div class = "box">
+		<img src = "images/265.png">
+		<span class = "eye" id = "left"></span>
+		<span class = "eye" id = "right"></span>
+	</div>
+</body>
+</html>
