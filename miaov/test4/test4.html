@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>TEST 4</title>
+
+		<style>
+			#box {
+				margin: 100px auto 50px;
+				font: 14px "microsoft Yahei";
+				width: 518px;
+			}
+			#box p {
+				font-weight: bold;
+				border-bottom: 1px #ccc solid;
+			}
+			ul, li {
+				margin: 0;
+				padding: 0;
+			}
+			ul {
+				margin-left: 20px;
+			}
+			li {
+				list-style: none;
+				float: left;
+				padding: 10px;
+				position: relative;
+				z-index: 1;
+			}
+			#box a {
+				text-decoration: none;
+			}
+			a:hover {
+				text-decoration: none;
+			}
+			img {
+				border: none;
+			}
+			.box {
+				float:left;
+				position: absolute;
+				top: -118px;
+				left: 24px;
+				z-index: 10;
+				display: none;
+			}
+
+		</style>
+
+		<script>
+			window.onload = function() {
+				var oBox = document.getElementById("box");
+				var oLi = oBox.getElementsByTagName("li");
+
+				for (var i = 0; i < oLi.length; i ++) {
+					oLi[i].onmouseover = function() {
+						this.getElementsByTagName("div")[0].style.display = "block";
+
+					}
+
+					oLi[i].onmouseout = function() {
+						this.getElementsByTagName("div")[0].style.display = "none";
+					}
+				}
+			};
+		</script>
+
+	</head>
+
+	<body>
+		<div id = "box">
+			<p>最新上线</p>
+			<ul>
+				<li>
+					<a href = "#"><img src = "images/1.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+				<li>
+					<a href = "#"><img src = "images/2.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+				<li>
+					<a href = "#"><img src = "images/3.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+				<li>
+					<a href = "#"><img src = "images/4.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+				<li>
+					<a href = "#"><img src = "images/5.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+				<li>
+					<a href = "#"><img src = "images/6.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+				<li>
+					<a href = "#"><img src = "images/7.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+				<li>
+					<a href = "#"><img src = "images/8.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+				<li>
+					<a href = "#"><img src = "images/9.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+				<li>
+					<a href = "#"><img src = "images/10.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+				<li>
+					<a href = "#"><img src = "images/11.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+				<li>
+					<a href = "#"><img src = "images/12.png"></a>
+					<div class = "box"><img src = "images/box.png"></div>
+				</li>
+			</ul>
+		</div>
+
+
+	</body>
+</html>
