@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TEST 17</title>
+		<mata charset = "utf-8">
+		<style>
+			#box {
+				margin: 400px auto;
+				width: 500px;
+				height: 50px;
+				border: 1px solid black;
+			}
+			ul, li {
+				margin: 0;
+				padding: 0;
+			}
+			#list {
+				width: 488px;
+				height: 50px;
+				position: relative;
+			}
+			#list li{
+				width: 26px;
+				list-style: none;
+				font: 20px/50px "microsofe Yahei";
+				position: absolute;
+				top: 0;
+			}
+		</style>
+
+		<script src = "function.js"></script>
+		<script>
+			 function opacityChange(obj, speed) {
+			 	var cur = getStyle(obj, "opacity");
+
+			 	clearInterval(obj.opacity);
+			 	
+			 	obj.opacity = setInterval(function(){
+			 		cur -= speed;
+			 		
+			 		if(cur < 0) {
+			 			cur = 0;
+			 		} 
+
+			 		obj.style.opacity = cur;
+
+			 		if(cur === 0) {
+			 			clearInterval(obj.opacity);
+			 		}
+			 	},200);
+			 }
+
+			window.onload = function() {
+				var oUl = document.getElementById("list");
+				var oLi = oUl.getElementsByTagName("li");
+				var num = 0;
+				var timer = null;
+
+				for (var i = 0; i < oLi.length; i++) {
+					oLi[i].style.left = i * 50 + 12 + "px";
+				}
+
+				oUl.onclick = function() {
+					clearInterval(timer);
+					timer = setInterval(function() {
+						moveTo(oLi[num], "top", 30, -200);
+						opacityChange(oLi[num], 0.3);
+						num++;
+						if(num == oLi.length) {
+							clearInterval(timer);
+							num == 0;
+						}
+					}, 200);					
+				}; 
+			};
+		</script>
+	</head>
+	<body>
+		<div id = "box">
+			<ul id = "list">
+				<li>+1</li>
+				<li>+1</li>
+				<li>+1</li>
+				<li>+1</li>
+				<li>+1</li>
+				<li>+1</li>
+				<li>+1</li>
+				<li>+1</li>
+				<li>+1</li>
+				<li>+1</li>
+			</ul>
+		</div>
+	</body>
+</html>
