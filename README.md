@@ -67,8 +67,8 @@
 
 11. 模拟百度文库评分模块：<br>
  （值得练习及思考）<br>
- [demo]
- [预览]<br>
+ [demo](https://github.com/ElvisNam/learnJavaScript/tree/gh-pages/miaov/test11)
+ [预览](https://elvisnam.github.io/learnJavaScript/miaov/test11/test11.html)(<br>
 
 12. 定时器-自动轮换选项卡：<br>
  [demo](https://github.com/ElvisNam/learnJavaScript/tree/gh-pages/miaov/test12)
