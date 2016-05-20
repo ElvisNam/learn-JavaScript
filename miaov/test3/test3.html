@@ -120,6 +120,9 @@
 			cursor: pointer;
 			outline: none;
 		}
+		.radius {
+			border-radius: 5px;
+		}
 	</style>
 
 	<script type="text/javascript" src = "jquery/jquery-1.12.2.js">
@@ -149,7 +152,7 @@
 						var $div = $("<div class = 'right'></div>");
 						var $box = $("<div class = 'imgBox'></div>");
 						var $img = $("<img src = 'images/face1.png'>");;
-						var $contMess = $("<div class = 'cont-mess'>" + $mess + "</div>");
+						var $contMess = $("<div class = 'cont-mess radius'>" + $mess + "</div>");
 
 						$div.append($box);
 						$box.append($img);
@@ -160,7 +163,7 @@
 						var $div = $("<div class = 'left'></div>");
 						var $box = $("<div class = 'imgBox'></div>");
 						var $img = $("<img src = 'images/face2.png'>");;
-						var $contMess = $("<div class = 'cont-mess'>" + $mess + "</div>");
+						var $contMess = $("<div class = 'cont-mess radius'>" + $mess + "</div>");
 
 						$div.append($box);
 						$box.append($img);
