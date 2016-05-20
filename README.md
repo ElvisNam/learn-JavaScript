@@ -197,12 +197,12 @@
 34. canvas练习2：<br>
  * 模拟图片马赛克效果：<br>
   在代码区域可以实现自由调节马赛克强度。（注：由于chrome浏览器下存在图片跨域问题，请在Firefox、IE下查看此预览效果)<br>
-  [demo]
-  [预览]<br>
+  [demo](https://github.com/ElvisNam/learnJavaScript/tree/gh-pages/miaov/test34)
+  [预览](https://elvisnam.github.io/learnJavaScript/miaov/test34/test34-%E9%A9%AC%E8%B5%9B%E5%85%8B.html)<br>
  * 随机像素获取：<br>
   点击白色画布上的字，随机获取字体像素并显示出来，实现虚化效果（代码区域可自动调节获取的像素比值）<br>
-  [demo]
-  [预览]<br>
+  [demo](https://github.com/ElvisNam/learnJavaScript/tree/gh-pages/miaov/test34)
+  [预览](https://elvisnam.github.io/learnJavaScript/miaov/test34/test34-%E9%9A%8F%E6%9C%BA%E5%83%8F%E7%B4%A0%E8%8E%B7%E5%8F%96.html)<br>
 
 35. 祖玛小游戏：<br>
  （待完善，暂未上传）<br>
