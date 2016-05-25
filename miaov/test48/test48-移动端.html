@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST48</title>
+	<style>
+		div, ul, li {
+			margin: 0;
+			padding: 0;
+		}
+
+		#box {
+			margin: 20px;
+			width: 470px;
+			height: 150px;
+			overflow: hidden;
+			position: relative;
+		}
+		#list {
+			position: absolute;
+		}
+
+		#list li {
+			width: 470px;
+			height: 150px;
+			float: left;
+			list-style: none;	
+		}
+	</style>
+
+	<script type="text/javascript">
+		window.onload = function() {
+			var oBox = document.getElementById("box");
+			var oUl = document.getElementById("list");
+			var oLi = oUl.getElementsByTagName("li");
+
+			var liWidth = oLi[0].offsetWidth;
+
+			oUl.style.width = liWidth * oLi.length + "px";
+
+			var downX = 0;
+
+			document.ontouchmove = function(ev) {
+				ev.preventDefault();
+			}
+
+			oUl.ontouchstart = function(ev) {
+				var touches = ev.changedTouches[0];
+
+				var left = this.offsetLeft
+
+				var oBtn = true;
+
+				downX = touches.pageX;
+
+				oUl.ontouchmove = function(ev) {
+					var touches = ev.changedTouches[0];
+
+					if (this.offsetLeft > 0) {
+
+						if (oBtn) {
+							downX = touches.pageX;
+							oBtn = false;
+						}
+
+						this.style.left = (touches.pageX - downX) / 3 + "px"
+
+					} else if (this.offsetLeft < oBox.offsetWidth - this.offsetWidth) {
+
+						if (oBtn) {
+							downX = touches.pageX;
+							oBtn = false;
+						}
+
+						this.style.left = (touches.pageX - downX) / 3 + left + "px";
+
+					} else {
+
+						this.style.left = left + touches.pageX - downX + "px";
+					}
+				}
+
+				oUl.ontouchend = function(ev) {
+					oUl.ontouchmove = null;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id = "box">
+		<ul id = "list">
+			<li><img src = "images/1.jpg"></li>
+			<li><img src = "images/2.jpg"></li>
+			<li><img src = "images/3.jpg"></li>
+			<li><img src = "images/4.jpg"></li>
+			<li><img src = "images/5.jpg"></li>
+		</ul>
+	</div>
+</body>
+</html>
