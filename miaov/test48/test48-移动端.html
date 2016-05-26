@@ -28,17 +28,24 @@
 		}
 	</style>
 
+	<script type="text/javascript" src = "move.js"></script>
 	<script type="text/javascript">
 		window.onload = function() {
 			var oBox = document.getElementById("box");
 			var oUl = document.getElementById("list");
 			var oLi = oUl.getElementsByTagName("li");
 
-			var liWidth = oLi[0].offsetWidth;
+			var w = oLi[0].offsetWidth;
 
-			oUl.style.width = liWidth * oLi.length + "px";
+			oUl.style.width = w * oLi.length + "px";
 
 			var downX = 0;
+
+			var iNow = 0;
+
+			var downTime = null;
+
+			var left;
 
 			document.ontouchmove = function(ev) {
 				ev.preventDefault();
@@ -47,32 +54,34 @@
 			oUl.ontouchstart = function(ev) {
 				var touches = ev.changedTouches[0];
 
-				var left = this.offsetLeft
+				left = this.offsetLeft
 
 				var oBtn = true;
 
 				downX = touches.pageX;
 
+				downTime = Date.now();
+
 				oUl.ontouchmove = function(ev) {
 					var touches = ev.changedTouches[0];
 
-					if (this.offsetLeft > 0) {
+					if (this.offsetLeft >= 0) {
 
 						if (oBtn) {
 							downX = touches.pageX;
 							oBtn = false;
 						}
 
-						this.style.left = (touches.pageX - downX) / 3 + "px"
+						this.style.left = (touches.pageX - downX) / 3 + "px";
 
-					} else if (this.offsetLeft < oBox.offsetWidth - this.offsetWidth) {
+					} else if (this.offsetLeft <= oBox.offsetWidth - this.offsetWidth) {
 
 						if (oBtn) {
 							downX = touches.pageX;
 							oBtn = false;
 						}
 
-						this.style.left = (touches.pageX - downX) / 3 + left + "px";
+						this.style.left = (touches.pageX - downX) / 3 + (oBox.offsetWidth - this.offsetWidth) + "px";
 
 					} else {
 
@@ -81,10 +90,42 @@
 				}
 
 				oUl.ontouchend = function(ev) {
-					oUl.ontouchmove = null;
+					var touches = ev.changedTouches[0];
+
+					var endTime = Date.now();
+
+					var nowX = touches.pageX
+
+					this.ontouchmove = null;
+					this.ontouchend = null;
+
+					if (downX < nowX) {      // right
+						if (iNow != 0) {
+							if ((nowX - downX) > w / 2 || (endTime - downTime) < 300 && (nowX - downX) > 30) {
+								iNow--;
+							}
+						} 
+
+						startMove(oUl, {
+							"left": -iNow * w
+						}, 400, "easeOut");
+					} else {
+						if (iNow != oLi.length - 1) {
+							if ((downX - nowX) > w / 2 || (endTime - downTime) < 300 && (downX - nowX) > 30) {
+								iNow++;
+							}
+
+							//console.log(downX+","+nowX);
+						}
+						
+
+						startMove(oUl, {
+							"left": -iNow * w
+						}, 400, "easeOut");
+					}
 				}
-			}
-		}
+			};
+		};
 	</script>
 </head>
 <body>
