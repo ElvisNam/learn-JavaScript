@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST35</title>
+</head>
+<style>
+	#div1 {
+		width: 800px;
+		height: 600px;
+		margin: 20px auto;
+	}
+</style>
+<script>
+	window.onload = function() {
+		var oC = document.getElementById("cvs");
+		var oGC = oC.getContext("2d");
+
+		var ball = [];
+
+		function drawImg() {
+			oGC.clearRect(0, 0, oC.width, oC.height);
+
+			oGC.beginPath();
+
+			oGC.arc(400, 200, 200, -90 * Math.PI / 180, Math.PI, false);
+
+			oGC.arc(350, 200, 150, Math.PI, 0, false);
+
+			oGC.moveTo(520, 200);
+
+			oGC.arc(500, 200, 20, 0, 2 * Math.PI, false);
+
+			oGC.stroke();
+
+			for (var i = 0; i < ball.length; i++) {
+				oGC.beginPath();
+
+				oGC.moveTo(ball[i].x, ball[i].y);
+
+				oGC.arc(ball[i].x, ball[i].y, ball[i].r, 0, 2 * Math.PI, false);
+
+				oGC.fill();
+			}
+		}
+		drawImg();
+
+		function initBall() {
+			ball[0] = {
+				"r": 20,
+				"x": 400,
+				"y": 0,
+				"startX": 400,
+				"startY": 0,
+				"startR": 200,
+				"num": 0
+			};
+		}
+		initBall();
+
+		setInterval(function () {
+			for (var i = 0; i < ball.length; i++) {
+
+				ball[i].num++;
+
+				// console.log(ball[i].x);
+				ball[i].x = ball[i].startX + Math.sin(ball[i].num * Math.PI / 180) * ball[i].startR;
+				ball[i].y = ball[i].startR - Math.cos(ball[i].num * Math.PI / 180) * ball[i].startR + ball[i].startY;
+
+			}
+		}, 30);
+
+		setInterval(drawImg, 1000 / 60);
+	};
+</script>
+<body>
+	<div id = "div1">
+		<canvas id = "cvs" width = "800" height = "600"></canvas>
+	</div>
+</body>
+</html>
