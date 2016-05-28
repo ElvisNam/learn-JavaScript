@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEST48</title>
+	<style>
+		div, ul, li {
+			margin: 0;
+			padding: 0;
+		}
+		ul, li {
+			list-style: none;
+		}
+
+		#box {
+			width: 200px;
+			height: 200px;
+			/* border 问题 */
+			background-color: #ccc;
+			margin: 100px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		#list {
+			width: 100%;
+			position: absolute;
+			top: 0px;
+		}
+	</style>
+
+	<script>
+		window.onload = function() {
+			var oBox = document.getElementById("box");
+			var oUl = document.getElementById("list");
+			var aLi = oUl.getElementsByTagName("li");
+
+			var downY = null;
+			var top = null;
+			var timer = null;
+
+			for (var i = 0; i < 100; i++){
+				var oLi = document.createElement("li");
+				oLi.innerHTML = i;
+				oUl.appendChild(oLi);
+			}
+
+			document.ontouchmove = function(ev) {
+				ev.preventDefault();
+			}
+			console.log(oUl.offsetTop+","+oUl.style.top);
+			oUl.ontouchstart = function(ev) {
+				var touch = ev.changedTouches[0];
+
+				var oBtn = true;
+
+				downY = touch.pageY;
+
+				top = this.offsetTop;
+
+				oUl.ontouchmove = function(ev) {
+					var touch = ev.changedTouches[0];
+
+					if (this.offsetTop >= 0) {
+
+						if (oBtn) {
+							downY = touch.pageY;
+
+							oBtn = false;
+						}
+						console.log(this.style.top);
+
+						this.style.top = (touch.pageY - downY) / 3 + "px";
+
+						console.log(touch.pageY+","+ downY+","+this.style.top+","+this.offsetTop);
+					} else if (this.offsetTop <= oBox.offsetHeight - oUl.offsetHeight) {
+
+						if (oBtn) {
+							downY = touch.pageY;
+
+							oBtn = false;
+						}
+
+						this.style.top = (touch.pageY - downY) / 3 + (oBox.offsetHeight - oUl.offsetHeight) + "px";
+					} else {
+						if (!oBtn) {
+						console.log(this.style.top);
+						}
+						this.style.top = top + touch.pageY - downY + "px";
+					}
+				}
+
+				oUl.ontouchend = function(ev) {
+					this.ontouchmove = null;
+					this.ontouchend = null;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id = "box">
+		<ul id = "list">
+		</ul>
+	</div>
+</body>
+</html>
