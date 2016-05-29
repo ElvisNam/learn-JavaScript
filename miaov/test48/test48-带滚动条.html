@@ -15,7 +15,7 @@
 		#box {
 			width: 200px;
 			height: 200px;
-			/* border 问题 */
+			/*border: 1px solid black;*/
 			background-color: #ccc;
 			margin: 100px;
 			position: relative;
@@ -29,6 +29,7 @@
 		}
 	</style>
 
+	<script type="text/javascript" src = "move.js"></script>
 	<script>
 		window.onload = function() {
 			var oBox = document.getElementById("box");
@@ -38,6 +39,9 @@
 			var downY = null;
 			var top = null;
 			var timer = null;
+			var prevY = null;
+			var iSpeed = null;
+			// console.log(oUl.offsetTop);
 
 			for (var i = 0; i < 100; i++){
 				var oLi = document.createElement("li");
@@ -45,10 +49,12 @@
 				oUl.appendChild(oLi);
 			}
 
+			// console.log(oUl.offsetTop);
+
 			document.ontouchmove = function(ev) {
 				ev.preventDefault();
 			}
-			console.log(oUl.offsetTop+","+oUl.style.top);
+			// console.log(oUl.offsetTop+","+oUl.style.top);
 			oUl.ontouchstart = function(ev) {
 				var touch = ev.changedTouches[0];
 
@@ -56,10 +62,16 @@
 
 				downY = touch.pageY;
 
+				prevY = downY;
+
 				top = this.offsetTop;
 
 				oUl.ontouchmove = function(ev) {
 					var touch = ev.changedTouches[0];
+
+					iSpeed = touch.pageY - prevY;
+
+					prevY = touch.pageY;
 
 					if (this.offsetTop >= 0) {
 
@@ -68,11 +80,11 @@
 
 							oBtn = false;
 						}
-						console.log(this.style.top);
+						// console.log(this.style.top);
 
 						this.style.top = (touch.pageY - downY) / 3 + "px";
 
-						console.log(touch.pageY+","+ downY+","+this.style.top+","+this.offsetTop);
+						// console.log(touch.pageY+","+ downY+","+this.style.top+","+this.offsetTop);
 					} else if (this.offsetTop <= oBox.offsetHeight - oUl.offsetHeight) {
 
 						if (oBtn) {
@@ -84,7 +96,7 @@
 						this.style.top = (touch.pageY - downY) / 3 + (oBox.offsetHeight - oUl.offsetHeight) + "px";
 					} else {
 						if (!oBtn) {
-						console.log(this.style.top);
+						// console.log(this.style.top);
 						}
 						this.style.top = top + touch.pageY - downY + "px";
 					}
@@ -93,6 +105,31 @@
 				oUl.ontouchend = function(ev) {
 					this.ontouchmove = null;
 					this.ontouchend = null;
+
+					var This = this;
+
+					clearInterval(timer);
+
+					timer = setInterval(function() {
+
+						if (Math.abs(iSpeed) <= 1 || This.offsetTop > 50 || This.offsetTop <= oBox.offsetHeight - This.offsetHeight - 50) {
+
+							clearInterval(timer);
+
+							if (This.offsetTop >= 0) {
+								startMove(This, {
+									"top": 0
+								}, 400, "easeOut");
+							} else if (This.offsetTop <= oBox.offsetHeight - This.offsetHeight) {
+								startMove(This, {
+									"top": oBox.offsetHeight - This.offsetHeight
+								}, 400, "easeOut");
+							}
+						}
+						iSpeed *= 0.95;
+
+						This.style.top = This.offsetTop + iSpeed + "px";
+					}, 13);
 				}
 			}
 		}
