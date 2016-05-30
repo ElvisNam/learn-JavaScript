@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name = "viewport" content="width=device-width,user-scalable=no,target-densitydpi=medium-dpi">
+	<title>TEST49</title>
+	<style>
+		body, article, header, section, footer, div, ul, li, button {
+			margin: 0;
+			padding: 0;
+			font-size: 0.11rem;
+		}
+		ul, li {
+			list-style: none;
+		}
+		a {
+			text-decoration: none;
+			color: #000;
+		}
+		a:hover {
+			text-decoration: none;
+			color: #000;
+		}
+		button {
+			border: none;
+			background-color: inherit;
+			outline: none;
+			font-size: 0.11rem;
+			color: #fff; 
+			font-family: "宋体"
+		}
+
+		header {
+			width: 100%;
+			height: 0.4rem;
+			background: linear-gradient(#292929, #1e1e1e);
+			line-height: 0.4rem;
+			text-align: center;
+			color: #fff;
+			font-family: "宋体";
+			border-top: 0.019rem solid #353535;
+			border-bottom: 0.019rem solid #353535;
+			box-sizing: border-box;
+			position: absolute;
+			top: 0;
+		}
+		header button {
+			height: 0.25rem;
+			width: 0.40rem;
+			border: 0.019rem solid #0d0d0d;
+			border-radius: 0.028rem;
+			position: absolute;
+			top: 0.028rem;
+		}
+		header button:nth-of-type(1) {
+			left: 0.094rem;
+		}
+		header button:nth-of-type(2) {
+			right: 0.094rem;
+		}
+
+		section {
+			width: 100%;
+			position: absolute;
+			top: 0.4rem;
+			bottom: 0.6rem;
+			overflow: hidden;
+		}
+
+		section li {
+			height: 1rem;
+			width: 1rem;
+			background: url("photos/1.jpg") no-repeat;
+			background-size: 100% 100%;
+			border: 1px solid black;
+			box-sizing: border-box;
+			float: left;
+		}
+
+		footer {
+			width: 100%;
+			height: 0.6rem;
+			position: absolute;
+			bottom: 0;
+		}
+		footer button {
+			width: 50%;
+			height: 100%;
+			background: linear-gradient(#1e1f21, #141414);
+			float: left;
+			box-sizing: border-box;
+		}
+		footer .btn1 {
+			border-right: 1px solid #222222;
+		}
+		footer .btn2 {
+			border-left: 1px solid #222222;
+		}
+		footer .active {
+			background: linear-gradient(#101010, #080808);
+			border-color: #0e0e0e;
+		}
+
+		.recycle1, .recycle2 {
+			width: 1.2rem;
+			height: 1.2rem;
+			position: absolute;
+			left: calc(50% - 0.6rem);
+			top: 100%;
+		}
+		.recycle1 {
+			background: url("images/recycle.png") no-repeat;
+			background-size: contain;
+		}
+		.recycle2 {
+			background: url("images/recycle2.png") no-repeat;
+			background-size: contain;		
+		}
+	</style>
+
+	<script type="text/javascript">
+		document.getElementsByTagName("html")[0].style.fontSize = document.documentElement.clientWidth / 3 + "px";
+		//alert(document.getElementsByTagName("html")[0].style.fontSize);
+		
+		window.onload = function() {
+
+		};
+	</script>
+</head>
+<body>
+	<article id = "page">
+		<header>
+			<button class = "remove" type = "button">删除</button>
+			<span class = "tit">相机相册</span>
+			<button class = "select" type = "button">选择</button>
+		</header>
+
+		<section>
+			<ul class = "list">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</section>
+		
+		<footer>
+			<button class = "btn1 active">相机相册</button>
+			<button class = "btn2">所有相册</button>
+		</footer>
+
+
+		<span class = "recycle1"></span>
+		<span class = "recycle2"></span>
+
+	</article>
+</body>
+</html>
