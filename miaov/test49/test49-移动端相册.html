@@ -29,6 +29,13 @@
 			color: #fff; 
 			font-family: "宋体"
 		}
+	
+		#page {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			overflow: hidden;
+		}
 
 		header {
 			width: 100%;
@@ -54,6 +61,7 @@
 		}
 		header button:nth-of-type(1) {
 			left: 0.094rem;
+			display: none;
 		}
 		header button:nth-of-type(2) {
 			right: 0.094rem;
@@ -64,17 +72,19 @@
 			position: absolute;
 			top: 0.4rem;
 			bottom: 0.6rem;
-			overflow: hidden;
+			overflow: auto;
+			background-color: #000;
 		}
 
 		section li {
 			height: 1rem;
 			width: 1rem;
-			background: url("photos/1.jpg") no-repeat;
+			background: no-repeat;
 			background-size: 100% 100%;
 			border: 1px solid black;
 			box-sizing: border-box;
 			float: left;
+			transition: .5s left, .5s top;
 		}
 
 		footer {
@@ -120,10 +130,101 @@
 
 	<script type="text/javascript">
 		document.getElementsByTagName("html")[0].style.fontSize = document.documentElement.clientWidth / 3 + "px";
-		//alert(document.getElementsByTagName("html")[0].style.fontSize);
+
+		var aData = [];
+		for (var i = 1; i <= 16; i++) {
+			oUrl = "photos/" + i + ".jpg";
+			aData.push(oUrl);
+		}
 		
 		window.onload = function() {
+			var oUl = document.getElementById("list");
+			var oLi = oUl.getElementsByTagName("li");
+			var reBtn = document.getElementsByClassName("remove")[0];
+			var seBtn = document.getElementsByClassName("select")[0];
 
+			var oBtn = true;
+			var aRemove = [];
+
+			function createLi(data, parent) {
+				for (var i = 0; i < data.length; i++) {
+					var oLi = document.createElement("li");
+
+					oLi.style.backgroundImage = "url("+ data[i] +")";
+
+					oUl.appendChild(oLi);
+				}
+			}
+			createLi(aData, oUl);
+
+			function toPosition() {
+				for (var i = 0; i < oLi.length; i++) {
+					oLi[i].index = i;
+
+					oLi[i].style.position = "absolute";
+
+					oLi[i].style.top = Math.floor(i / 3) + "rem";
+
+					oLi[i].style.left = i % 3 + "rem";
+				}
+			}
+			toPosition();
+
+			seBtn.addEventListener("touchend", fnSelect, false);
+			reBtn.addEventListener("touchend", fnRemove, false);
+
+			function fnSelect() {
+				if (oBtn) {
+					seBtn.innerHTML = "取消";
+
+					reBtn.style.display = "block";
+
+					for(var i = 0; i < oLi.length; i++) {
+						oLi[i].btn = true;
+						oLi[i].addEventListener("touchend", liSelect, false);
+					}
+				} else {
+					seBtn.innerHTML = "选择";
+
+					reBtn.style.display = "none";
+
+					for (var i = 0; i < oLi.length; i++) {
+						oLi[i].style.opacity = "1";
+
+						oLi[i].removeEventListener("touchend", liSelect, false);
+					}
+
+					aRemove = [];
+				}
+
+				oBtn = !oBtn;
+			}
+
+			function liSelect() {
+				if (this.btn) {
+					this.style.opacity = "0.1";
+					aRemove.push(this.index);
+				} else {
+					this.style.opacity = "1";
+				}
+
+				this.btn = !this.btn;	
+			}
+
+			function fnRemove() {
+				aRemove = aRemove.sort();
+
+				while(aRemove.length) {
+					var index = aRemove.pop();
+
+					oUl.removeChild(oLi[index]);
+				}
+
+				toPosition();
+
+				oBtn = false;
+				fnSelect();
+			}
 		};
 	</script>
 </head>
@@ -136,23 +237,7 @@
 		</header>
 
 		<section>
-			<ul class = "list">
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
+			<ul id = "list" class = "list">
 			</ul>
 		</section>
 		
