@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TEST18</title>
+		<meta charset = "utf-8">
+		<style>
+
+		</style>
+
+		<script>
+			function toTwo(a) {
+				return a < 10 ? "0" + a : "" + a;
+			}
+
+			window.onload = function() {
+				var oImg = document.getElementsByTagName("img");
+				var str = "";
+				var onOff = true;
+
+				function nowTime() {
+					var oNow = new Date();
+					var iHours = toTwo(oNow.getHours());
+					var iMinutes = toTwo(oNow.getMinutes());
+					var iSeconds = toTwo(oNow.getSeconds());
+
+					str = iHours + ":" + iMinutes +":" + iSeconds;
+
+					for(var i = 0; i < str.length; i++) {
+						if (i === 2 || i === 5) {
+							if(onOff){
+								oImg[i].src = "images/colon.JPG";
+								onOff = i === 5 ? false : true;
+							} else {
+								oImg[i].src = "images/no.jpg";
+								onOff = i === 5 ? true : false;
+							}
+						} else {
+							var x = str.charAt(i);
+							oImg[i].src = "images/" + x +".JPG";
+						}
+					}
+				}
+
+				// function(){
+
+				// }
+
+				nowTime();
+				setInterval(nowTime, 500);
+			};
+		</script>
+	</head>
+	<body>
+		<div id = "box">
+			<img src = "">
+			<img src = "">
+			<img class = "dot" src = "">
+			<img src = "">
+			<img src = "">
+			<img class = "dot" src = "">
+			<img src = "">
+			<img src = "">
+		</div>
+	</body>
+</html>
