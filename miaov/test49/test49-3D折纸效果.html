@@ -12,9 +12,10 @@
 		#PicBox {
 			width: 1rem;
 			height: 1rem;
-			/*border: 1px solid black;*/
-			/*box-sizing: border-box;*/
 			position: absolute;
+			-webkit-perspective: 800px;
+			   -moz-perspective: 800px;
+			        perspective: 800px;
 		}
 		#PicBox div {
 			width: 0.1rem;
@@ -24,18 +25,59 @@
 			position: absolute;
 			left: 0.1rem;
 			top: 0;
+			-webkit-transform-style: preserve-3d;
+			   -moz-transform-style: preserve-3d;
+			        transform-style: preserve-3d;
+			-webkit-transform-origin: left 0.6rem;
+			   -moz-transform-origin: left 0.6rem;
+			        transform-origin: left 0.6rem;
 		}
 		#PicBox > div {
 			left: 0;
+		}
+		#PicBox div.show {
+			-webkit-transform: rotateX(5deg) rotateY(-60deg);
+			   -moz-transform: rotateX(5deg) rotateY(-60deg);
+			        transform: rotateX(5deg) rotateY(-60deg);
+		}
+		#PicBox>div.show {
+			-webkit-transform: rotateX(5deg) rotateY(-60deg) translateX(0.6rem);
+			   -moz-transform: rotateX(5deg) rotateY(-60deg) translateX(0.6rem);
+			        transform: rotateX(5deg) rotateY(-60deg) translateX(0.6rem);
 		}
 	</style>
 
 	<script type="text/javascript">
 		document.getElementsByTagName("html")[0].style.fontSize = document.documentElement.clientWidth / 3 + "px";
 
+		function open3D(obj) {
+			var oDiv = obj.getElementsByTagName("div");
+
+			for (var i = 0; i < oDiv.length; i++) {
+				oDiv[i].style.transition = "0.5s";
+				oDiv[i].className = "show";
+			}
+		}
+
+		function close3D(obj) {
+			var oDiv = obj.getElementsByTagName("div");
+
+			for (var i = 0; i < oDiv.length; i++) {
+				oDiv[i].style.transition = "0.5s";
+				oDiv[i].className = "";
+			}
+		}
+
 		window.onload = function() {
 			var PicBox = document.getElementById("PicBox");
 
+			setTimeout(function() {
+				open3D(PicBox);
+			}, 2000);
+
+			setTimeout(function() {
+				close3D(PicBox);
+			}, 4000);
 
 		};
 		
