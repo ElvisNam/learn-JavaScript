@@ -5,6 +5,48 @@
 	<meta name = "viewport" content="width=device-width,user-scalable=no,target-densitydpi=medium-dpi">
 	<title>TEST49</title>
 	<style>
+		@-webkit-keyframes show {
+			0% {
+				top: calc(100% - 0.6rem);
+			}
+
+			50% {
+				top: calc(100% - 0.3rem);
+			}
+
+			100% {
+				top: calc(100% - 0.6rem);
+			}
+		}
+
+		@-moz-keyframes show {
+			0% {
+				top: calc(100% - 0.6rem);
+			}
+
+			50% {
+				top: calc(100% - 0.3rem);
+			}
+
+			100% {
+				top: calc(100% - 0.6rem);
+			}
+		}
+
+		@keyframes show {
+			0% {
+				top: calc(100% - 0.6rem);
+			}
+
+			50% {
+				top: calc(100% - 0.3rem);
+			}
+
+			100% {
+				top: calc(100% - 0.6rem);
+			}
+		}
+
 		body, article, header, section, footer, div, ul, li, button {
 			margin: 0;
 			padding: 0;
@@ -111,20 +153,70 @@
 			border-color: #0e0e0e;
 		}
 
-		.recycle1, .recycle2 {
+		.recycle {
 			width: 1.2rem;
 			height: 1.2rem;
 			position: absolute;
 			left: calc(50% - 0.6rem);
 			top: 100%;
 		}
-		.recycle1 {
+		.recycle:nth-of-type(1) {
 			background: url("images/recycle.png") no-repeat;
 			background-size: contain;
+			z-index: 3;
 		}
-		.recycle2 {
+		.recycle:nth-of-type(2) {
 			background: url("images/recycle2.png") no-repeat;
-			background-size: contain;		
+			background-size: contain;	
+			z-index: 1;	
+		}
+		.recycleShow {
+			-webkit-animation: .4s show;
+			   -moz-animation: .4s show;
+			        animation: .4s show;
+		}
+
+		.PicBox {
+			width: 1rem;
+			height: 1rem;
+			position: absolute;
+			overflow: hidden;
+			background-repeat: no-repeat;
+			background-position: -1000px 0;
+			background-size: cover;
+			z-index: 2;
+			-webkit-perspective: 800px;
+			   -moz-perspective: 800px;
+			        perspective: 800px;
+		}
+		.PicBox div {
+			width: 0.1rem;
+			height: 1rem;
+			background-repeat: no-repeat;
+			background-image: inherit;
+			background-size: cover;
+			position: absolute;
+			left: 0.1rem;
+			top: 0;
+			-webkit-transform-style: preserve-3d;
+			   -moz-transform-style: preserve-3d;
+			        transform-style: preserve-3d;
+			-webkit-transform-origin: left 0.6rem;
+			   -moz-transform-origin: left 0.6rem;
+			        transform-origin: left 0.6rem;
+		}
+		.PicBox > div {
+			left: 0;
+		}
+		.PicBox div.show {
+			-webkit-transform: rotateX(5deg) rotateY(-60deg);
+			   -moz-transform: rotateX(5deg) rotateY(-60deg);
+			        transform: rotateX(5deg) rotateY(-60deg);
+		}
+		.PicBox>div.show {
+			-webkit-transform: rotateX(5deg) rotateY(-60deg) translateX(1rem);
+			   -moz-transform: rotateX(5deg) rotateY(-60deg) translateX(1rem);
+			        transform: rotateX(5deg) rotateY(-60deg) translateX(1rem);
 		}
 	</style>
 
@@ -132,32 +224,36 @@
 		document.getElementsByTagName("html")[0].style.fontSize = document.documentElement.clientWidth / 3 + "px";
 
 		var aData = [];
+
 		for (var i = 1; i <= 16; i++) {
 			oUrl = "photos/" + i + ".jpg";
 			aData.push(oUrl);
 		}
 		
 		window.onload = function() {
+			var oPage = document.getElementById("page");
 			var oUl = document.getElementById("list");
 			var oLi = oUl.getElementsByTagName("li");
 			var reBtn = document.getElementsByClassName("remove")[0];
 			var seBtn = document.getElementsByClassName("select")[0];
+			var aPicBox = document.getElementsByClassName("PicBox");
+			var aRecycle = document.getElementsByClassName("recycle");
 
 			var oBtn = true;
 			var aRemove = [];
 
-			function createLi(data, parent) {
+			function createLi(data, parent) {      // 创建图片li元素
 				for (var i = 0; i < data.length; i++) {
 					var oLi = document.createElement("li");
 
-					oLi.style.backgroundImage = "url("+ data[i] +")";
+					oLi.style.backgroundImage = "url('"+ data[i] +"')";
 
 					oUl.appendChild(oLi);
 				}
 			}
 			createLi(aData, oUl);
 
-			function toPosition() {
+			function toPosition() {         // 元素位置设置
 				for (var i = 0; i < oLi.length; i++) {
 					oLi[i].index = i;
 
@@ -180,50 +276,136 @@
 					reBtn.style.display = "block";
 
 					for(var i = 0; i < oLi.length; i++) {
-						oLi[i].btn = true;
 						oLi[i].addEventListener("touchend", liSelect, false);
 					}
-				} else {
+				} else {                // 取消删除操作
+
+					for ( var i = 0; i < aPicBox.length; i++) {
+						close3D(aPicBox[i], oLi[aRemove[i]]);
+					}
+
+					for (var i = 0; i < oLi.length; i++) {
+						oLi[i].removeEventListener("touchend", liSelect, false);
+					}
+
+					aRecycle[0].style.top = "100%";
+					aRecycle[1].style.top = "100%";
+
+					aRecycle[0].className = "recycle";
+					aRecycle[1].className = "recycle";
+
 					seBtn.innerHTML = "选择";
 
 					reBtn.style.display = "none";
 
-					for (var i = 0; i < oLi.length; i++) {
-						oLi[i].style.opacity = "1";
-
-						oLi[i].removeEventListener("touchend", liSelect, false);
-					}
-
-					aRemove = [];
+					aRemove = [];          // 清空等待删除的数组
 				}
 
 				oBtn = !oBtn;
 			}
 
 			function liSelect() {
-				if (this.btn) {
-					this.style.opacity = "0.1";
-					aRemove.push(this.index);
-				} else {
-					this.style.opacity = "1";
-				}
 
-				this.btn = !this.btn;	
+				this.style.opacity = "0";
+
+				aRemove.push(this.index);
+
+				aRecycle[0].style.top = "calc(100% - 0.4rem)";
+				aRecycle[1].style.top = "calc(100% - 0.4rem)";
+
+				create3D(this);
+	
 			}
 
 			function fnRemove() {
 				aRemove = aRemove.sort();
-
-				while(aRemove.length) {
-					var index = aRemove.pop();
-
-					oUl.removeChild(oLi[index]);
+				
+				for (var i = 0; i < aPicBox.length; i++) {
+					picBoxDel(aPicBox[i]);
 				}
 
-				toPosition();
+				setTimeout(function() {
 
-				oBtn = false;
-				fnSelect();
+					aRecycle[0].className = "recycle recycleShow";
+					aRecycle[1].className = "recycle recycleShow";
+	
+					while(aRemove.length) {
+						
+						oUl.removeChild(aPicBox[aRemove.length - 1]);
+
+						var index = aRemove.pop();
+
+						oUl.removeChild(oLi[index]);
+					}
+
+					setTimeout(function() {
+						toPosition();
+
+						oBtn = false;
+
+						fnSelect();          // 将选择按钮还原初始状态
+					}, 500)
+
+				}, 650);
+			
+			}
+
+			function picBoxDel(obj) {
+				obj.style.transition = ".3s left, .5s .3s top";
+				obj.style.left = "calc(50% - 0.5rem)";
+				obj.style.top = "100%";
+			}
+
+			function create3D(obj) {
+				var picBox = document.createElement("div");
+
+				picBox.style.backgroundImage = obj.style.backgroundImage;
+
+				picBox.className = "PicBox";
+
+				picBox.style.top = obj.offsetTop + "px";
+				picBox.style.left = obj.offsetLeft + "px";
+
+				picBox.innerHTML = '<div><div style = "background-position: -0.1rem 0"><div style = "background-position: -0.2rem 0"><div style = "background-position: -0.3rem 0"><div style = "background-position: -0.4rem 0"><div style = "background-position: -0.5rem 0"><div style = "background-position: -0.6rem 0"><div style = "background-position: -0.7rem 0"><div style = "background-position: -0.8rem 0"><div style = "background-position: -0.9rem 0"></div></div></div></div></div></div></div></div></div></div>';
+
+				oUl.appendChild(picBox);
+
+				setTimeout(function() {
+					open3D(picBox);
+				}, 30);
+
+			}
+
+			function open3D(obj) {
+				var oDiv = obj.getElementsByTagName("div");
+
+				for (var i = 0; i < oDiv.length; i++) {
+					oDiv[i].style.transition = "0.5s";
+					oDiv[i].className = "show";
+				}
+			}
+
+			function close3D(obj, oLi) {
+				var oDiv = obj.getElementsByTagName("div");
+
+				oDiv[oDiv.length - 1].addEventListener("webkitTransitionEnd", fn, false);
+				oDiv[oDiv.length - 1].addEventListener("transitionend", fn, false);
+
+				for (var i = 0; i < oDiv.length; i++) {
+					oDiv[i].style.transition = "0.5s";
+					oDiv[i].className = "";
+				}
+
+				function fn() {
+
+					oDiv[oDiv.length - 1].removeEventListener("webkitTransitionEnd", fn, false);
+					oDiv[oDiv.length - 1].removeEventListener("transitionend", fn, false);
+
+					oLi.style.opacity = "1";
+
+					oUl.removeChild(obj);
+
+				}
 			}
 		};
 	</script>
@@ -247,8 +429,8 @@
 		</footer>
 
 
-		<span class = "recycle1"></span>
-		<span class = "recycle2"></span>
+		<span class = "recycle"></span>
+		<span class = "recycle"></span>
 
 	</article>
 </body>
