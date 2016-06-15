@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name = "viewport" content = "width=device-width,user-scalable=no,target-densitydpi=device-dpi">
+	<title>TEST50</title>
+
+	<style>
+		body, nav, ul {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			font-size: 0.4rem;
+			background-color: #f3f3f3;
+		}
+
+		#wrap {
+			width: 100%;
+			overflow: hidden;
+		}
+
+		#list {
+			width: 40rem;
+			overflow: hidden;
+		}
+		#list > a {
+			width: 10rem;
+			float: left;
+			-webkit-tap-highlight-colot: rgba(255, 0, 0, 0);
+		}
+		#list img {
+			width: 10rem;
+		}
+	
+		#btns {
+			width: 10rem;
+			height: .2rem;
+			padding: .15rem;
+			text-align: center;
+		}
+		#btns span {
+			width: .2rem;
+			height: .2rem;
+			margin-left: .1rem;
+			display: inline-block;
+			border: 1px solid black;
+			border-radius: .1rem;
+			vertical-align: top;
+		}
+		#btns span.active {
+			background-color: #f60;
+		}
+
+	</style>
+
+	<script type="text/javascript">
+		document.getElementsByTagName("html")[0].style.fontSize = document.documentElement.clientWidth / 10 + "px";
+
+		window.onload = function() {
+			var oUl = document.getElementById("list");
+			var oBtn = document.getElementById("btns");
+			var aSpan = oBtn.getElementsByTagName("span");
+
+			var downX = null;
+			var pageX = null;
+			var moveDis = 0;
+			var disStart = 0;
+			var iNow = 0;
+			var len = aSpan.length;
+
+			document.ontouchmove = function(ev) {
+				ev.preventDefault();
+			}
+
+			oUl.addEventListener("touchstart", fnStart, false);
+			oUl.addEventListener("touchmove", fnMove, false);
+			oUl.addEventListener("touchend", fnEnd, false);
+
+			function fnStart(ev) {
+				var touch = ev.changedTouches[0];
+
+				disStart = moveDis;
+
+				downX = touch.pageX;
+			}
+
+			function fnMove(ev) {
+				var touch = ev.changedTouches[0];
+
+				pageX = touch.pageX;
+
+				moveDis = disStart + (pageX - downX);
+
+				oUl.style.WebkitTransform = "translateX(" + moveDis + "px)"; 
+			}
+
+			function fnEnd() {
+				iNow = - moveDis / document.documentElement.clientWidth;
+
+				iNow = iNow % 1 < 0.5 ? Math.floor(iNow) : Math.ceil(iNow);
+
+				if (iNow < 0) {
+					iNow = 0;
+				}
+
+				if (iNow >= len) {
+					iNow = len - 1;
+				}
+
+				moveDis = - iNow * document.documentElement.clientWidth;
+
+				oUl.style.WebkitTransition = "0.3s";
+				oUl.style.transition = "0.3s";
+
+				// 执行完一次后移除过渡效果
+				oUl.addEventListener("WebkitTransitionEnd", function() {
+					oUl.style.WebkitTransition = "none";
+				}, false);
+
+				oUl.addEventListener("transitionend", function() {
+					oUl.style.transition = "none";
+				}, false);
+
+				oUl.style.WebkitTransform = "translateX(" + moveDis + "px)";
+			}
+		};
+	</script>
+</head>
+<body>
+	<nav id = "wrap">
+		<ul id = "list">
+			<a href = "#" ><img src = "images/1.jpg" alt="photo" ></a>
+			<a href = "#" ><img src = "images/2.jpg" alt="photo" ></a>
+			<a href = "#" ><img src = "images/3.jpg" alt="photo" ></a>
+			<a href = "#" ><img src = "images/4.jpg" alt="photo" ></a>
+		</ul>
+
+		<ul id = "btns">
+			<span class = "active"></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</ul>
+	</nav>
+</body>
+</html>
