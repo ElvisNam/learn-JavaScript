@@ -68,10 +68,16 @@
 			var disStart = 0;
 			var iNow = 0;
 			var len = aSpan.length;
+			var timer = null;
+
+			oUl.innerHTML += oUl.innerHTML;
+			oUl.style.width = oUl.clientWidth * 2 + "px"; 
 
 			document.ontouchmove = function(ev) {
 				ev.preventDefault();
 			}
+
+			autoPlay();   // 自动播放
 
 			oUl.addEventListener("touchstart", fnStart, false);
 			oUl.addEventListener("touchmove", fnMove, false);
@@ -80,7 +86,18 @@
 			function fnStart(ev) {
 				var touch = ev.changedTouches[0];
 
-				disStart = moveDis;
+				clearInterval(timer);
+
+				// 当在第一版第一张时，自动跳转到第二版第一张
+				if (iNow <= 0) {     
+					iNow += len;
+
+					moveDis = - iNow * document.documentElement.clientWidth;
+
+					oUl.style.WebkitTransform = "translateX(" + moveDis + "px)";
+				}
+
+				disStart = moveDis;     // 元素初始位置
 
 				downX = touch.pageX;
 			}
@@ -92,37 +109,73 @@
 
 				moveDis = disStart + (pageX - downX);
 
+				// 通过利用translate改变元素位置
 				oUl.style.WebkitTransform = "translateX(" + moveDis + "px)"; 
 			}
 
 			function fnEnd() {
+				// 通过元素移动的位置计算当前幻灯片顺序
 				iNow = - moveDis / document.documentElement.clientWidth;
 
+				// 移动图片位置超过一半时才令iNow产生变化
 				iNow = iNow % 1 < 0.5 ? Math.floor(iNow) : Math.ceil(iNow);
 
-				if (iNow < 0) {
-					iNow = 0;
+				next();
+
+				autoPlay();
+
+			}
+
+			// 移动到下一张图片函数
+			function next() {
+
+				for (var i = 0; i < len; i++) {
+					aSpan[i].className = "";
 				}
 
-				if (iNow >= len) {
-					iNow = len - 1;
-				}
+				aSpan[iNow % 4].className = "active";
 
 				moveDis = - iNow * document.documentElement.clientWidth;
 
-				oUl.style.WebkitTransition = "0.3s";
-				oUl.style.transition = "0.3s";
+				oUl.style.WebkitTransition = "0.5s";
+				oUl.style.transition = "0.5s";
 
 				// 执行完一次后移除过渡效果
 				oUl.addEventListener("WebkitTransitionEnd", function() {
 					oUl.style.WebkitTransition = "none";
+
+					// 移动令图片顺序自动回到第一版
+					if (iNow > len) {
+						iNow -= len;
+
+						moveDis = - iNow * document.documentElement.clientWidth;
+
+						oUl.style.WebkitTransform = "translateX(" + moveDis + "px)";
+					}
 				}, false);
 
 				oUl.addEventListener("transitionend", function() {
 					oUl.style.transition = "none";
+
+					if (iNow > len) {
+						iNow -= len;
+
+						moveDis = - iNow * document.documentElement.clientWidth;
+
+						oUl.style.WebkitTransform = "translateX(" + moveDis + "px)";
+					}
 				}, false);
 
 				oUl.style.WebkitTransform = "translateX(" + moveDis + "px)";
+
+			}
+
+			// 自动播放函数
+			function autoPlay() {
+				timer = setInterval(function() {
+					iNow++; 
+					next();
+				}, 2000)
 			}
 		};
 	</script>
