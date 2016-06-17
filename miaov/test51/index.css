@@ -1,1 +1,245 @@
 /* CSS DOCUMENT OF TEST51 */
+
+/* 样式重置开始 */
+body, section, div {
+	margin: 0;
+}
+ul, li {
+	margin: 0;
+	padding: 0;
+}
+input {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+}
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-align: none;
+}
+img {
+	border: none;
+	vertical-align: top;
+}
+
+/* 样式重置结束 */
+
+/* 公共样式开始 */
+body {
+	font-size: 26px;
+	font-family: "Micosoft Yahei", Arial;
+	color: #666;
+}
+.page {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	background-color: #fff;
+	display: none;
+}
+.pageShow {
+	display: block;
+}
+
+/* 公共样式结束 */
+
+/* welcome部分开始 */
+
+/* welcome动画部分开始 */
+@-webkit-keyframes tree {
+	100% {
+		-webkit-transform: translateY(0);
+		opacity: 1;
+	}
+}
+@keyframes tree {
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes shake {
+	0% {
+		-webkit-transform: rotate(-50deg);
+	}
+	10% {
+		-webkit-transform: rotate(45deg);
+	}
+	20% {
+		-webkit-transform: rotate(-40deg);
+	}
+	30% {
+		-webkit-transform: rotate(35deg);
+	}
+	40% {
+		-webkit-transform: rotate(-30deg);
+	}
+	50% {
+		-webkit-transform: rotate(25deg);
+	}
+	60% {
+		-webkit-transform: rotate(-20deg);
+	}
+	70% {
+		-webkit-transform: rotate(-15deg);
+	}
+	80% {
+		-webkit-transform: rotate(10deg);
+	}
+	90% {
+		-webkit-transform: rotate(-5deg);
+	}
+	100% {
+		-webkit-transform: rotate(0deg);
+	}
+}
+@keyframes shake {
+	0% {
+		transform: rotate(-50deg);
+	}
+	10% {
+		transform: rotate(45deg);
+	}
+	20% {
+		transform: rotate(-40deg);
+	}
+	30% {
+		transform: rotate(35deg);
+	}
+	40% {
+		transform: rotate(-30deg);
+	}
+	50% {
+		transform: rotate(25deg);
+	}
+	60% {
+		transform: rotate(-20deg);
+	}
+	70% {
+		transform: rotate(-15deg);
+	}
+	80% {
+		transform: rotate(10deg);
+	}
+	90% {
+		transform: rotate(-5deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+@-webkit-keyframes cloud {
+	0% {
+		-webkit-transform: translateX(0);
+	}
+	100% {
+		-webkit-transform: translateX(-50px);
+	}
+}
+@keyframes cloud {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50px);
+	}
+}
+/* welcome动画部分结束 */
+
+#welcome .bg {
+	width: 100%;
+	position: absolute;
+	top: 10%;
+	left: 0;
+	opacity: 0;
+	-webkit-transform: translateY(100px);
+	        transform: translateY(100px);
+	-webkit-animation: 1s tree;
+			animation: 1s tree;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+}
+#welcome .tit1 {
+	padding-top: 50px;
+	position: relative;
+	opacity: 0;
+	-webkit-transform: translateY(50px);
+			transform: translateY(50px);
+	-webkit-animation: 1s .3s tree;
+			animation: 1s .3s tree;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+}
+#welcome .shake {
+	width: 28px;
+	height: 31px;
+	background: url("images/shake.png") no-repeat; 
+	position: absolute;
+	top: 12px;
+	left: 509px;
+	-webkit-transform-origin: left bottom;
+			transform-origin: left bottom;
+	-webkit-animation: .6s 1.5s shake;
+			animation: .6s 1.5s shake;
+}
+#welcome .tit2 {
+	padding-top: 20px;
+	opacity: 0;
+	-webkit-transform: translateY(30px);
+			transform: translateY(30px);
+	-webkit-animation: 1s .6s tree;
+			animation: 1s .6s tree;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+}
+#welcome .cloud {
+	background: url("images/cloud.png") no-repeat;
+	position: absolute;
+	background-size: contain;
+}
+#welcome .cloud:nth-of-type(1) {
+	width: 58px;
+	height: 44px;
+	left: 432px;
+	top: 15px;
+	-webkit-animation: 3s 1.5s cloud infinite alternate linear;
+			animation: 3s 1.5s cloud infinite alternate linear;
+}
+#welcome .cloud:nth-of-type(2) {
+	width: 91px;
+	height: 70px;
+	left: 79px;
+	top: 77px;
+	-webkit-animation: 3s 1.8s cloud infinite alternate linear;
+			animation: 3s 1.8s cloud infinite alternate linear;
+}
+#welcome .cloud:nth-of-type(3) {
+	width: 54px;
+	height: 40px;
+	left: 402px;
+	top: 142px;
+	-webkit-animation: 3s 2.2s cloud infinite alternate linear;
+			animation: 3s 2.2s cloud infinite alternate linear;
+}
+#welcome .logo {
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 5%;
+	text-align: center;
+	opacity: 0;
+	-webkit-animation: .5s 1s tree;
+			animation: .5s 1s tree;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+}
+
+/* welcome部分结束 */
