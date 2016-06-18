@@ -13,11 +13,14 @@ ul, li {
 	padding: 0;
 	list-style: none;
 }
-input {
+input, textarea {
 	margin: 0;
 	padding: 0;
 	border: none;
 	outline: none;
+}
+textarea {
+	resize: none;
 }
 a {
 	text-decoration: none;
@@ -58,6 +61,45 @@ body {
 }
 .clearfix {
 	*zoom: 1;
+}
+
+
+.tags {
+	width: 100%;
+	line-height: 60px;
+}
+.tags h2 {
+	font-size: 28px;
+}
+.tags label {
+	float: left;
+	line-height: 50px;
+	margin: 10px 14px 10px 3px;
+}
+.tags label span {
+	padding: 0 24px;
+	display: inline-block;
+	border-radius: 26px;
+}
+.tags input[type = "radio"] {
+	display: none;
+}
+.tags input:checked+span {
+	border-color: #3c9bbb;
+	background-color: #3c9bbb;	
+	color: #fff;
+}
+
+.submit {
+	width: 606px;
+	height: 74px;
+	margin-top: 20px;
+	position: absolute;
+	bottom: 17px;
+	left: 17px;
+	font-size: 30px;
+	background-color: #cacaca;
+	border-radius: 5px;
 }
 /* 公共样式结束 */
 
@@ -257,10 +299,39 @@ body {
 
 /* welcome部分结束 */
 
+
 /* index部分开始 */
+
+/* index -> newsBtn部分动画开始 */
+@-webkit-keyframes newsBtn {
+	0% {
+		-webkit-transform: scale(0);
+		opacity: 0.1;
+	}
+
+	100% {
+		-webkit-transform: scale(1.3);
+		opacity: 0.5;
+	}
+}
+@keyframes newsBtn {
+	0% {
+		transform: scale(0);
+		opacity: 0.1;
+	}
+
+	100% {
+		transform: scale(1.3);
+		opacity: 0.5;
+	}
+}
+/* newsBtn部分动画结束  */
+
+
 #index {
 	overflow: auto;
 }
+
 #index .wrap {
 	width: 100%;
 	height: 100%;
@@ -268,6 +339,7 @@ body {
 	overflow-y: auto;
 	position: relative;
 }
+
 #index .picTab {
 	width: 100%;
 	overflow: hidden;
@@ -310,7 +382,6 @@ body {
 	position: absolute;
 	top: 20px;
 	right: 20px;
-
 }
 #index .newsBtn em {
 	width: 56px;
@@ -327,12 +398,33 @@ body {
 	color: #fff;
 	background-color: rgba(230, 0, 18, 0.6);
 	border-radius: 39px;
+	z-index: 1;
 }
 #index .newsBtn span {
+	width: 78px;
+	height: 78px;
 	position: absolute;
 	top: 0;
 	left: 0;
+	background-color: rgba(230, 0, 18, 0.6);
+	border-radius: 39px;
+	opacity: 0.1;
+	-webkit-transform: scale(0);
+			transform: scale(0);
 }
+#index .newsBtn span:nth-of-type(1) {
+	-webkit-animation: newsBtn 2s infinite alternate;
+			animation: newsBtn 2s infinite alternate;
+}
+#index .newsBtn span:nth-of-type(2) {
+	-webkit-animation: newsBtn 2s .3s infinite alternate;
+			animation: newsBtn 2s .3s infinite alternate;
+}
+#index .newsBtn span:nth-of-type(3) {
+	-webkit-animation: newsBtn 2s .7s infinite alternate;
+			animation: newsBtn 2s .7s infinite alternate;
+}
+
 #index .navList span {
 	height: 10px;
 	width: 10px;
@@ -345,6 +437,7 @@ body {
 #index .navList span.active {
 	opacity: 1;
 }
+
 #index .score {
 	width: 100%;
 	line-height: 60px;
@@ -369,46 +462,14 @@ body {
 #index .starList span.active {
 	background-position: 0 0;
 }
+
 #index .tags {
-	width: 100%;
-	line-height: 60px;
 	padding: 17px 5px 22px 26px;
-	/**/
-}
-#index .tags h2 {
-	font-size: 28px;
-}
-#index .tags label {
-	float: left;
-	line-height: 50px;
-	margin: 10px 14px 10px 3px;
 }
 #index .tags label span {
-	padding: 0 24px;
-	display: inline-block;
 	border: 1px solid #cdd6e1;
-	border-radius: 26px;
 }
-#index .tags input[type = "radio"] {
-	display: none;
-}
-#index .tags input:checked+span {
-	border-color: #3c9bbb;
-	background-color: #3c9bbb;
-	color: #fff;
-}
-#index .submit {
-	width: 606px;
-	height: 74px;
-	margin-top: 20px;
-	position: absolute;
-	bottom: 17px;
-	left: 17px;
-	font-size: 30px;
-	background-color: #cacaca;
-	border-radius: 5px;
-	min-height:;
-}
+
 /* index部分结束 */
 
 /* mask部分开始 */
@@ -418,3 +479,79 @@ body {
 	transition: 1s;
 	/*opacity: 0;*/
 }
+/* mask部分结束 */
+
+
+/* form部分开始 */
+#form {
+	background-color: #eee;
+}
+#form input[type = "file"] {
+	display: none;
+}
+
+#form .tit {
+	width: 100%;
+}
+
+#form h2 {
+	width: 100%;
+	padding: 24px 0 0 34px;
+	font-size: 26px;
+	line-height: 80px;
+
+}
+
+#form .file {
+	height: 188px;
+	background-color: #fff;
+}
+
+#form .file label {
+	height: 100%;
+	width: 50%;
+	padding-top: 100px;
+	line-height: 52px;
+	text-align: center;
+	float: left;
+	box-sizing: border-box;
+}
+#form .file label:nth-of-type(1) {
+	border-right: 1px solid #e5e5e5;
+	background: url("images/camera1.png") no-repeat center 20px;
+}
+#form .file label:nth-of-type(2) {
+	background: url("images/camera2.png") no-repeat center 30px;
+}
+/* form部分结束 */
+
+
+/* news部分开始 */
+#news {
+	background-color: #eee;
+}
+
+#news .tags {
+	width: 100%;
+	height: 341px;
+	padding: 52px 0 0 21px;
+	background: url("images/formBg.png") no-repeat;
+}
+#news .tags h2 {
+	color: #fff;
+}
+#news .tags label span {
+	border: 1px solid #cdd6e1;
+	color: #fff;
+}
+
+#news .formText {
+	width: 100%;
+	margin-top: 30px;
+	padding: 10px 20px;
+	display: block;
+	font-size: 26px;
+	line-height: 50px;
+}
+
+/* news部分结束 */

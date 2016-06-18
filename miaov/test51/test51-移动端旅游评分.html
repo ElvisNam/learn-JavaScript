@@ -26,7 +26,7 @@
 		</div>
 	</section>
 
-	<section id = "index" class = "page pageShow">
+	<section id = "index" class = "page">
 		<div class = "wrap">
 			<div class = "picTab">
 				<ul class = "picList clearfix">
@@ -48,7 +48,6 @@
 				</div>
 				<div class = "newsBtn">
 					<em>新闻线索</em>
-					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
@@ -95,7 +94,7 @@
 			</div>
 
 			<div class = "tags clearfix">
-				<h2>给景区添加标签</h2>
+				<h2>给视频添加标签</h2>
 				<label>
 					<input type = "radio" name = "tags" value = "服务好">
 					<span>服务好</span>
@@ -143,8 +142,78 @@
 	</section>
 
 	<section id = "mask" class = "page"></section>
-	<section id = "form" class = "page">图片视频上传页</section>
-	<section id = "news" class = "page">新闻页</section>
-	<section id = "over" class = "page">结束页</section>
+
+	<section id = "form" class = "page">
+		<div class = "tit">
+			<img src = "images/news.png">
+		</div>
+
+		<h2>请上传旅游投诉或突发事件线索</h2>
+
+		<div class = "file">
+			<label class = "video">
+				<input type = "file">
+				<span>导入视频</span>
+			</label>
+			<label class = "photo">
+				<input type = "file">
+				<span>上传照片</span>
+			</label>
+		</div>
+	</section>
+
+	<section id = "news" class = "page">
+		<div class = "tags">
+			<h2>给景区添加标签</h2>
+			<label>
+				<input type = "radio" name = "tags" value = "服务好">
+				<span>服务好</span>
+			</label>
+			<label>
+				<input type = "radio" name = "tags" value = "景色赞">
+				<span>景色赞</span>
+			</label>
+			<label>
+				<input type = "radio" name = "tags" value = "千篇一律">
+				<span>千篇一律</span>
+			</label>
+			<label>
+				<input type = "radio" name = "tags" value = "如厕难">
+				<span>如厕难</span>
+			</label>
+			<label>
+				<input type = "radio" name = "tags" value = "看人海">
+				<span>看人海</span>
+			</label>
+			<label>
+				<input type = "radio" name = "tags" value = "挤爆了">
+				<span>挤爆了</span>
+			</label>
+			<label>
+				<input type = "radio" name = "tags" value = "价格高">
+				<span>价格高</span>
+			</label>
+			<label>
+				<input type = "radio" name = "tags" value = "与描述不符">
+				<span>与描述不符</span>
+			</label>
+			<label>
+				<input type = "radio" name = "tags" value = "空气新鲜">
+				<span>空气新鲜</span>
+			</label>
+			<label>
+				<input type = "radio" name = "tags" value = "美食多">
+				<span>美食多</span>
+			</label>
+		</div>
+
+		<input type = "tel" class = "phone formText" placeholder = "留下联系方式吧：（选填）">
+
+		<textarea class = "info formText" rows = "5" placeholder = "描述一下视频吧：（选填）"></textarea>
+
+		<input class = "submit" type = "button" value = "上传">
+	</section>
+
+	<section id = "over" class = "page pageShow">结束页</section>
 </body>
 </html>
