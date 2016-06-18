@@ -1,12 +1,17 @@
 /* CSS DOCUMENT OF TEST51 */
 
 /* 样式重置开始 */
-body, section, div {
+body, section, div, nav, h2, p {
 	margin: 0;
+}
+h2 {
+	font-weight: normal;
+	font-size: 26px;
 }
 ul, li {
 	margin: 0;
 	padding: 0;
+	list-style: none;
 }
 input {
 	margin: 0;
@@ -30,7 +35,7 @@ img {
 /* 公共样式开始 */
 body {
 	font-size: 26px;
-	font-family: "Micosoft Yahei", Arial;
+	font-family:  Arial, "Microsoft Yahei";
 	color: #666;
 }
 .page {
@@ -46,8 +51,16 @@ body {
 .pageShow {
 	display: block;
 }
-
+.clearfix::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+.clearfix {
+	*zoom: 1;
+}
 /* 公共样式结束 */
+
 
 /* welcome部分开始 */
 
@@ -243,3 +256,165 @@ body {
 }
 
 /* welcome部分结束 */
+
+/* index部分开始 */
+#index {
+	overflow: auto;
+}
+#index .wrap {
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: relative;
+}
+#index .picTab {
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+}
+#index .picList {
+	width: 500%;
+	overflow: hidden;
+}
+#index .picList li {
+	width: 20%;
+	float: left;
+}
+#index .picList img {
+	width: 100%;
+	height:342px;
+}
+#index .mask {
+	height: 102px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	background: -webkit-linear-gradient(to top, rgba(0, 0, 0, 0.9) 0, rgba(0, 0, 0, 0.8) 10%, rgba(0, 0, 0, 0) 100%);
+	background:         linear-gradient(to top, rgba(0, 0, 0, 0.9) 0, rgba(0, 0, 0, 0.8) 10%, rgba(0, 0, 0, 0) 100%);
+}
+#index .mask .tit {
+	font-size: 29px;
+	color: #fff;
+	line-height: 120px;
+	text-indent: 26px;
+}
+#index .mask .navList {
+	position: absolute;
+	right: 26px;
+	top: 56px;
+}
+#index .picTab .newsBtn {
+	width: 78px;
+	height: 78px;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+
+}
+#index .newsBtn em {
+	width: 56px;
+	height: 56px;
+	padding: 11px 11px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-style: normal;
+	font-size: 21px;
+	line-height: 28px;
+	letter-spacing: 2px;
+	text-align: center;
+	color: #fff;
+	background-color: rgba(230, 0, 18, 0.6);
+	border-radius: 39px;
+}
+#index .newsBtn span {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#index .navList span {
+	height: 10px;
+	width: 10px;
+	float: left;
+	margin-left: 15px;
+	border-radius: 5px;
+	background-color: #fff;
+	opacity: 0.5;
+}
+#index .navList span.active {
+	opacity: 1;
+}
+#index .score {
+	width: 100%;
+	line-height: 60px;
+	padding: 17px 0 22px 26px;
+	border-bottom: 1px solid #e5e5e5;
+}
+#index .score h2 {
+	font-size: 28px;
+}
+#index .score .starList {
+	display: inline-block;
+	margin-left: 80px;
+}
+#index .starList span {
+	width: 38px;
+	height: 36px;
+	margin-right: 39px;
+	float: left;
+	background: url("images/star.png") no-repeat -38px 0;
+	transition: .3s;
+}
+#index .starList span.active {
+	background-position: 0 0;
+}
+#index .tags {
+	width: 100%;
+	line-height: 60px;
+	padding: 17px 5px 22px 26px;
+	/**/
+}
+#index .tags h2 {
+	font-size: 28px;
+}
+#index .tags label {
+	float: left;
+	line-height: 50px;
+	margin: 10px 14px 10px 3px;
+}
+#index .tags label span {
+	padding: 0 24px;
+	display: inline-block;
+	border: 1px solid #cdd6e1;
+	border-radius: 26px;
+}
+#index .tags input[type = "radio"] {
+	display: none;
+}
+#index .tags input:checked+span {
+	border-color: #3c9bbb;
+	background-color: #3c9bbb;
+	color: #fff;
+}
+#index .submit {
+	width: 606px;
+	height: 74px;
+	margin-top: 20px;
+	position: absolute;
+	bottom: 17px;
+	left: 17px;
+	font-size: 30px;
+	background-color: #cacaca;
+	border-radius: 5px;
+	min-height:;
+}
+/* index部分结束 */
+
+/* mask部分开始 */
+#mask {
+	background: url("images/mask.png") no-repeat center 300px;
+	background-color: rgba(0, 0, 0, 0.7);
+	transition: 1s;
+	/*opacity: 0;*/
+}
