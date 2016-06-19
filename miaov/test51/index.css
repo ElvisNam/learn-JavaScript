@@ -40,6 +40,7 @@ img {
 
 /* 公共样式开始 */
 body {
+	min-height: 1050px;
 	font-size: 26px;
 	font-family:  Arial, "Microsoft Yahei";
 	color: #666;
@@ -71,21 +72,27 @@ body {
 /* 全局样式开始 */
 #welcome {
 	z-index: 6;
+	min-height: 1050px;
 }
 #mask {
 	z-index: 5;
+	min-height: 1050px;
 }
 #index {
 	z-index: 4;
+	min-height: 1050px;
 }
 #form {
 	z-index: 3;
+	min-height: 1050px;
 }
 #news {
 	z-index: 2;
+	min-height: 1050px;
 }
 #over {
 	z-index: 1;
+	min-height: 1050px;
 }
 
 .bg {
