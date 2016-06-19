@@ -8,7 +8,7 @@
 	<script type = "text/javascript" src = "index.js"></script>
 </head>
 <body>
-	<section id = "welcome" class = "page">
+	<section id = "welcome" class = "page pageShow">
 		<div class = "bg">
 			<img class = "tree" src = "images/tree.jpg">
 			<div class = "tit1">
@@ -25,9 +25,9 @@
 			<img src = "images/logo.png">
 		</div>
 	</section>
-	<!-- <script type="text/javascript">
+	<script type="text/javascript">
 		fnWelcome();
-	</script> -->
+	</script>
 
 	<section id = "index" class = "page pageShow">
 		<div class = "wrap">
@@ -97,7 +97,7 @@
 			</div>
 
 			<div class = "tags clearfix">
-				<h2>给视频添加标签</h2>
+				<h2>给景区添加标签</h2>
 				<label>
 					<input type = "radio" name = "tags" value = "服务好">
 					<span>服务好</span>
@@ -139,13 +139,14 @@
 					<span>美食多</span>
 				</label>
 			</div>
-
-			<input class = "submit" type = "button" value = "提交">
+			
+			<p class = "submitInfo">请给景区评分</p>
+			<input class = "submit submitActive" type = "button" value = "提交">
 		</div>
 	</section>
-	<script type="text/javascript">
-			fnIndex();
-	</script> 
+	<!-- <script type="text/javascript">
+		fnIndex();
+	</script> -->
 
 	<section id = "mask" class = "page"></section>
 
@@ -166,49 +167,52 @@
 				<span>上传照片</span>
 			</label>
 		</div>
+
+		<p class = "submitInfo">请上传视频</p>
+		<input class = "submit submitActive" type = "button" value = "跳过">
 	</section>
 
 	<section id = "news" class = "page">
 		<div class = "tags">
-			<h2>给景区添加标签</h2>
+			<h2>给视频添加标签</h2>
 			<label>
-				<input type = "radio" name = "tags" value = "服务好">
+				<input type = "radio" name = "tags2" value = "服务好">
 				<span>服务好</span>
 			</label>
 			<label>
-				<input type = "radio" name = "tags" value = "景色赞">
+				<input type = "radio" name = "tags2" value = "景色赞">
 				<span>景色赞</span>
 			</label>
 			<label>
-				<input type = "radio" name = "tags" value = "千篇一律">
+				<input type = "radio" name = "tags2" value = "千篇一律">
 				<span>千篇一律</span>
 			</label>
 			<label>
-				<input type = "radio" name = "tags" value = "如厕难">
+				<input type = "radio" name = "tags2" value = "如厕难">
 				<span>如厕难</span>
 			</label>
 			<label>
-				<input type = "radio" name = "tags" value = "看人海">
+				<input type = "radio" name = "tags2" value = "看人海">
 				<span>看人海</span>
 			</label>
 			<label>
-				<input type = "radio" name = "tags" value = "挤爆了">
+				<input type = "radio" name = "tags2" value = "挤爆了">
 				<span>挤爆了</span>
 			</label>
 			<label>
-				<input type = "radio" name = "tags" value = "价格高">
+				<input type = "radio" name = "tags2" value = "价格高">
 				<span>价格高</span>
 			</label>
 			<label>
-				<input type = "radio" name = "tags" value = "与描述不符">
+				<input type = "radio" name = "tags2" value = "与描述不符">
 				<span>与描述不符</span>
 			</label>
 			<label>
-				<input type = "radio" name = "tags" value = "空气新鲜">
+				<input type = "radio" name = "tags2" value = "空气新鲜">
 				<span>空气新鲜</span>
 			</label>
 			<label>
-				<input type = "radio" name = "tags" value = "美食多">
+				<input type = "radio" name = "tags2" value = "美食多">
 				<span>美食多</span>
 			</label>
 		</div>
@@ -217,6 +221,7 @@
 
 		<textarea class = "info formText" rows = "5" placeholder = "描述一下视频吧：（选填）"></textarea>
 
+		<p class = "submitInfo">请添加标签</p>
 		<input class = "submit" type = "button" value = "上传">
 	</section>
 

@@ -155,16 +155,35 @@ body {
 	color: #fff;
 }
 
+
+.submitInfo {
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 100px;
+	text-align: center;
+	font-size: 26px;
+	opacity: 0;
+	transition: .5s;
+	-webkit-transform: scale(0);
+			transform: scale(0);
+	-webkit-transform-origin: bottom;
+			transform-origin: bottom;
+}
 .submit {
 	width: 606px;
 	height: 74px;
 	margin-top: 20px;
 	position: absolute;
-	bottom: 17px;
+	bottom: 10px;
 	left: 17px;
 	font-size: 30px;
 	background-color: #cacaca;
 	border-radius: 5px;
+}
+.submitActive {
+	background-color: #3c9bbb;
+	color: #fff;
 }
 /* 全局样式结束 */
 
@@ -352,6 +371,7 @@ body {
 
 #index {
 	overflow: auto;
+	min-height: 1050px;
 }
 
 #index .wrap {
@@ -498,7 +518,7 @@ body {
 	background: url("images/mask.png") no-repeat center 300px;
 	background-color: rgba(0, 0, 0, 0.7);
 	transition: 1s;
-	/*opacity: 0;*/
+	opacity: 0;
 }
 
 
