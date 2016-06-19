@@ -8,7 +8,7 @@
 	<script type = "text/javascript" src = "index.js"></script>
 </head>
 <body>
-	<section id = "welcome" class = "page pageShow">
+	<section id = "welcome" class = "page">
 		<div class = "bg">
 			<img class = "tree" src = "images/tree.jpg">
 			<div class = "tit1">
@@ -25,8 +25,11 @@
 			<img src = "images/logo.png">
 		</div>
 	</section>
+	<!-- <script type="text/javascript">
+		fnWelcome();
+	</script> -->
 
-	<section id = "index" class = "page">
+	<section id = "index" class = "page pageShow">
 		<div class = "wrap">
 			<div class = "picTab">
 				<ul class = "picList clearfix">
@@ -140,6 +143,9 @@
 			<input class = "submit" type = "button" value = "提交">
 		</div>
 	</section>
+	<script type="text/javascript">
+			fnIndex();
+	</script> 
 
 	<section id = "mask" class = "page"></section>
 
@@ -214,6 +220,16 @@
 		<input class = "submit" type = "button" value = "上传">
 	</section>
 
-	<section id = "over" class = "page pageShow">结束页</section>
+	<section id = "over" class = "page">
+		<div class = "bg">
+			<img class = "tree" src = "images/tree.jpg">
+			<img class = "tit" src = "images/tranks.png">
+			<span class = "cloud"></span>
+			<span class = "cloud"></span>
+			<span class = "cloud"></span>
+		</div>
+
+		<input type = "button" class = "submit" value = "重新评价">
+	</section>
 </body>
 </html>

@@ -62,6 +62,71 @@ body {
 .clearfix {
 	*zoom: 1;
 }
+/* 公共样式结束 */
+
+
+/* 全局样式开始 */
+#welcome {
+	z-index: 6;
+}
+#mask {
+	z-index: 5;
+}
+#index {
+	z-index: 4;
+}
+#form {
+	z-index: 3;
+}
+#news {
+	z-index: 2;
+}
+#over {
+	z-index: 1;
+}
+
+.bg {
+	width: 100%;
+	position: absolute;
+	top: 10%;
+	left: 0;
+	opacity: 0;
+	-webkit-transform: translateY(100px);
+	        transform: translateY(100px);
+	-webkit-animation: 1s tree;
+			animation: 1s tree;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+}
+.cloud {
+	background: url("images/cloud.png") no-repeat;
+	position: absolute;
+	background-size: contain;
+}
+.cloud:nth-of-type(1) {
+	width: 58px;
+	height: 44px;
+	left: 432px;
+	top: 15px;
+	-webkit-animation: 3s 1.5s cloud infinite alternate linear;
+			animation: 3s 1.5s cloud infinite alternate linear;
+}
+.cloud:nth-of-type(2) {
+	width: 91px;
+	height: 70px;
+	left: 79px;
+	top: 77px;
+	-webkit-animation: 3s 1.8s cloud infinite alternate linear;
+			animation: 3s 1.8s cloud infinite alternate linear;
+}
+.cloud:nth-of-type(3) {
+	width: 54px;
+	height: 40px;
+	left: 402px;
+	top: 142px;
+	-webkit-animation: 3s 2.2s cloud infinite alternate linear;
+			animation: 3s 2.2s cloud infinite alternate linear;
+}
 
 
 .tags {
@@ -101,11 +166,12 @@ body {
 	background-color: #cacaca;
 	border-radius: 5px;
 }
-/* 公共样式结束 */
+/* 全局样式结束 */
 
 
-/* welcome部分开始 */
+/* 局部样式开始 */
 
+/* welcome部分 */
 /* welcome动画部分开始 */
 @-webkit-keyframes tree {
 	100% {
@@ -208,19 +274,8 @@ body {
 	}
 }
 /* welcome动画部分结束 */
-
-#welcome .bg {
-	width: 100%;
-	position: absolute;
-	top: 10%;
-	left: 0;
-	opacity: 0;
-	-webkit-transform: translateY(100px);
-	        transform: translateY(100px);
-	-webkit-animation: 1s tree;
-			animation: 1s tree;
-	-webkit-animation-fill-mode: forwards;
-			animation-fill-mode: forwards;
+#welcome {
+	transition: .7s opacity;
 }
 #welcome .tit1 {
 	padding-top: 50px;
@@ -255,35 +310,6 @@ body {
 	-webkit-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;
 }
-#welcome .cloud {
-	background: url("images/cloud.png") no-repeat;
-	position: absolute;
-	background-size: contain;
-}
-#welcome .cloud:nth-of-type(1) {
-	width: 58px;
-	height: 44px;
-	left: 432px;
-	top: 15px;
-	-webkit-animation: 3s 1.5s cloud infinite alternate linear;
-			animation: 3s 1.5s cloud infinite alternate linear;
-}
-#welcome .cloud:nth-of-type(2) {
-	width: 91px;
-	height: 70px;
-	left: 79px;
-	top: 77px;
-	-webkit-animation: 3s 1.8s cloud infinite alternate linear;
-			animation: 3s 1.8s cloud infinite alternate linear;
-}
-#welcome .cloud:nth-of-type(3) {
-	width: 54px;
-	height: 40px;
-	left: 402px;
-	top: 142px;
-	-webkit-animation: 3s 2.2s cloud infinite alternate linear;
-			animation: 3s 2.2s cloud infinite alternate linear;
-}
 #welcome .logo {
 	width: 100%;
 	position: absolute;
@@ -297,12 +323,8 @@ body {
 			animation-fill-mode: forwards;
 }
 
-/* welcome部分结束 */
-
-
-/* index部分开始 */
-
-/* index -> newsBtn部分动画开始 */
+/* index部分 */
+/* index -> newsBtn部分动画 */
 @-webkit-keyframes newsBtn {
 	0% {
 		-webkit-transform: scale(0);
@@ -470,19 +492,17 @@ body {
 	border: 1px solid #cdd6e1;
 }
 
-/* index部分结束 */
 
-/* mask部分开始 */
+/* mask部分 */
 #mask {
 	background: url("images/mask.png") no-repeat center 300px;
 	background-color: rgba(0, 0, 0, 0.7);
 	transition: 1s;
 	/*opacity: 0;*/
 }
-/* mask部分结束 */
 
 
-/* form部分开始 */
+/* form部分 */
 #form {
 	background-color: #eee;
 }
@@ -523,10 +543,9 @@ body {
 #form .file label:nth-of-type(2) {
 	background: url("images/camera2.png") no-repeat center 30px;
 }
-/* form部分结束 */
 
 
-/* news部分开始 */
+/* news部分 */
 #news {
 	background-color: #eee;
 }
@@ -554,4 +573,25 @@ body {
 	line-height: 50px;
 }
 
-/* news部分结束 */
+
+/* over部分 */
+#over .tit {
+	margin-top: 50px;
+	opacity: 0;
+	-webkit-transform: translateY(50px);
+			transform: translateY(50px);
+	-webkit-animation: 1s .3s tree;
+			animation: 1s .3s tree;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+}
+
+#over .submit {
+	background-color: #3c9bbb;
+	color: #fff;
+	opacity: 0;
+	-webkit-animation: 1s 1s tree;
+			animation: 1s 1s tree;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+}
