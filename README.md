@@ -294,6 +294,13 @@
 45. 正则表达式练习2： <br>
 
 
+51. 移动端实践练习：<br>
+ [demo](https://github.com/ElvisNam/learnJavaScript/tree/gh-pages/miaov/test51)
+ [预览](https://elvisnam.github.io/learnJavaScript/miaov/test51/test51-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%97%85%E6%B8%B8%E8%AF%84%E5%88%86.html)
+
+52. 
+
+
 
 
 
