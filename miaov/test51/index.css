@@ -518,6 +518,7 @@ body {
 
 /* mask部分 */
 #mask {
+	min-height: 1050px;
 	background: url("images/mask.png") no-repeat center 300px;
 	background-color: rgba(0, 0, 0, 0.7);
 	transition: 1s;
