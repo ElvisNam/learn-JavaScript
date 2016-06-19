@@ -22,6 +22,9 @@ input, textarea {
 textarea {
 	resize: none;
 }
+input[type = "submit"], input[type = "reset"], input[type = "button"], button {
+	-webkit-appearance: none;
+}
 a {
 	text-decoration: none;
 }
