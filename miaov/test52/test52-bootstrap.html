@@ -15,6 +15,31 @@
 		.alert {
 			margin-top: 10px;
 		}
+
+		.style-btn button {
+			width: 85px;
+			height: 50px;
+			border: none;
+			background-color: #f6f8f8;
+		}
+		.style-btn .dropdown-menu img {
+			margin-right: 5px;
+		}
+		.style-btn .dropdown-menu {
+			animation: .3s linear fadeIn;
+		}
+
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+				transform: translateY(-20px);
+			}
+
+			100% {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
 	</style>
 </head>
 <body>
@@ -31,6 +56,27 @@
 				<input type = "button" class = "btn btn-primary pull-right" value = "登录">
 			</div>
 		</div>
+
+		<div class = "dropdown style-btn">
+			<button class = "btn btn-default dropdown-toggle" type = "button" data-toggle = "dropdown" >Plugins <span class = "caret"></span></button>
+
+			<ul class = "dropdown-menu">
+				<li>
+					<a href="#"><img width="16" height="16" src="https://www.codester.com/static/uploads/categories/32/icon-alt.png" class="m-r-sm"><span>Wordpress</span></a>
+				</li>
+				<li>
+					<a href="#"><img width="16" height="16" src="https://www.codester.com/static/uploads/categories/32/icon-alt.png" class="m-r-sm"><span>Wordpress</span></a>
+				</li>
+				<li>
+					<a href="#"><img width="16" height="16" src="https://www.codester.com/static/uploads/categories/32/icon-alt.png" class="m-r-sm"><span>Wordpress</span></a>
+				</li>
+				<li>
+					<a href="#"><img width="16" height="16" src="https://www.codester.com/static/uploads/categories/32/icon-alt.png" class="m-r-sm"><span>Wordpress</span></a>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/bootstrap.js"></script>
 </html>
