@@ -43,24 +43,24 @@
 	</style>
 </head>
 <body>
-	<div class = "container">
-		<div class = "login panel panel-primary">
-			<div class = "panel-heading">Login</div>
-			<div class = "panel-body">
-				<div class = "form-group">
-					<label>请输入用户名：</label><input type = "text" class = "form-control"> 
-					<div class = "alert alert-warning">请输入正确的用户名！</div>
-					<label>请输入密码：</label><input type = "password" class = "form-control">
+	<div class="container">
+		<div class="login panel panel-primary">
+			<div class="panel-heading">Login</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label>请输入用户名：</label><input type="text" class ="form-control"> 
+					<div class="alert alert-warning">请输入正确的用户名！</div>
+					<label>请输入密码：</label><input type="password" class="form-control">
 				</div>
-				<a href = "#" class = "text-info">忘记密码？</a>
-				<input type = "button" class = "btn btn-primary pull-right" value = "登录">
+				<a href="#" class="text-info">忘记密码？</a>
+				<input type="button" class="btn btn-primary pull-right" value="登录">
 			</div>
 		</div>
 
-		<div class = "dropdown style-btn">
-			<button class = "btn btn-default dropdown-toggle" type = "button" data-toggle = "dropdown" >Plugins <span class = "caret"></span></button>
+		<div class="dropdown style-btn">
+			<button class="btn btn-default dropdown-toggle " type="button" data-toggle="dropdown" >Plugins <span class="caret"></span></button>
 
-			<ul class = "dropdown-menu">
+			<ul class="dropdown-menu">
 				<li>
 					<a href="#"><img width="16" height="16" src="https://www.codester.com/static/uploads/categories/32/icon-alt.png" class="m-r-sm"><span>Wordpress</span></a>
 				</li>
@@ -79,4 +79,21 @@
 </body>
 <script src="js/jquery-1.11.1.js"></script>
 <script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+	$(function() {
+		if (window.navigator.userAgent.toLowerCase().indexOf("mobile") === -1) {
+			var timer = null;
+
+			$(".dropdown-toggle").mouseover(function() {
+				$(".style-btn").addClass("open");
+			})
+
+			$(".dropdown-toggle").mouseout(function() {
+				timer = setInterval(function() {
+					$(".style-btn").removeClass("open");
+				}, 200);
+			})
+		}
+	})
+</script>
 </html>
